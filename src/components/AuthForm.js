@@ -1,6 +1,8 @@
 import React from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
+import {connect} from "react-redux";
+import firebase from '../firebase/firebase'
 
 const validationSchema = Yup.object({
     email: Yup.string()
@@ -16,12 +18,27 @@ const initialValues = {
 
 
 const AuthForm = () => {
+
     const formik = useFormik({
         initialValues,
         validationSchema: validationSchema,
+        autocomplete: 'off',
 
         onSubmit(values) {
-                alert(JSON.stringify(values, null, 2));
+            alert(JSON.stringify(values, null, 2));
+
+            firebase.auth().signInWithEmailAndPassword(formik.values.email, formik.values.password)
+                .then((userCredential) => {
+                    // Signed in
+                    const user = userCredential.user;
+                    alert('success')
+                    // ...
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    alert('failed')
+                });
         },
 
     });
@@ -63,5 +80,13 @@ const AuthForm = () => {
         </form>
     );
 };
+const mapStateToProps = state => {
 
-export {AuthForm};
+    console.log(state)
+    return {
+        email: state.auth.email,
+        password: state.auth.password
+    }
+}
+
+export default connect(mapStateToProps,null)(AuthForm);
