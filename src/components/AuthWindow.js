@@ -1,5 +1,6 @@
 import React from "react";
-import {AuthForm} from "./AuthForm";
+import AuthForm from "./AuthForm";
+
 
 const AuthWindow = () => {
 
@@ -13,4 +14,4 @@ const AuthWindow = () => {
     )
 }
 
-export {AuthWindow};
+export { AuthWindow }

@@ -2,7 +2,8 @@ import React from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {connect} from "react-redux";
-import firebase from '../firebase/firebase'
+import '../firebase/authFirebase'
+import {loginRequest} from "../sagas/actionCreator";
 
 const validationSchema = Yup.object({
     email: Yup.string()
@@ -16,8 +17,7 @@ const initialValues = {
     password: '',
 }
 
-
-const AuthForm = () => {
+const AuthForm = (props) => {
 
     const formik = useFormik({
         initialValues,
@@ -25,22 +25,8 @@ const AuthForm = () => {
         autocomplete: 'off',
 
         onSubmit(values) {
-            alert(JSON.stringify(values, null, 2));
-
-            firebase.auth().signInWithEmailAndPassword(formik.values.email, formik.values.password)
-                .then((userCredential) => {
-                    // Signed in
-                    const user = userCredential.user;
-                    alert('success')
-                    // ...
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    alert('failed')
-                });
+            props.loginRequest(values)
         },
-
     });
 
     return (
@@ -80,13 +66,14 @@ const AuthForm = () => {
         </form>
     );
 };
-const mapStateToProps = state => {
 
-    console.log(state)
+const mapStateToProps = state => {
     return {
-        email: state.auth.email,
-        password: state.auth.password
+        email: state.email,
+        password: state.password
     }
 }
 
-export default connect(mapStateToProps,null)(AuthForm);
+const mapDispatchToProps = { loginRequest }
+
+export default connect(mapStateToProps,mapDispatchToProps)(AuthForm);

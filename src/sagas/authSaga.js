@@ -1,19 +1,20 @@
-import {loginFailure, loginRequest, loginSuccess} from "./actions";
+import {loginFailure, loginSuccess} from "./actionCreator";
 import { put, call, takeLatest} from "redux-saga/effects"
 import {FETCH_LOGIN_REQUEST} from "./types";
+import firebase from "../firebase/firebase";
 
-export function* authSaga() {
+function* authSaga(action) {
+
     try {
-        yield put(loginRequest())
-        const data = yield call(() => fetch('C:\\PROJECTS\\noorsoft-internship\\src\\json.json'))
+        const data = yield call(() => firebase.auth().signInWithEmailAndPassword(action.payload.email,action.payload.password))
         yield put(loginSuccess(data))
-        console.log(data)
     } catch (error) {
-        yield put(loginFailure())
-        console.log('err')
+        yield put(loginFailure(error))
     }
 }
 
-export function* authSagaWatcher() {
-    yield takeLatest(FETCH_LOGIN_REQUEST, loginRequest)
+function* authSagaWatcher() {
+    yield takeLatest(FETCH_LOGIN_REQUEST, authSaga)
 }
+
+export default authSagaWatcher()
