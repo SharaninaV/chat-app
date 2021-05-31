@@ -25,14 +25,21 @@ const AuthForm = (props) => {
 
         onSubmit(values) {
             props.loginRequest(values)
-
         },
     });
 
     return (
-        <form onSubmit={formik.handleSubmit}>
-            <div>
-                <label htmlFor="email">Email</label>
+        <form onSubmit={formik.handleSubmit} className="authForm">
+            {props.submitErrors.message ? (
+                <div className="row">
+                    <div className="alert-danger col-sm-11">
+                    {props.submitErrors.message}
+                    </div>
+                </div>
+            ) : null}
+            <div className="input form-group row">
+                <label htmlFor="email" className="col-sm-2 col-form-label">Email</label>
+                <div className="col-sm-12">
                 <input
                     id="email"
                     name="email"
@@ -40,34 +47,36 @@ const AuthForm = (props) => {
                     onChange={formik.handleChange}
                     value={formik.values.email}
                     placeholder="Email"
+                    class="form-control"
                 />
+                </div>
                 {formik.touched.email && formik.errors.email ? (
-                    <div>
+                    <div className="alert-danger">
                         {formik.errors.email}
                     </div>) : null
                 }
             </div>
-            <div>
-                <label htmlFor="password">Password</label>
+            <div className="input form-group row">
+                <label htmlFor="password" className="col-sm-2 col-form-label">Пароль</label>
+                <div className="col-sm-12">
                 <input
                     id="password"
                     name="password"
                     type="password"
                     onChange={formik.handleChange}
                     value={formik.values.password}
+                    class="form-control"
                 />
+                </div>
                 {formik.touched.password && formik.errors.password ? (
-                    <div>
+                    <div className="alert-danger">
                         {formik.errors.password}
                     </div>) : null
                 }
             </div>
-            <button type="submit">Submit</button>
-            {props.submitErrors ? (
-                <div>
-                    {props.submitErrors.message}
-                </div>
-            ) : null}
+            <div className="btn-submit">
+            <button type="submit" className="btn btn-primary">Войти</button>
+            </div>
         </form>
     );
 };

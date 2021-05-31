@@ -1,12 +1,12 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { AuthWindow } from "./components/AuthWindow";
-
 
 const App = () => {
     
   return (
-    <div className="App">
+    <div>
       <AuthWindow />
     </div>
   );

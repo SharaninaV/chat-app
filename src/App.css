@@ -1,0 +1,28 @@
+.app {
+    padding: 30px 0;
+    width: 40%;
+}
+h1 {
+    text-align: center;
+}
+.input {
+    padding: 10px 0;
+    width: 100%;
+}
+.btn-submit {
+    margin: 20px 0;
+}
+button {
+    padding: 10px 30px !important;
+}
+a {
+    text-decoration: none !important;
+    text-align: center;
+}
+.passw-link{
+    margin-right: 30px;
+}
+.alert-danger {
+    margin: 20px 0 0 10px;
+    padding: 10px;
+}
