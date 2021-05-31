@@ -9,7 +9,7 @@ const initialState = {
     password: '',
     requesting: false,
     successful: false,
-    messages: []
+    errors: []
 }
 
 export const authFormReducer = (state = initialState, action) => {
@@ -18,17 +18,18 @@ export const authFormReducer = (state = initialState, action) => {
             email: action.payload.email,
             password: action.payload.password,
             requesting: true,
-            messages: ["Выполняется авторизация..."]
+            successful: false,
+            errors: []
         }
         case FETCH_LOGIN_SUCCESS: return {
             requesting: false,
             successful: true,
-            messages: ["Авторизация прошла успешно!"]
+            errors: []
         }
         case FETCH_LOGIN_FAILURE: return {
             requesting: false,
             successful: false,
-            messages: ["Не удалось авторизоваться"]
+            errors: action.payload.error
         }
         default: return state
     }

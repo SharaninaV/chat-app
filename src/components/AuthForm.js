@@ -2,7 +2,6 @@ import React from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {connect} from "react-redux";
-import '../firebase/authFirebase'
 import {loginRequest} from "../sagas/actionCreator";
 
 const validationSchema = Yup.object({
@@ -26,6 +25,7 @@ const AuthForm = (props) => {
 
         onSubmit(values) {
             props.loginRequest(values)
+
         },
     });
 
@@ -63,17 +63,25 @@ const AuthForm = (props) => {
                 }
             </div>
             <button type="submit">Submit</button>
+            {props.submitErrors ? (
+                <div>
+                    {props.submitErrors.message}
+                </div>
+            ) : null}
         </form>
     );
 };
 
 const mapStateToProps = state => {
     return {
-        email: state.email,
-        password: state.password
+        email: state.auth.email,
+        password: state.auth.password,
+        requesting: state.auth.requesting,
+        successful: state.auth.successful,
+        submitErrors: state.auth.errors
     }
 }
 
 const mapDispatchToProps = { loginRequest }
 
-export default connect(mapStateToProps,mapDispatchToProps)(AuthForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthForm);
