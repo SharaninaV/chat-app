@@ -1,0 +1,25 @@
+.app {
+    padding: 30px 0;
+    width: 40%;
+}
+h1 {
+    text-align: center;
+}
+.input {
+    padding: 10px 0;
+    width: 100%;
+}
+.btn-submit {
+    text-align: center;
+    margin: 20px 0;
+}
+button {
+    padding: 10px 20px !important;
+}
+a {
+    text-decoration: none !important;
+}
+.alert-danger {
+    margin: 20px 0 0 10px;
+    padding: 10px;
+}
