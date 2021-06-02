@@ -43,6 +43,13 @@ const AuthForm = (props) => {
                     </div>
                 </div>
             ) : null}
+            {props.successful && !props.requesting ? (
+                <div className="row">
+                    <div className="alert-success col-sm-11">
+                        {'Авторизация прошла успешно!'}
+                    </div>
+                </div>
+            ) : null}
             <div className="input form-group row">
                 <label htmlFor="email" className="col-sm-2 col-form-label d-flex">Email:
                 </label>
