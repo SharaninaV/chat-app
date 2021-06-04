@@ -4,7 +4,7 @@ import './index.css';
 import { App } from './App';
 import reportWebVitals from './reportWebVitals';
 import {applyMiddleware, compose, createStore} from "redux";
-import {rootReducer} from "./redux/rootReducer";
+import {rootReducer} from "./sagas/rootReducer";
 import { Provider } from "react-redux";
 import createSagaMiddleware from "redux-saga"
 import rootSaga from "./sagas";

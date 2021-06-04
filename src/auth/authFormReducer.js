@@ -2,7 +2,7 @@ import {
     FETCH_LOGIN_FAILURE,
     FETCH_LOGIN_REQUEST,
     FETCH_LOGIN_SUCCESS
-} from "../sagas/types";
+} from "./sagas/types";
 
 const initialState = {
     email: '',
