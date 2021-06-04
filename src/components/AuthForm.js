@@ -1,8 +1,8 @@
 import React from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
-import {connect} from "react-redux";
-import {loginRequest} from "../sagas/actionCreator";
+import {connect, useSelector} from "react-redux";
+import {loginRequest} from "../auth/sagas/actionCreator";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSignInAlt, faEnvelope, faKey} from '@fortawesome/free-solid-svg-icons'
 
@@ -22,7 +22,7 @@ const initialValues = {
     password: '',
 }
 
-const AuthForm = (props) => {
+const AuthForm = ({loginRequest,submitErrors,successful,requesting}) => {
 
     const formik = useFormik({
         initialValues,
@@ -30,26 +30,26 @@ const AuthForm = (props) => {
         autocomplete: 'off',
 
         onSubmit(values) {
-            props.loginRequest(values)
+            loginRequest(values)
         },
     });
 
     return (
         <form onSubmit={formik.handleSubmit} className="authForm">
-            {props.submitErrors.message ? (
+            {submitErrors.message &&
                 <div className="row">
                     <div className="alert-danger col-sm-11">
-                        {props.submitErrors.message}
+                        {submitErrors.message}
                     </div>
                 </div>
-            ) : null}
-            {props.successful && !props.requesting ? (
+            }
+            {successful && !requesting &&
                 <div className="row">
                     <div className="alert-success col-sm-11">
-                        {'Авторизация прошла успешно!'}
+                        Авторизация прошла успешно!
                     </div>
                 </div>
-            ) : null}
+            }
             <div className="input form-group row">
                 <label htmlFor="email" className="col-sm-2 col-form-label d-flex">Email:
                 </label>
@@ -67,10 +67,10 @@ const AuthForm = (props) => {
                         class="form-control"
                     />
                 </div>
-                {formik.touched.email && formik.errors.email ? (
+                {formik.touched.email && formik.errors.email &&
                     <div className="alert-danger">
                         {formik.errors.email}
-                    </div>) : null
+                    </div>
                 }
             </div>
             <div className="input form-group row">
@@ -89,10 +89,10 @@ const AuthForm = (props) => {
                         class="form-control"
                     />
                 </div>
-                {formik.touched.password && formik.errors.password ? (
+                {formik.touched.password && formik.errors.password &&
                     <div className="alert-danger">
                         {formik.errors.password}
-                    </div>) : null
+                    </div>
                 }
             </div>
             <div className="btn-submit">
@@ -114,6 +114,7 @@ const mapStateToProps = state => {
         submitErrors: state.auth.errors
     }
 }
+
 
 const mapDispatchToProps = {loginRequest}
 

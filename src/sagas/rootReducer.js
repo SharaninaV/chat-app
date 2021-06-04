@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
-import {authFormReducer} from "./authFormReducer";
+import {authFormReducer} from "../auth/authFormReducer";
 
 export const rootReducer = combineReducers({
     auth: authFormReducer

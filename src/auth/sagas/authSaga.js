@@ -1,7 +1,7 @@
 import {loginFailure, loginSuccess} from "./actionCreator";
 import { put, call, takeLatest} from "redux-saga/effects"
 import {FETCH_LOGIN_REQUEST} from "./types";
-import firebase from "../firebase/firebase";
+import firebase from "../../firebase/firebase";
 
 function* authSaga(action) {
 
