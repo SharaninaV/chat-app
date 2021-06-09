@@ -43,13 +43,6 @@ const AuthForm = ({loginRequest,submitErrors,successful,requesting}) => {
                     </div>
                 </div>
             }
-            {successful && !requesting &&
-                <div className="row">
-                    <div className="alert-success col-sm-11">
-                        Авторизация прошла успешно!
-                    </div>
-                </div>
-            }
             <div className="input form-group row">
                 <label htmlFor="email" className="col-sm-2 col-form-label d-flex">Email:
                 </label>
