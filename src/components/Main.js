@@ -4,7 +4,7 @@ const Main = () => {
 
     return(
         <div>
-            Main Page Component
+            <h1>Welcome to ChatApp!</h1>
         </div>
     )
 }
