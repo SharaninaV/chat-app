@@ -10,7 +10,7 @@ const initialState = {
     requesting: false,
     successful: false,
     errors: [],
-    token: ''
+    token: {}
 }
 
 export const authFormReducer = (state = initialState, action) => {
@@ -21,19 +21,19 @@ export const authFormReducer = (state = initialState, action) => {
             requesting: true,
             successful: false,
             errors: [],
-            token: ''
+            token: {}
         }
         case FETCH_LOGIN_SUCCESS: return {
             requesting: false,
             successful: true,
             errors: [],
-            token: action.payload.token
+            token: action.payload.payload.user.getIdToken()
         }
         case FETCH_LOGIN_FAILURE: return {
             requesting: false,
             successful: false,
             errors: action.payload.error,
-            token: ''
+            token: {}
         }
         default: return state
     }
