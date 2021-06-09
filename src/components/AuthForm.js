@@ -111,7 +111,7 @@ const mapStateToProps = state => {
         password: state.auth.password,
         requesting: state.auth.requesting,
         successful: state.auth.successful,
-        submitErrors: state.auth.errors
+        submitErrors: state.auth.errors,
     }
 }
 
