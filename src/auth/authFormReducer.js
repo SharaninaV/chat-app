@@ -15,7 +15,7 @@ const initialState = {
 
 export const authFormReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_LOGIN_REQUEST: return {
+        case FETCH_LOGIN_REQUEST: return {...state,
             email: action.payload.email,
             password: action.payload.password,
             requesting: true,
@@ -23,13 +23,13 @@ export const authFormReducer = (state = initialState, action) => {
             errors: [],
             token: {}
         }
-        case FETCH_LOGIN_SUCCESS: return {
+        case FETCH_LOGIN_SUCCESS: return {...state,
             requesting: false,
             successful: true,
             errors: [],
             token: action.payload.payload.user.getIdToken()
         }
-        case FETCH_LOGIN_FAILURE: return {
+        case FETCH_LOGIN_FAILURE: return {...state,
             requesting: false,
             successful: false,
             errors: action.payload.error,

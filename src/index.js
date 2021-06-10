@@ -12,10 +12,12 @@ import {composeWithDevTools} from "redux-devtools-extension";
 import storage from 'redux-persist/lib/storage'
 import {persistReducer, persistStore} from "redux-persist";
 import {PersistGate} from "redux-persist/integration/react";
+import {authFormReducer} from "./auth/authFormReducer";
 
 const persistConfig = {
     key: 'root',
     storage
+    // whitelist: [authFormReducer.token]
 }
 const middleware = []
 const enhancers = []
