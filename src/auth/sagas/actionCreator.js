@@ -1,4 +1,4 @@
-import {FETCH_LOGIN_REQUEST, FETCH_LOGIN_SUCCESS, FETCH_LOGIN_FAILURE} from './types'
+import {FETCH_LOGIN_REQUEST, FETCH_LOGIN_SUCCESS, FETCH_LOGIN_FAILURE, LOG_OUT} from './types'
 
 export function loginRequest({email,password}) {
 
@@ -19,5 +19,11 @@ export function loginFailure(error) {
     return {
         type: FETCH_LOGIN_FAILURE,
         payload: {error}
+    }
+}
+
+export function logOut() {
+    return{
+        type: LOG_OUT
     }
 }

@@ -16,12 +16,16 @@ const Main = () => {
 
     useEffect(() => {
         const decoded = jwt.decode(currentUserToken.i, {complete: true})
-        console.log(decoded)
-        const expireTime = decoded.payload.exp
-        const currentTime = Math.floor(Date.now() / 1000)
-        if (currentTime >= expireTime) {
+        if (!decoded) {
             dispatch(setTokenNotValid())
             history.push("/")
+        } else {
+            const expireTime = decoded.payload.exp
+            const currentTime = Math.floor(Date.now() / 1000)
+            if (currentTime >= expireTime) {
+                dispatch(setTokenNotValid())
+                history.push("/")
+            }
         }
     }, [])
 

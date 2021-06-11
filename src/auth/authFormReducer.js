@@ -1,7 +1,8 @@
 import {
     FETCH_LOGIN_FAILURE,
     FETCH_LOGIN_REQUEST,
-    FETCH_LOGIN_SUCCESS
+    FETCH_LOGIN_SUCCESS,
+    LOG_OUT
 } from "./sagas/types";
 
 const initialState = {
@@ -33,6 +34,14 @@ export const authFormReducer = (state = initialState, action) => {
             requesting: false,
             successful: false,
             errors: action.payload.error,
+            token: {}
+        }
+        case LOG_OUT: return {...state,
+            email: '',
+            password: '',
+            requesting: false,
+            successful: false,
+            errors: [],
             token: {}
         }
         default: return state
