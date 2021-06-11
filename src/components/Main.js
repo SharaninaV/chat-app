@@ -4,6 +4,9 @@ import {useSelector, useDispatch} from "react-redux";
 import * as jwt from "jsonwebtoken"
 import {setTokenNotValid} from "../main/sagas/actionCreator";
 import {useHistory} from "react-router-dom";
+import {LeftSide} from "./LeftSide";
+import {Col, Container, Row} from "react-bootstrap";
+import {RightSide} from "./RightSide";
 
 const Main = () => {
 
@@ -12,19 +15,28 @@ const Main = () => {
     const history = useHistory()
 
     useEffect(() => {
-        const decoded = jwt.decode(currentUserToken.i,{complete: true})
+        const decoded = jwt.decode(currentUserToken.i, {complete: true})
         console.log(decoded)
-            const expireTime = decoded.payload.exp
-            const currentTime = Math.floor(Date.now() / 1000)
-            if (currentTime >= expireTime) {
-                dispatch(setTokenNotValid())
-                history.push("/")
-            }
-    },[])
+        const expireTime = decoded.payload.exp
+        const currentTime = Math.floor(Date.now() / 1000)
+        if (currentTime >= expireTime) {
+            dispatch(setTokenNotValid())
+            history.push("/")
+        }
+    }, [])
 
-    return(
-        <h1>Welcome to ChatApp!</h1>
+    return (
+        <Container>
+            <Row>
+                <Col xs={4}>
+                    <LeftSide/>
+                </Col>
+                <Col>
+                    <RightSide/>
+                </Col>
+            </Row>
+        </Container>
     )
 }
 
-export { Main }
+export {Main}
