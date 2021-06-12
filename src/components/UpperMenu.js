@@ -1,6 +1,6 @@
 import React from "react";
 import {Col, Container, Row} from "react-bootstrap";
-import {SearchInThisDialog} from "./SearchInThisDialog";
+import {SearchInMessages} from "./SearchInMessages";
 import {LogOut} from "./LogOut";
 
 const UpperMenu = () => {
@@ -12,7 +12,7 @@ const UpperMenu = () => {
                     <h5>Имя</h5>
                 </Col>
                 <Col>
-                    <SearchInThisDialog />
+                    <SearchInMessages />
                 </Col>
                 <Col xs={3}>
                     <LogOut />
