@@ -1,41 +1,32 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Col, Container, Form, FormControl, InputGroup, Row} from "react-bootstrap";
-import firebase from "../firebase/firebase";
+import {useDispatch, useSelector} from "react-redux";
+import {searchInUsersRequest} from "../searchInUsers/actionCreator";
+import debounce from 'lodash.debounce'
 
 const SearchInUsers = () => {
 
-    const [searchText,setSearchText] = useState('')
+    const usersFound = useSelector((state) => state.searchInUsers.usersFound)
+    const dispatch = useDispatch()
+
+    useEffect(() =>{
+        console.log(usersFound)
+    }, [usersFound])
 
     const handleInputChange = event => {
-        setSearchText(event.target.value)
+        console.log(event.target.value)
+        dispatch(searchInUsersRequest(event.target.value))
     }
 
-    const handleSearchInUsers = event => {
-        const ref = firebase.database().ref('dialogs')
-        ref.on('value', (snapshot) => {
-            let result = []
-            snapshot.forEach(childSnapshot => {
-                if (childSnapshot.key.toLowerCase().includes(searchText.toLowerCase())){
-                    result.push(childSnapshot.key)
-                }
-            })
-            console.log(result)
-        })
-    }
-
-    return(
+    return (
         <Container>
             <Row>
                 <InputGroup className="mb-3">
                     <FormControl
                         type="text"
                         placeholder="Поиск по пользователям..."
-                        value={searchText}
-                        onChange={handleInputChange}
+                        onChange={debounce(handleInputChange,500)}
                     />
-                    <InputGroup.Append>
-                        <Button variant="outline-primary" onClick={handleSearchInUsers} disabled={searchText===''}>Искать</Button>
-                    </InputGroup.Append>
                 </InputGroup>
             </Row>
         </Container>
