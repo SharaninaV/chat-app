@@ -2,6 +2,8 @@ import React from "react";
 import {Button, ListGroup} from "react-bootstrap";
 import {useSelector} from "react-redux";
 import {SaveButton} from "./SaveButton";
+import moment from 'moment'
+import 'moment/locale/ru'
 
 const ActiveDialogs = () => {
 
@@ -13,7 +15,8 @@ const ActiveDialogs = () => {
             {activeDialogs.length > 0 ?
                 (activeDialogs.map(dialog => (
                         <ListGroup.Item action>
-                            {dialog.key}
+                            <h5>{dialog.key}</h5>
+                            ({moment(dialog.data.latestActivity).locale('ru').format('LLL')})
                             <SaveButton dialog={dialog} />
                         </ListGroup.Item>
                     ))
