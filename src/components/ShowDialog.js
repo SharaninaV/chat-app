@@ -1,7 +1,7 @@
 import React from "react";
 import {Container} from "react-bootstrap";
 
-const ActiveDialog = () => {
+const ShowDialog = () => {
 
     return(
         <Container>
@@ -9,4 +9,4 @@ const ActiveDialog = () => {
         </Container>
     )
 }
-export {ActiveDialog}
+export {ShowDialog}

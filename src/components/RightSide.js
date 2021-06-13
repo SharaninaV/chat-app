@@ -1,15 +1,18 @@
 import React from "react";
 import {Col, Container, Row} from "react-bootstrap";
 import {UpperMenu} from "./UpperMenu";
-import {ActiveDialog} from "./ActiveDialog";
+import {ShowDialog} from "./ShowDialog";
 import {WriteMessage} from "./WriteMessage";
+import {SearchInMessages} from "./SearchInMessages";
 
 const RightSide = () => {
 
     return (
         <Container>
             <UpperMenu/>
-            <ActiveDialog />
+
+            {/*<MessagesFound />*/}
+            <ShowDialog />
             <WriteMessage/>
         </Container>
     )

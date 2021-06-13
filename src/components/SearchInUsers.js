@@ -10,8 +10,8 @@ const SearchInUsers = () => {
     const dispatch = useDispatch()
 
     useEffect(() =>{
-        console.log(usersFound)
-    }, [usersFound])
+        dispatch(searchInUsersRequest(''))
+    }, [])
 
     const handleInputChange = event => {
         console.log(event.target.value)

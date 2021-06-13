@@ -8,13 +8,10 @@ const UpperMenu = () => {
     return (
         <Container>
             <Row>
-                <Col xs={3}>
-                    <h5>Имя</h5>
-                </Col>
                 <Col>
                     <SearchInMessages />
                 </Col>
-                <Col xs={3}>
+                <Col>
                     <LogOut />
                 </Col>
             </Row>
