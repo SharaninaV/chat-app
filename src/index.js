@@ -16,8 +16,7 @@ import {PersistGate} from "redux-persist/integration/react";
 
 const persistConfig = {
     key: 'root',
-    storage,
-    blacklist: ['searchInUsers']
+    storage
 }
 const middleware = []
 const enhancers = []

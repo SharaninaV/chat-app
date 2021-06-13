@@ -1,11 +1,25 @@
 import React from "react";
-import {Container} from "react-bootstrap";
+import {Card, Container, ListGroup, Nav, Tab, Tabs} from "react-bootstrap";
+import {ActiveDialogs} from "./ActiveDialogs";
+import {SavedDialogs} from "./SavedDialogs";
+import {FinishedDialogs} from "./FinishedDialogs";
 
 const Dialogs = () => {
 
     return (
         <Container>
-            <h2>Диалоги</h2>
+            <Tabs defaultActiveKey="active" id="dialogs">
+                <Tab eventKey="active" title="Активные">
+                    <ActiveDialogs/>
+                </Tab>
+                <Tab eventKey="saved" title="Сохраненные">
+                    <SavedDialogs/>
+                </Tab>
+                <Tab eventKey="finished" title="Завершенные">
+                    <FinishedDialogs/>
+                </Tab>
+            </Tabs>
+
         </Container>
     )
 }
