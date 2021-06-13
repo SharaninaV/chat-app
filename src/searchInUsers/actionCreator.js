@@ -7,10 +7,10 @@ export function searchInUsersRequest(text){
     }
 }
 
-export function searchInUsersSuccess({text, data}) {
+export function searchInUsersSuccess({data}) {
     return {
         type: SEARCH_USERS_SUCCESS,
-        payload: {text, data}
+        payload: {data}
     }
 }
 

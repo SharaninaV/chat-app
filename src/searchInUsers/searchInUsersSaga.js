@@ -11,12 +11,12 @@ function* searchInUsersSaga(action) {
             let result = []
             dialogs.forEach(childSnapshot => {
                 if (childSnapshot.key.toLowerCase().includes(action.payload.text.toLowerCase())) {
-                    result.push(childSnapshot.key)
+                    result.push({key:childSnapshot.key,data:childSnapshot.val()})
                 }
             })
             return result
         })
-        yield put(searchInUsersSuccess({text: action.payload.text, data: usersFound}))
+        yield put(searchInUsersSuccess({data: usersFound}))
     } catch (error) {
         yield put(searchInUsersFailure(error))
     }
