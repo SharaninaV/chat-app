@@ -4,9 +4,11 @@ import {useSelector, useDispatch} from "react-redux";
 import * as jwt from "jsonwebtoken"
 import {setTokenNotValid} from "../main/sagas/actionCreator";
 import {useHistory} from "react-router-dom";
-import {LeftSide} from "./LeftSide";
 import {Col, Container, Row} from "react-bootstrap";
-import {RightSide} from "./RightSide";
+import {UpperMenu} from "./UpperMenu";
+import {SearchInUsers} from "./SearchInUsers";
+import {SearchInMessages} from "./SearchInMessages";
+import {Dialogs} from "./Dialogs";
 
 const Main = () => {
 
@@ -31,14 +33,16 @@ const Main = () => {
 
     return (
         <Container>
+            <UpperMenu/>
             <Row>
-                <Col xs={4}>
-                    <LeftSide/>
+                <Col>
+                    <SearchInUsers/>
                 </Col>
                 <Col>
-                    <RightSide/>
+                    <SearchInMessages/>
                 </Col>
             </Row>
+            <Dialogs/>
         </Container>
     )
 }

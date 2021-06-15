@@ -5,7 +5,7 @@ const WriteMessage = () => {
     return(
         <Container>
             <Row>
-                <Col xs={8}>
+                <Col lg={8}>
                     <Form>
                         <Form.Group controlId="writeMessage">
                             <Form.Control as="textarea" placeholder="Введите сообщение..." rows={3} />
