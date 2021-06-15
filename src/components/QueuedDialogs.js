@@ -24,7 +24,7 @@ const QueuedDialogs = () => {
                                         ({moment(dialog.data.latestActivity).locale('ru').format('LLL')})
                                     </Col>
                                     <Col>
-                                        <EnterDialog/>
+                                        <EnterDialog dialog={dialog}/>
                                     </Col>
                                 </Row>
                             </Container>

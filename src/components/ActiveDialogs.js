@@ -8,8 +8,10 @@ import {SearchInMessages} from "./SearchInMessages";
 
 const ActiveDialogs = () => {
 
+    const operatorID = useSelector((state) => state.auth.email)
+        .split('@')[0]
     const activeDialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
-        .filter(dialog => dialog.data.status === 'active')
+        .filter(dialog => dialog.data.status === 'active' && dialog.data.operatorID === operatorID)
 
 
     return (
