@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, ListGroup} from "react-bootstrap";
+import {Button, Col, Container, ListGroup, Row} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {SaveButton} from "./SaveButton";
 import moment from 'moment'
@@ -17,9 +17,19 @@ const ActiveDialogs = () => {
             {activeDialogs.length > 0 ?
                 (activeDialogs.map(dialog => (
                         <ListGroup.Item action>
-                            {dialog.key}
-                            ({moment(dialog.data.latestActivity).locale('ru').format('LLL')})
-                            <SaveButton dialog={dialog}/>
+                            <Container>
+                                <Row>
+                                    <Col>
+                                        {dialog.key}
+                                    </Col>
+                                    <Col>
+                                        ({moment(dialog.data.latestActivity).locale('ru').format('LLL')})
+                                    </Col>
+                                    <Col>
+                                        <SaveButton dialog={dialog}/>
+                                    </Col>
+                                </Row>
+                            </Container>
                         </ListGroup.Item>
                     ))
                 ) : (
