@@ -6,8 +6,10 @@ import 'moment/locale/ru'
 
 const SavedDialogs = () => {
 
-    const dialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
-    const savedDialogs = dialogs.filter(dialog => dialog.data.saved === true)
+    const operatorID = useSelector((state) => state.auth.email)
+        .split('@')[0]
+    const savedDialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
+        .filter(dialog => dialog.data.saved === true && dialog.data.operatorID === operatorID)
 
     return (
         <ListGroup>
