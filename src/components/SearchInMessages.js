@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, Container, Form, FormControl, InputGroup, Row} from "react-bootstrap";
+import {Container, FormControl, InputGroup, Row} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {searchInMessagesRequest} from "../searchInMessages/actionCreator";
 import debounce from 'lodash.debounce'

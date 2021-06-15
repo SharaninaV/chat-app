@@ -1,5 +1,5 @@
 import React from "react";
-import {Card, Container, ListGroup, Nav, Tab, Tabs} from "react-bootstrap";
+import {Container, Tab, Tabs} from "react-bootstrap";
 import {ActiveDialogs} from "./ActiveDialogs";
 import {SavedDialogs} from "./SavedDialogs";
 import {FinishedDialogs} from "./FinishedDialogs";
@@ -8,7 +8,10 @@ const Dialogs = () => {
 
     return (
         <Container>
-            <Tabs defaultActiveKey="active" id="dialogs">
+            <Tabs defaultActiveKey="queued" id="dialogs">
+                <Tab eventKey="queued" title="Очередь">
+
+                </Tab>
                 <Tab eventKey="active" title="Активные">
                     <ActiveDialogs/>
                 </Tab>

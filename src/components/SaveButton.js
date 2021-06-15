@@ -7,9 +7,10 @@ import {searchInUsersRequest} from "../searchInUsers/actionCreator";
 const SaveButton = props => {
 
     const dispatch = useDispatch()
+    let saved = false
     const changeDialogStatusToSave = (key) => {
         const ref = firebase.database().ref('dialogs/' + key)
-        ref.update({status:'saved'}).then(dispatch(searchInUsersRequest('')))
+        ref.update({saved:true}).then(dispatch(searchInUsersRequest('')))
     }
 
     const handleSave = event => {
@@ -17,7 +18,13 @@ const SaveButton = props => {
     }
 
     return(
-        <Button onClick={handleSave}>Сохранить</Button>
+        <>
+        {props.dialog.data.saved ?
+            <Button disabled variant={'success'}>Сохранено</Button> :
+        <Button onClick={handleSave}>
+            Сохранить
+        </Button>}
+        </>
     )
 }
 

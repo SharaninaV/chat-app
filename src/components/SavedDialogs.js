@@ -4,18 +4,17 @@ import {useSelector} from "react-redux";
 import moment from 'moment'
 import 'moment/locale/ru'
 
-
 const SavedDialogs = () => {
 
     const dialogs = useSelector((state) => state.searchInUsers.usersFound)
-    const savedDialogs = dialogs.filter(dialog => dialog.data.status === 'saved')
+    const savedDialogs = dialogs.filter(dialog => dialog.data.saved === true)
 
     return(
         <ListGroup>
             {savedDialogs.length > 0 ?
                 (savedDialogs.map(dialog => (
                         <ListGroup.Item action>
-                            <h5>{dialog.key}</h5>
+                            {dialog.key}
                             ({moment(dialog.data.latestActivity).locale('ru').format('LLL')})
                         </ListGroup.Item>
                     ))

@@ -15,7 +15,7 @@ const ActiveDialogs = () => {
             {activeDialogs.length > 0 ?
                 (activeDialogs.map(dialog => (
                         <ListGroup.Item action>
-                            <h5>{dialog.key}</h5>
+                            {dialog.key}
                             ({moment(dialog.data.latestActivity).locale('ru').format('LLL')})
                             <SaveButton dialog={dialog} />
                         </ListGroup.Item>
