@@ -1,7 +1,6 @@
 import React from "react";
 import {Col, Container, Row} from "react-bootstrap";
 import {LogOut} from "./LogOut";
-import {QueueQuantity} from "./QueueQuantity";
 
 const UpperMenu = () => {
 
@@ -10,9 +9,6 @@ const UpperMenu = () => {
             <Row>
                 <Col>
                     <h1>ChatApp</h1>
-                </Col>
-                <Col>
-                    <QueueQuantity/>
                 </Col>
                 <Col>
                     <h3>Operator1</h3>

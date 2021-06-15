@@ -5,6 +5,7 @@ import {SavedDialogs} from "./SavedDialogs";
 import {FinishedDialogs} from "./FinishedDialogs";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchDialogsRequest} from "../dialogs/actionCreator";
+import {QueuedDialogs} from "./QueuedDialogs";
 
 const Dialogs = () => {
 
@@ -52,7 +53,7 @@ const Dialogs = () => {
                     :
                     <Tabs defaultActiveKey="queued" id="dialogs">
                         <Tab eventKey="queued" title="Очередь">
-
+                            <QueuedDialogs/>
                         </Tab>
                         <Tab eventKey="active" title="Активные">
                             <ActiveDialogs/>
