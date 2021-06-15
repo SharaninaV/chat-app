@@ -1,12 +1,11 @@
 import React, {useEffect} from "react";
 import {Container, FormControl, InputGroup, Row} from "react-bootstrap";
-import {useDispatch, useSelector} from "react-redux";
-import {searchInUsersRequest} from "../searchInUsers/actionCreator";
+import {useDispatch} from "react-redux";
+import {searchInUsersRequest, setSearchUsers} from "../searchInUsers/actionCreator";
 import debounce from 'lodash.debounce'
 
 const SearchInUsers = () => {
 
-    const usersFound = useSelector((state) => state.searchInUsers.usersFound)
     const dispatch = useDispatch()
 
     useEffect(() =>{
@@ -14,7 +13,6 @@ const SearchInUsers = () => {
     }, [])
 
     const handleInputChange = event => {
-        console.log(event.target.value)
         dispatch(searchInUsersRequest(event.target.value))
     }
 
@@ -26,6 +24,8 @@ const SearchInUsers = () => {
                         type="text"
                         placeholder="Поиск по пользователям..."
                         onChange={debounce(handleInputChange,500)}
+                        onFocus={() => dispatch(setSearchUsers(true))}
+                        onBlur={() => dispatch(setSearchUsers(false))}
                     />
                 </InputGroup>
             </Row>

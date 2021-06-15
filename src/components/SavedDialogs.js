@@ -6,7 +6,7 @@ import 'moment/locale/ru'
 
 const SavedDialogs = () => {
 
-    const dialogs = useSelector((state) => state.searchInUsers.usersFound)
+    const dialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
     const savedDialogs = dialogs.filter(dialog => dialog.data.saved === true)
 
     return(

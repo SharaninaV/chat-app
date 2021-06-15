@@ -1,4 +1,16 @@
-import {SEARCH_MESSAGES_REQUEST, SEARCH_MESSAGES_SUCCESS, SEARCH_MESSAGES_FAILURE} from "./types";
+import {
+    SEARCH_MESSAGES_REQUEST,
+    SEARCH_MESSAGES_SUCCESS,
+    SEARCH_MESSAGES_FAILURE,
+    IS_SEARCHING_MESSAGES
+} from "./types";
+
+export function setSearchMessages(isSearching) {
+    return {
+        type: IS_SEARCHING_MESSAGES,
+        payload: isSearching
+    }
+}
 
 export function searchInMessagesRequest(text){
     return {
@@ -7,10 +19,10 @@ export function searchInMessagesRequest(text){
     }
 }
 
-export function searchInMessagesSuccess({text, data}) {
+export function searchInMessagesSuccess({data}) {
     return {
         type: SEARCH_MESSAGES_SUCCESS,
-        payload: {text, data}
+        payload: {data}
     }
 }
 

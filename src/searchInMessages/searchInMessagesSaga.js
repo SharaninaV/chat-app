@@ -21,7 +21,7 @@ function* searchInMessagesSaga(action) {
             })
             return result
         }))
-        yield put(searchInMessagesSuccess({text: action.payload.text, data: messagesFound}))
+        yield put(searchInMessagesSuccess({data: messagesFound}))
     } catch (error) {
         yield put(searchInMessagesFailure(error))
     }

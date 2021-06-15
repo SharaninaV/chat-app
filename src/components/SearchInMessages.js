@@ -1,17 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Container, FormControl, InputGroup, Row} from "react-bootstrap";
-import {useDispatch, useSelector} from "react-redux";
-import {searchInMessagesRequest} from "../searchInMessages/actionCreator";
+import {useDispatch} from "react-redux";
+import {
+    searchInMessagesRequest,
+    setSearchMessages
+} from "../searchInMessages/actionCreator";
 import debounce from 'lodash.debounce'
 
 const SearchInMessages = () => {
 
-    const messagesFound = useSelector((state) => state.searchInMessages.messagesFound)
     const dispatch = useDispatch()
-
-    useEffect(() => {
-        console.log(messagesFound)
-    }, [messagesFound])
 
     const handleInputChange = event => {
         dispatch(searchInMessagesRequest(event.target.value))
@@ -25,6 +23,8 @@ const SearchInMessages = () => {
                         type="text"
                         placeholder="Поиск в сообщениях..."
                         onChange={debounce(handleInputChange,500)}
+                        onFocus={() => dispatch(setSearchMessages(true))}
+                        onBlur={() => dispatch(setSearchMessages(false))}
                     />
                 </InputGroup>
             </Row>

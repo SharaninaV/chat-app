@@ -1,14 +1,20 @@
-import {SEARCH_USERS_FAILURE, SEARCH_USERS_REQUEST, SEARCH_USERS_SUCCESS} from "./types";
+import {IS_USER_SEARCHING, SEARCH_USERS_FAILURE, SEARCH_USERS_REQUEST, SEARCH_USERS_SUCCESS} from "./types";
 
 
 const initialState = {
     searchText: '',
     usersFound: [],
-    searchInUsersError: []
+    searchInUsersError: [],
+    isUserSearching: false
 }
 
 export const searchInUsersReducer = (state = initialState, action) => {
     switch (action.type) {
+        case IS_USER_SEARCHING:
+            return {
+                ...state,
+                isUserSearching: action.payload
+            }
         case SEARCH_USERS_REQUEST:
             return {
                 ...state,

@@ -1,4 +1,11 @@
-import {SEARCH_USERS_REQUEST, SEARCH_USERS_SUCCESS, SEARCH_USERS_FAILURE} from "./types";
+import {SEARCH_USERS_REQUEST, SEARCH_USERS_SUCCESS, SEARCH_USERS_FAILURE, IS_USER_SEARCHING} from "./types";
+
+export function setSearchUsers(isSearching){
+    return {
+        type: IS_USER_SEARCHING,
+        payload: isSearching
+    }
+}
 
 export function searchInUsersRequest(text){
     return {

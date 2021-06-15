@@ -1,23 +1,25 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Button, ListGroup} from "react-bootstrap";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {SaveButton} from "./SaveButton";
 import moment from 'moment'
 import 'moment/locale/ru'
+import {SearchInMessages} from "./SearchInMessages";
 
 const ActiveDialogs = () => {
 
-    const dialogs = useSelector((state) => state.searchInUsers.usersFound)
-    const activeDialogs = dialogs.filter(dialog => dialog.data.status === 'active')
+    const activeDialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
+        .filter(dialog => dialog.data.status === 'active')
 
-    return(
+
+    return (
         <ListGroup>
             {activeDialogs.length > 0 ?
                 (activeDialogs.map(dialog => (
                         <ListGroup.Item action>
                             {dialog.key}
                             ({moment(dialog.data.latestActivity).locale('ru').format('LLL')})
-                            <SaveButton dialog={dialog} />
+                            <SaveButton dialog={dialog}/>
                         </ListGroup.Item>
                     ))
                 ) : (
