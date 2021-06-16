@@ -3,6 +3,7 @@ import {Col, Container, ListGroup, Row} from "react-bootstrap";
 import {useSelector} from "react-redux";
 import moment from 'moment'
 import 'moment/locale/ru'
+import {DeleteButton} from "./DeleteButton";
 
 const SavedDialogs = () => {
 
@@ -27,7 +28,7 @@ const SavedDialogs = () => {
                                         ({moment(dialog.data.latestActivity).locale('ru').format('LLL')})
                                     </Col>
                                     <Col>
-
+                                        <DeleteButton dialog={dialog}/>
                                     </Col>
                                 </Row>
                             </Container>

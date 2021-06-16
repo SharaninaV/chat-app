@@ -1,9 +1,9 @@
 import React from "react";
 import {Col, Container, ListGroup, Row} from "react-bootstrap";
 import moment from "moment";
-import {SaveButton} from "./SaveButton";
+import {SaveDialogButton} from "./SaveDialogButton";
 import {useSelector} from "react-redux";
-import {EnterDialog} from "./EnterDialog";
+import {EnterDialogButton} from "./EnterDialogButton";
 
 const QueuedDialogs = () => {
 
@@ -24,7 +24,7 @@ const QueuedDialogs = () => {
                                         ({moment(dialog.data.latestActivity).locale('ru').format('LLL')})
                                     </Col>
                                     <Col>
-                                        <EnterDialog dialog={dialog}/>
+                                        <EnterDialogButton dialog={dialog}/>
                                     </Col>
                                 </Row>
                             </Container>
