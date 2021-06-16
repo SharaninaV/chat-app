@@ -4,7 +4,7 @@ import firebase from "../firebase/firebase";
 import {fetchDialogsRequest} from "../dialogs/actionCreator";
 import {useDispatch, useSelector} from "react-redux";
 
-const EnterDialog = (props) => {
+const EnterDialogButton = (props) => {
 
     const dispatch = useDispatch()
     const operatorID = useSelector((state) => state.auth.email).split('@')[0]
@@ -18,4 +18,4 @@ const EnterDialog = (props) => {
     )
 }
 
-export {EnterDialog}
+export {EnterDialogButton}

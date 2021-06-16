@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Button, Col, Container, ListGroup, Row} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {SaveButton} from "./SaveButton";
+import {SaveDialogButton} from "./SaveDialogButton";
 import moment from 'moment'
 import 'moment/locale/ru'
 import {SearchInMessages} from "./SearchInMessages";
@@ -28,7 +28,7 @@ const ActiveDialogs = () => {
                                         ({moment(dialog.data.latestActivity).locale('ru').format('LLL')})
                                     </Col>
                                     <Col>
-                                        <SaveButton dialog={dialog}/>
+                                        <SaveDialogButton dialog={dialog}/>
                                     </Col>
                                 </Row>
                             </Container>
