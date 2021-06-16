@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from "react";
-import {Button, Col, Container, ListGroup, Row} from "react-bootstrap";
-import {useDispatch, useSelector} from "react-redux";
+import React from "react";
+import {Col, Container, ListGroup, Row} from "react-bootstrap";
+import {useSelector} from "react-redux";
 import {SaveDialogButton} from "./SaveDialogButton";
 import moment from 'moment'
 import 'moment/locale/ru'
-import {SearchInMessages} from "./SearchInMessages";
 
 const ActiveDialogs = () => {
 
