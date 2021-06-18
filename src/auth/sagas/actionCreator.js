@@ -22,8 +22,5 @@ export function loginFailure(error) {
     }
 }
 
-export function logOut() {
-    return{
-        type: LOG_OUT
-    }
+export const logOut = () => ({ type: LOG_OUT })
 }
