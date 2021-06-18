@@ -20,7 +20,7 @@ const SaveDialogButton = props => {
     return(
         <>
         {props.dialog.data.saved ?
-            <Button disabled variant={'success'}>Сохранено</Button> :
+            <Button disabled variant='success'>Сохранено</Button> :
         <Button onClick={handleSave}>
             Сохранить
         </Button>}
