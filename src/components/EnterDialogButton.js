@@ -1,8 +1,8 @@
 import React from "react";
 import {Button} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
 import firebase from "../firebase/firebase";
 import {fetchDialogsRequest} from "../dialogs/actionCreator";
-import {useDispatch, useSelector} from "react-redux";
 
 const EnterDialogButton = (props) => {
 

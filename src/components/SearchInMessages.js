@@ -1,11 +1,11 @@
 import React from "react";
 import {Container, FormControl, InputGroup, Row} from "react-bootstrap";
 import {useDispatch} from "react-redux";
+import debounce from 'lodash.debounce'
 import {
     searchInMessagesRequest,
     setSearchMessages
 } from "../searchInMessages/actionCreator";
-import debounce from 'lodash.debounce'
 
 const SearchInMessages = () => {
 

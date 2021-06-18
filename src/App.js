@@ -1,8 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import './App.css';
 import {AuthWindow} from "./components/AuthWindow";
 import {Main} from "./components/Main";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
 
 const App = () => {
 

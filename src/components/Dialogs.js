@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
 import {Container, ListGroup, Tab, Tabs} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
 import {ActiveDialogs} from "./ActiveDialogs";
 import {SavedDialogs} from "./SavedDialogs";
 import {FinishedDialogs} from "./FinishedDialogs";
-import {useDispatch, useSelector} from "react-redux";
 import {fetchDialogsRequest} from "../dialogs/actionCreator";
 import {QueuedDialogs} from "./QueuedDialogs";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import {Col, Container, Row} from "react-bootstrap";
-import {LogOut} from "./LogOut";
 import {useSelector} from "react-redux";
+import {LogOut} from "./LogOut";
 
 const UpperMenu = () => {
 

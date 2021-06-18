@@ -1,9 +1,9 @@
 import React from "react";
 import {Col, Container, ListGroup, Row} from "react-bootstrap";
 import {useSelector} from "react-redux";
-import {SaveDialogButton} from "./SaveDialogButton";
 import moment from 'moment'
 import 'moment/locale/ru'
+import {SaveDialogButton} from "./SaveDialogButton";
 
 const ActiveDialogs = () => {
 

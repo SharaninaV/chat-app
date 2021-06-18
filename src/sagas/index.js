@@ -1,5 +1,5 @@
-import AuthSaga from "../auth/sagas/authSaga";
 import {all} from "redux-saga/effects"
+import AuthSaga from "../auth/sagas/authSaga";
 import SearchInUsersSaga from "../searchInUsers/searchInUsersSaga";
 import SearchInMessagesSaga from "../searchInMessages/searchInMessagesSaga";
 import FetchDialogsSaga from '../dialogs/fetchDialogsSaga'
