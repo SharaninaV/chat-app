@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {ActiveDialogs} from "./ActiveDialogs";
 import {SavedDialogs} from "./SavedDialogs";
 import {FinishedDialogs} from "./FinishedDialogs";
-import {fetchDialogsRequest} from "../dialogs/actionCreator";
+import {fetchDialogsRequest} from "../redux/dialogs/actionCreator";
 import {QueuedDialogs} from "./QueuedDialogs";
 
 const Dialogs = () => {

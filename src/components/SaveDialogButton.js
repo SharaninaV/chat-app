@@ -2,7 +2,7 @@ import React from "react";
 import {Button} from "react-bootstrap";
 import firebase from "../firebase/firebase";
 import {useDispatch} from "react-redux";
-import {fetchDialogsRequest} from "../dialogs/actionCreator";
+import {fetchDialogsRequest} from "../redux/dialogs/actionCreator";
 
 const SaveDialogButton = props => {
 

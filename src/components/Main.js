@@ -4,7 +4,7 @@ import {useSelector, useDispatch} from "react-redux";
 import * as jwt from "jsonwebtoken"
 import {useHistory} from "react-router-dom";
 import {Col, Container, Row} from "react-bootstrap";
-import {setTokenNotValid} from "../main/sagas/actionCreator";
+import {setTokenNotValid} from "../redux/main/sagas/actionCreator";
 import {UpperMenu} from "./UpperMenu";
 import {SearchInUsers} from "./SearchInUsers";
 import {SearchInMessages} from "./SearchInMessages";

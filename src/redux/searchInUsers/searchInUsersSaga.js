@@ -1,6 +1,6 @@
 import {call, put, takeLatest} from "redux-saga/effects";
 import {SEARCH_USERS_REQUEST} from "./types";
-import firebase from "../firebase/firebase";
+import firebase from "../../firebase/firebase";
 import {searchInUsersFailure, searchInUsersSuccess} from "./actionCreator";
 
 function* searchInUsersSaga(action) {

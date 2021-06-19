@@ -5,7 +5,7 @@ import debounce from 'lodash.debounce'
 import {
     searchInMessagesRequest,
     setSearchMessages
-} from "../searchInMessages/actionCreator";
+} from "../redux/searchInMessages/actionCreator";
 
 const SearchInMessages = () => {
 

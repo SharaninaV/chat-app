@@ -11,7 +11,6 @@ const QueuedDialogs = () => {
 
     const getLastMessage = (dialog) => {
         let lastMessage = {content: '', writtenBy: ''}
-        console.log(lastMessage)
         dialog.data.messages.forEach(message => {
             if (message.timestamp === dialog.data.latestActivity) {
                 lastMessage.writtenBy = message.writtenBy

@@ -2,8 +2,8 @@ import React from "react";
 import {Button} from "react-bootstrap";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
-import {logOut} from "../auth/sagas/actionCreator";
-import {setTokenNotValid} from "../main/sagas/actionCreator";
+import {logOut} from "../redux/auth/sagas/actionCreator";
+import {setTokenNotValid} from "../redux/main/sagas/actionCreator";
 
 const LogOut = () => {
     const dispatch = useDispatch()

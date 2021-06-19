@@ -2,7 +2,7 @@ import React from "react";
 import {Button} from "react-bootstrap";
 import {useDispatch} from "react-redux";
 import firebase from "../firebase/firebase";
-import {fetchDialogsRequest} from "../dialogs/actionCreator";
+import {fetchDialogsRequest} from "../redux/dialogs/actionCreator";
 
 const DeleteButton = (props) => {
 
