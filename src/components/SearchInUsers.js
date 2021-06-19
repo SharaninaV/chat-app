@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 import debounce from 'lodash.debounce'
 import {searchInUsersRequest, setSearchUsers} from "../redux/searchInUsers/actionCreator"
 
-const SearchInUsers = () => {
+export const SearchInUsers = () => {
 
     const dispatch = useDispatch()
 
@@ -32,4 +32,3 @@ const SearchInUsers = () => {
         </Container>
     )
 }
-export {SearchInUsers}

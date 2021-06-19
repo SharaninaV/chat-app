@@ -7,7 +7,7 @@ import {FinishedDialogs} from "./FinishedDialogs";
 import {fetchDialogsRequest} from "../redux/dialogs/actionCreator";
 import {QueuedDialogs} from "./QueuedDialogs";
 
-const Dialogs = () => {
+export const Dialogs = () => {
 
     const isSearchingMessages = useSelector((state) => state.searchInMessages.searchMessagesNeeded)
     const foundMessages = useSelector((state) => state.searchInMessages.messagesFound)
@@ -71,7 +71,3 @@ const Dialogs = () => {
     )
 }
 
-export
-{
-    Dialogs
-}

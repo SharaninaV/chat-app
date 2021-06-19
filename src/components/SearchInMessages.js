@@ -7,7 +7,7 @@ import {
     setSearchMessages
 } from "../redux/searchInMessages/actionCreator";
 
-const SearchInMessages = () => {
+export const SearchInMessages = () => {
 
     const dispatch = useDispatch()
 
@@ -31,4 +31,3 @@ const SearchInMessages = () => {
         </Container>
     )
 }
-export {SearchInMessages}

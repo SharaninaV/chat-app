@@ -6,7 +6,7 @@ import {faStar} from "@fortawesome/free-solid-svg-icons";
 import {faStar as farStar} from "@fortawesome/free-regular-svg-icons"
 import PrettyRating from "pretty-rating-react";
 
-const FinishedDialogs = () => {
+export const FinishedDialogs = () => {
 
     const operatorID = useSelector((state) => state.auth.email)
         .split('@')[0]
@@ -72,5 +72,3 @@ const FinishedDialogs = () => {
         </ListGroup>
     )
 }
-
-export {FinishedDialogs}

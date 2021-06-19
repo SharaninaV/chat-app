@@ -5,7 +5,7 @@ import moment from 'moment'
 import 'moment/locale/ru'
 import {SaveDialogButton} from "./SaveDialogButton";
 
-const ActiveDialogs = () => {
+export const ActiveDialogs = () => {
 
     const operatorID = useSelector((state) => state.auth.email)
         .split('@')[0]
@@ -60,5 +60,3 @@ const ActiveDialogs = () => {
         </ListGroup>
     )
 }
-
-export {ActiveDialogs}

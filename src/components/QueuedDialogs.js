@@ -4,7 +4,7 @@ import moment from "moment";
 import {useSelector} from "react-redux";
 import {EnterDialogButton} from "./EnterDialogButton";
 
-const QueuedDialogs = () => {
+export const QueuedDialogs = () => {
 
     const queuedDialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
         .filter(dialog => dialog.data.status === 'queued')
@@ -57,5 +57,3 @@ const QueuedDialogs = () => {
         </ListGroup>
     )
 }
-
-export {QueuedDialogs}

@@ -4,7 +4,7 @@ import firebase from "../firebase/firebase";
 import {useDispatch} from "react-redux";
 import {fetchDialogsRequest} from "../redux/dialogs/actionCreator";
 
-const SaveDialogButton = props => {
+export const SaveDialogButton = props => {
 
     const dispatch = useDispatch()
     const changeDialogStatusToSave = (key) => {
@@ -26,5 +26,3 @@ const SaveDialogButton = props => {
         </>
     )
 }
-
-export {SaveDialogButton}

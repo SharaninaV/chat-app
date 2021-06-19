@@ -3,7 +3,7 @@ import {Col, Container, Row} from "react-bootstrap";
 import {useSelector} from "react-redux";
 import {LogOut} from "./LogOut";
 
-const UpperMenu = () => {
+export const UpperMenu = () => {
 
     const operatorID = useSelector((state) => state.auth.email).split('@')[0]
 
@@ -23,4 +23,3 @@ const UpperMenu = () => {
         </Container>
     )
 }
-export {UpperMenu}

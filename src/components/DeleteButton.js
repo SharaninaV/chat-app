@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 import firebase from "../firebase/firebase";
 import {fetchDialogsRequest} from "../redux/dialogs/actionCreator";
 
-const DeleteButton = (props) => {
+export const DeleteButton = (props) => {
 
     const dispatch = useDispatch()
     const deleteSavedStatus = (key) => {
@@ -20,5 +20,3 @@ const DeleteButton = (props) => {
         <Button variant="danger" onClick={handleDelete}>Удалить из сохраненных</Button>
     )
 }
-
-export {DeleteButton}

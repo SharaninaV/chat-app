@@ -10,7 +10,7 @@ import {SearchInUsers} from "./SearchInUsers";
 import {SearchInMessages} from "./SearchInMessages";
 import {Dialogs} from "./Dialogs";
 
-const Main = () => {
+export const Main = () => {
 
     const currentUserToken = useSelector((state) => state.auth.token)
     const dispatch = useDispatch()
@@ -46,5 +46,3 @@ const Main = () => {
         </Container>
     )
 }
-
-export {Main}
