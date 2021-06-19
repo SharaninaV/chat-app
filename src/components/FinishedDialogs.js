@@ -18,11 +18,7 @@ export const FinishedDialogs = () => {
         dialog.data.messages.forEach(message => {
             if (message.timestamp === dialog.data.latestActivity) {
                 lastMessage.writtenBy = message.writtenBy
-                if (message.content.length > 40) {
-                    lastMessage.content = message.content.slice(0, 40) + '...'
-                } else {
-                    lastMessage.content = message.content
-                }
+                lastMessage.content = message.content
             }
         })
         return lastMessage
@@ -52,7 +48,9 @@ export const FinishedDialogs = () => {
                                     </Col>
                                     <Col>
                                         {getLastMessage(dialog).writtenBy}: <br/>
+                                        <p className="overflow-text">
                                         {getLastMessage(dialog).content}
+                                        </p>
                                     </Col>
                                     <Col>
                                         ({moment(dialog.data.latestActivity).locale('ru').format('LLL')})
