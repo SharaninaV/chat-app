@@ -7,10 +7,11 @@ import {SaveDialogButton} from "./SaveDialogButton";
 
 export const ActiveDialogs = () => {
 
-    const operatorID = useSelector((state) => state.auth.email)
-        .split('@')[0]
-    const activeDialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
-        .filter(dialog => dialog.data.status === 'active' && dialog.data.operatorID === operatorID)
+    const operatorEmail = useSelector((state) => state.auth.email)
+    const fetchedDialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
+
+    const operatorID = operatorEmail.split('@')[0]
+    const activeDialogs = fetchedDialogs.filter(dialog => dialog.data.status === 'active' && dialog.data.operatorID === operatorID)
 
     const getLastMessage = (dialog) => {
         let lastMessage = {content: '', writtenBy: ''}

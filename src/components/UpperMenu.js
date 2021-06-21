@@ -5,7 +5,8 @@ import {LogOut} from "./LogOut";
 
 export const UpperMenu = () => {
 
-    const operatorID = useSelector((state) => state.auth.email).split('@')[0]
+    const operatorEmail = useSelector((state) => state.auth.email)
+    const operatorID = operatorEmail.split('@')[0]
 
     return (
         <Container>

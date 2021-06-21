@@ -7,10 +7,11 @@ import {DeleteButton} from "./DeleteButton";
 
 export const SavedDialogs = () => {
 
-    const operatorID = useSelector((state) => state.auth.email)
-        .split('@')[0]
-    const savedDialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
-        .filter(dialog => dialog.data.saved === true && dialog.data.operatorID === operatorID)
+    const operatorEmail = useSelector((state) => state.auth.email)
+    const fetchedDialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
+
+    const operatorID = operatorEmail.split('@')[0]
+    const savedDialogs = fetchedDialogs.filter(dialog => dialog.data.saved === true && dialog.data.operatorID === operatorID)
 
     const getLastMessage = (dialog) => {
         let lastMessage = {content: '', writtenBy: ''}

@@ -6,8 +6,9 @@ import {EnterDialogButton} from "./EnterDialogButton";
 
 export const QueuedDialogs = () => {
 
-    const queuedDialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
-        .filter(dialog => dialog.data.status === 'queued')
+    const fetchedDialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
+
+    const queuedDialogs = fetchedDialogs.filter(dialog => dialog.data.status === 'queued')
 
     const getLastMessage = (dialog) => {
         let lastMessage = {content: '', writtenBy: ''}

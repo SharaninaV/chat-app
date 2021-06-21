@@ -8,10 +8,11 @@ import PrettyRating from "pretty-rating-react";
 
 export const FinishedDialogs = () => {
 
-    const operatorID = useSelector((state) => state.auth.email)
-        .split('@')[0]
-    const finishedDialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
-        .filter(dialog => dialog.data.status === 'finished' && dialog.data.operatorID === operatorID)
+    const operatorEmail = useSelector((state) => state.auth.email)
+    const fetchedDialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
+
+    const operatorID = operatorEmail.split('@')[0]
+    const finishedDialogs = fetchedDialogs.filter(dialog => dialog.data.status === 'finished' && dialog.data.operatorID === operatorID)
 
     const getLastMessage = (dialog) => {
         let lastMessage = {content: '', writtenBy: ''}

@@ -1,19 +1,15 @@
 import React from "react";
 import {Button} from "react-bootstrap";
 import {useDispatch} from "react-redux";
-import firebase from "../firebase/firebase";
+import {deleteDialogRequest} from "../redux/deleteDialog/actionCreator";
 import {fetchDialogsRequest} from "../redux/dialogs/actionCreator";
 
 export const DeleteButton = (props) => {
 
     const dispatch = useDispatch()
-    const deleteSavedStatus = (key) => {
-        const ref = firebase.database().ref('dialogs/' + key)
-        ref.update({saved:false}).then(dispatch(fetchDialogsRequest()))
-    }
     const handleDelete = event => {
-        console.log(props.dialog.key)
-        deleteSavedStatus(props.dialog.key)
+        dispatch(deleteDialogRequest(props.dialog.key))
+        dispatch(fetchDialogsRequest())
     }
 
     return(
