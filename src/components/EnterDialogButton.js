@@ -10,7 +10,7 @@ export const EnterDialogButton = (props) => {
     const operatorID = useSelector((state) => state.auth.email).split('@')[0]
     const handleEnterDialog = event => {
             const ref = firebase.database().ref('dialogs/' + props.dialog.key)
-            ref.update({operatorID:operatorID,status:'active'}).then(dispatch(fetchDialogsRequest()))
+            ref.update({operatorID, status:'active'}).then(dispatch(fetchDialogsRequest()))
         }
 
     return(
