@@ -1,26 +1,21 @@
 import React from "react";
 import {Col, Container, ListGroup, Row} from "react-bootstrap";
 import moment from "moment";
-import {SaveDialogButton} from "./SaveDialogButton";
 import {useSelector} from "react-redux";
 import {EnterDialogButton} from "./EnterDialogButton";
 
-const QueuedDialogs = () => {
+export const QueuedDialogs = () => {
 
-    const queuedDialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
-        .filter(dialog => dialog.data.status === 'queued')
+    const fetchedDialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
+
+    const queuedDialogs = fetchedDialogs.filter(dialog => dialog.data.status === 'queued')
 
     const getLastMessage = (dialog) => {
         let lastMessage = {content: '', writtenBy: ''}
-        console.log(lastMessage)
         dialog.data.messages.forEach(message => {
             if (message.timestamp === dialog.data.latestActivity) {
                 lastMessage.writtenBy = message.writtenBy
-                if (message.content.length > 40) {
-                    lastMessage.content = message.content.slice(0, 40) + '...'
-                } else {
-                    lastMessage.content = message.content
-                }
+                lastMessage.content = message.content
             }
         })
         return lastMessage
@@ -39,7 +34,9 @@ const QueuedDialogs = () => {
                                     </Col>
                                     <Col>
                                         {getLastMessage(dialog).writtenBy}: <br/>
+                                        <p className="overflow-text">
                                         {getLastMessage(dialog).content}
+                                        </p>
                                     </Col>
                                     <Col>
                                         ({moment(dialog.data.latestActivity).locale('ru').format('LLL')})
@@ -59,5 +56,3 @@ const QueuedDialogs = () => {
         </ListGroup>
     )
 }
-
-export {QueuedDialogs}

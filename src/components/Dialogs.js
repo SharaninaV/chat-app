@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
 import {Container, ListGroup, Tab, Tabs} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
 import {ActiveDialogs} from "./ActiveDialogs";
 import {SavedDialogs} from "./SavedDialogs";
 import {FinishedDialogs} from "./FinishedDialogs";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchDialogsRequest} from "../dialogs/actionCreator";
+import {fetchDialogsRequest} from "../redux/dialogs/actionCreator";
 import {QueuedDialogs} from "./QueuedDialogs";
 
-const Dialogs = () => {
+export const Dialogs = () => {
 
     const isSearchingMessages = useSelector((state) => state.searchInMessages.searchMessagesNeeded)
     const foundMessages = useSelector((state) => state.searchInMessages.messagesFound)
@@ -19,37 +19,28 @@ const Dialogs = () => {
         dispatch(fetchDialogsRequest())
     }, [isSearchingMessages, isSearchingInUsers])
 
+    const renderFoundMessages = (foundMessages) => {
+        return (<ListGroup>
+            {foundMessages.length > 0 ?
+                (foundMessages.map(message => (
+                        <ListGroup.Item action>
+                            {message.user} <br/> {message.content}
+                        </ListGroup.Item>
+                    ))
+                ) : (
+                    <ListGroup.Item>
+                        Диалогов не найдено
+                    </ListGroup.Item>
+                )}
+        </ListGroup>)
+    }
+
     return (
         <Container>
             {isSearchingMessages ?
-                <ListGroup>
-                    {foundMessages.length > 0 ?
-                        (foundMessages.map(message => (
-                                <ListGroup.Item action>
-                                    {message.user}-
-                                    {message.content}
-                                </ListGroup.Item>
-                            ))
-                        ) : (
-                            <ListGroup.Item>
-                                Диалогов не найдено
-                            </ListGroup.Item>
-                        )}
-                </ListGroup>
+                renderFoundMessages(foundMessages)
                 : isSearchingInUsers ?
-                    <ListGroup>
-                        {usersFound.length > 0 ?
-                            (usersFound.map(user => (
-                                    <ListGroup.Item action>
-                                        {user.key}
-                                    </ListGroup.Item>
-                                ))
-                            ) : (
-                                <ListGroup.Item>
-                                    Диалогов не найдено
-                                </ListGroup.Item>
-                            )}
-                    </ListGroup>
+                    renderFoundMessages(usersFound)
                     :
                     <Tabs defaultActiveKey="queued" id="dialogs">
                         <Tab eventKey="queued" title="Очередь">
@@ -71,7 +62,3 @@ const Dialogs = () => {
     )
 }
 
-export
-{
-    Dialogs
-}

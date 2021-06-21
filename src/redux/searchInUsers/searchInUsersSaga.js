@@ -1,6 +1,6 @@
 import {call, put, takeLatest} from "redux-saga/effects";
 import {SEARCH_USERS_REQUEST} from "./types";
-import firebase from "../firebase/firebase";
+import firebase from "../../firebase/firebase";
 import {searchInUsersFailure, searchInUsersSuccess} from "./actionCreator";
 
 function* searchInUsersSaga(action) {
@@ -10,7 +10,7 @@ function* searchInUsersSaga(action) {
             let result = []
             snapshot.forEach(childSnapshot => {
                 if (childSnapshot.key.toLowerCase().includes(action.payload.text.toLowerCase())) {
-                    result.push({key:childSnapshot.key,data:childSnapshot.val()})
+                    result.push({user:childSnapshot.key, data:childSnapshot.val()})
                 }
             })
             return result

@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
-import AuthForm from "./AuthForm";
 import {useSelector} from "react-redux";
 import {useHistory} from "react-router-dom"
+import AuthForm from "./AuthForm";
 
 const AuthWindow = () => {
 

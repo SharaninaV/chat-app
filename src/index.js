@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {applyMiddleware, createStore} from "redux";
-import {rootReducer} from "./sagas/rootReducer";
+import {rootReducer} from "./redux/sagas/rootReducer";
 import {Provider} from "react-redux";
 import createSagaMiddleware from "redux-saga"
-import rootSaga from "./sagas";
 import {composeWithDevTools} from "redux-devtools-extension";
 import storage from 'redux-persist/lib/storage'
 import {persistReducer, persistStore} from "redux-persist";
 import {PersistGate} from "redux-persist/integration/react";
+import rootSaga from "./redux/sagas";
+import App from './App';
+import './index.css';
 
 
 const persistConfig = {

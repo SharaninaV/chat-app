@@ -5,24 +5,20 @@ import moment from 'moment'
 import 'moment/locale/ru'
 import {DeleteButton} from "./DeleteButton";
 
-const SavedDialogs = () => {
+export const SavedDialogs = () => {
 
-    const operatorID = useSelector((state) => state.auth.email)
-        .split('@')[0]
-    const savedDialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
-        .filter(dialog => dialog.data.saved === true && dialog.data.operatorID === operatorID)
+    const operatorEmail = useSelector((state) => state.auth.email)
+    const fetchedDialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
+
+    const operatorID = operatorEmail.split('@')[0]
+    const savedDialogs = fetchedDialogs.filter(dialog => dialog.data.saved === true && dialog.data.operatorID === operatorID)
 
     const getLastMessage = (dialog) => {
         let lastMessage = {content: '', writtenBy: ''}
-        console.log(lastMessage)
         dialog.data.messages.forEach(message => {
             if (message.timestamp === dialog.data.latestActivity) {
                 lastMessage.writtenBy = message.writtenBy
-                if (message.content.length > 40) {
-                    lastMessage.content = message.content.slice(0, 40) + '...'
-                } else {
-                    lastMessage.content = message.content
-                }
+                lastMessage.content = message.content
             }
         })
         return lastMessage
@@ -42,7 +38,9 @@ const SavedDialogs = () => {
                                     </Col>
                                     <Col>
                                         {getLastMessage(dialog).writtenBy}: <br/>
+                                        <p className="overflow-text">
                                         {getLastMessage(dialog).content}
+                                        </p>
                                     </Col>
                                     <Col>
                                         ({moment(dialog.data.latestActivity).locale('ru').format('LLL')})
@@ -63,5 +61,3 @@ const SavedDialogs = () => {
         </ListGroup>
     )
 }
-
-export {SavedDialogs}

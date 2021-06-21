@@ -2,15 +2,15 @@ import React from "react";
 import {useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import * as jwt from "jsonwebtoken"
-import {setTokenNotValid} from "../main/sagas/actionCreator";
 import {useHistory} from "react-router-dom";
 import {Col, Container, Row} from "react-bootstrap";
+import {setTokenNotValid} from "../redux/main/sagas/actionCreator";
 import {UpperMenu} from "./UpperMenu";
 import {SearchInUsers} from "./SearchInUsers";
 import {SearchInMessages} from "./SearchInMessages";
 import {Dialogs} from "./Dialogs";
 
-const Main = () => {
+export const Main = () => {
 
     const currentUserToken = useSelector((state) => state.auth.token)
     const dispatch = useDispatch()
@@ -46,5 +46,3 @@ const Main = () => {
         </Container>
     )
 }
-
-export {Main}

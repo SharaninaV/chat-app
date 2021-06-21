@@ -1,5 +1,5 @@
 import {call, put, takeLatest} from "redux-saga/effects";
-import firebase from "../firebase/firebase";
+import firebase from "../../firebase/firebase";
 import {fetchDialogsFailure, fetchDialogsSuccess} from "./actionCreator";
 import {FETCH_DIALOGS_REQUEST} from "./types";
 

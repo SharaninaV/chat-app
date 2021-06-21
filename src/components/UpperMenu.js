@@ -1,11 +1,12 @@
 import React from "react";
 import {Col, Container, Row} from "react-bootstrap";
-import {LogOut} from "./LogOut";
 import {useSelector} from "react-redux";
+import {LogOut} from "./LogOut";
 
-const UpperMenu = () => {
+export const UpperMenu = () => {
 
-    const operatorID = useSelector((state) => state.auth.email).split('@')[0]
+    const operatorEmail = useSelector((state) => state.auth.email)
+    const operatorID = operatorEmail.split('@')[0]
 
     return (
         <Container>
@@ -23,4 +24,3 @@ const UpperMenu = () => {
         </Container>
     )
 }
-export {UpperMenu}

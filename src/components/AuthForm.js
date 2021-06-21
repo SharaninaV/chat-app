@@ -1,10 +1,11 @@
 import React from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
-import {connect, useSelector} from "react-redux";
-import {loginRequest} from "../auth/sagas/actionCreator";
+import {connect} from "react-redux";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSignInAlt, faEnvelope, faKey} from '@fortawesome/free-solid-svg-icons'
+import {loginRequest} from "../redux/auth/sagas/actionCreator";
+
 
 const iconSignIn = <FontAwesomeIcon icon={faSignInAlt}/>
 const iconEmail = < FontAwesomeIcon icon={faEnvelope}/>
