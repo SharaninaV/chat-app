@@ -19,37 +19,28 @@ export const Dialogs = () => {
         dispatch(fetchDialogsRequest())
     }, [isSearchingMessages, isSearchingInUsers])
 
+    const renderFoundMessages = (foundMessages) => {
+        return (<ListGroup>
+            {foundMessages.length > 0 ?
+                (foundMessages.map(message => (
+                        <ListGroup.Item action>
+                            {message.user} <br/> {message.content}
+                        </ListGroup.Item>
+                    ))
+                ) : (
+                    <ListGroup.Item>
+                        Диалогов не найдено
+                    </ListGroup.Item>
+                )}
+        </ListGroup>)
+    }
+
     return (
         <Container>
             {isSearchingMessages ?
-                <ListGroup>
-                    {foundMessages.length > 0 ?
-                        (foundMessages.map(message => (
-                                <ListGroup.Item action>
-                                    {message.user}-
-                                    {message.content}
-                                </ListGroup.Item>
-                            ))
-                        ) : (
-                            <ListGroup.Item>
-                                Диалогов не найдено
-                            </ListGroup.Item>
-                        )}
-                </ListGroup>
+                renderFoundMessages(foundMessages)
                 : isSearchingInUsers ?
-                    <ListGroup>
-                        {usersFound.length > 0 ?
-                            (usersFound.map(user => (
-                                    <ListGroup.Item action>
-                                        {user.key}
-                                    </ListGroup.Item>
-                                ))
-                            ) : (
-                                <ListGroup.Item>
-                                    Диалогов не найдено
-                                </ListGroup.Item>
-                            )}
-                    </ListGroup>
+                    renderFoundMessages(usersFound)
                     :
                     <Tabs defaultActiveKey="queued" id="dialogs">
                         <Tab eventKey="queued" title="Очередь">

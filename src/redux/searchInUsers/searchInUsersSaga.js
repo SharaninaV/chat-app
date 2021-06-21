@@ -10,7 +10,7 @@ function* searchInUsersSaga(action) {
             let result = []
             snapshot.forEach(childSnapshot => {
                 if (childSnapshot.key.toLowerCase().includes(action.payload.text.toLowerCase())) {
-                    result.push({key:childSnapshot.key,data:childSnapshot.val()})
+                    result.push({user:childSnapshot.key, data:childSnapshot.val()})
                 }
             })
             return result
