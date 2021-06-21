@@ -6,6 +6,7 @@ import FetchDialogsSaga from '../dialogs/fetchDialogsSaga'
 import DeleteDialogSaga from '../deleteDialog/deleteDialogsSaga'
 import EnterDialogSaga from '../enterDialog/enterDialogsSaga'
 import SaveDialogSaga from '../saveDialog/saveDialogsSaga'
+import FetchCurrentDialogSaga from '../currentDialog/fetchCurrentDialogSaga'
 
 export default function* rootSaga() {
     yield all([
@@ -15,6 +16,7 @@ export default function* rootSaga() {
         FetchDialogsSaga,
         DeleteDialogSaga,
         EnterDialogSaga,
-        SaveDialogSaga
+        SaveDialogSaga,
+        FetchCurrentDialogSaga
     ])
 }

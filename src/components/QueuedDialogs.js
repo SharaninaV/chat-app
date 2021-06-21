@@ -26,7 +26,7 @@ export const QueuedDialogs = () => {
         <ListGroup>
             {queuedDialogs.length > 0 ?
                 (queuedDialogs.map(dialog => (
-                        <ListGroup.Item action>
+                        <ListGroup.Item>
                             <Container>
                                 <Row>
                                     <Col>
