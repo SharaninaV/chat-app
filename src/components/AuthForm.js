@@ -1,10 +1,11 @@
 import React from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
-import {connect, useSelector} from "react-redux";
-import {loginRequest} from "../auth/sagas/actionCreator";
+import {connect} from "react-redux";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSignInAlt, faEnvelope, faKey} from '@fortawesome/free-solid-svg-icons'
+import {loginRequest} from "../redux/auth/sagas/actionCreator";
+
 
 const iconSignIn = <FontAwesomeIcon icon={faSignInAlt}/>
 const iconEmail = < FontAwesomeIcon icon={faEnvelope}/>
@@ -40,13 +41,6 @@ const AuthForm = ({loginRequest,submitErrors,successful,requesting}) => {
                 <div className="row">
                     <div className="alert-danger col-sm-11">
                         {submitErrors.message}
-                    </div>
-                </div>
-            }
-            {successful && !requesting &&
-                <div className="row">
-                    <div className="alert-success col-sm-11">
-                        Авторизация прошла успешно!
                     </div>
                 </div>
             }
@@ -111,7 +105,7 @@ const mapStateToProps = state => {
         password: state.auth.password,
         requesting: state.auth.requesting,
         successful: state.auth.successful,
-        submitErrors: state.auth.errors
+        submitErrors: state.auth.errors,
     }
 }
 

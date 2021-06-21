@@ -1,8 +1,17 @@
-import React from "react";
+import React, {useEffect} from "react";
+import {useSelector} from "react-redux";
+import {useHistory} from "react-router-dom"
 import AuthForm from "./AuthForm";
 
-
 const AuthWindow = () => {
+
+    const isTokenValid = useSelector((state) => state.main.isTokenValid)
+    const history = useHistory()
+    useEffect(() => {
+        if(isTokenValid) {
+            history.push("/main")
+        }
+    },[isTokenValid])
 
     return (
         <div className="app container">
