@@ -11,10 +11,11 @@ export const CurrentDialog = () => {
     const dispatch = useDispatch()
     const location = useLocation()
 
-    const fetchedMessages = useSelector((state) => state.fetchCurrentDialog.currentDialogMessages)
+    const fetchedDialog = useSelector((state) => state.fetchCurrentDialog.currentDialog)
+    const fetchedMessages = fetchedDialog.messages
 
     const key = location.pathname.split(':')[1]
-
+    const isFinished = fetchedDialog.status === 'finished'
 
     useEffect(() => {
         dispatch(fetchCurrentDialogRequest(key))
@@ -22,8 +23,8 @@ export const CurrentDialog = () => {
 
     return (
         <Container>
-            {fetchedMessages.map(message => (
-                <Row>
+            {fetchedMessages && fetchedMessages.map(message => (
+                <Row className="my-3">
                     <Col>
                         {/\.(gif|jpg|webp|png)$/i.test(message.content) ?
                             <img height="200px" src={message.content}/>
@@ -36,6 +37,8 @@ export const CurrentDialog = () => {
                     </Col>
                 </Row>
             ))}
+            {isFinished &&
+            <p>Диалог завершился {moment(fetchedDialog.latestActivity).calendar()}</p>}
         </Container>
     )
 }
