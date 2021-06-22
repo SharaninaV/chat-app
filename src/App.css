@@ -29,3 +29,6 @@ a {
     white-space: nowrap;
     width: 300px
 }
+.autocomplete {
+    width: 500px
+}
