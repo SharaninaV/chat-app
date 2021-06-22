@@ -25,7 +25,11 @@ export const CurrentDialog = () => {
             {fetchedMessages.map(message => (
                 <Row>
                     <Col>
-                        {message.content}
+                        {/\.(gif|jpg|webp|png)$/i.test(message.content) ?
+                            <img height="200px" src={message.content}/>
+                            : (
+                                (message.content)
+                            )}
                     </Col>
                     <Col>
                         {moment(message.timestamp).calendar()}
