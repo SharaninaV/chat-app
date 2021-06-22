@@ -11,6 +11,7 @@ export const SaveDialogButton = props => {
     const handleSave = event => {
         dispatch(saveDialogRequest(props.dialog.key))
         dispatch((fetchDialogsRequest()))
+        event.stopPropagation()
     }
 
     return(

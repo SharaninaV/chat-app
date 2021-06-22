@@ -4,6 +4,7 @@ import {useSelector} from "react-redux";
 import moment from 'moment'
 import 'moment/locale/ru'
 import {SaveDialogButton} from "./SaveDialogButton";
+import {useHistory} from "react-router-dom";
 
 export const ActiveDialogs = () => {
 
@@ -12,6 +13,8 @@ export const ActiveDialogs = () => {
 
     const operatorID = operatorEmail.split('@')[0]
     const activeDialogs = fetchedDialogs.filter(dialog => dialog.data.status === 'active' && dialog.data.operatorID === operatorID)
+
+    const history = useHistory()
 
     const getLastMessage = (dialog) => {
         let lastMessage = {content: '', writtenBy: ''}
@@ -24,12 +27,16 @@ export const ActiveDialogs = () => {
         return lastMessage
     }
 
+    const handleShowDialog = (event) => {
+        history.push('/current/:' + event.currentTarget.id)
+    }
+
 
     return (
         <ListGroup>
             {activeDialogs.length > 0 ?
                 (activeDialogs.map(dialog => (
-                        <ListGroup.Item action className="list-item">
+                        <ListGroup.Item action onClick={handleShowDialog} className="list-item" id={dialog.key}>
                             <Container>
                                 <Row>
                                     <Col>
