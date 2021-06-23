@@ -1,14 +1,29 @@
 import React from "react";
-import {Container} from "react-bootstrap";
+import {Container, Row, Col} from "react-bootstrap";
 import {WriteMessage} from "./WriteMessage";
+import {UpperMenu} from "./UpperMenu";
+import {CurrentDialog} from "./CurrentDialog";
+import {GoBackButton} from "./GoBackButton";
+import {useLocation} from "react-router-dom";
 
-const ShowDialog = () => {
+export const ShowDialog = () => {
+
+    const location = useLocation()
+    const clientID = location.pathname.split(':')[1]
 
     return(
         <Container>
-            <h3>Активный диалог</h3>
+            <Row>
+                <Col md={10}>
+                    <UpperMenu/>
+                </Col>
+                <Col>
+                    <GoBackButton />
+                </Col>
+            </Row>
+            <h3>{clientID}</h3>
+            <CurrentDialog />
             <WriteMessage/>
         </Container>
     )
 }
-export {ShowDialog}

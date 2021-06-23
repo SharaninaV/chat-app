@@ -13,7 +13,7 @@ h1 {
     text-align: center;
     margin: 20px 0;
 }
-button {
+.button {
     padding: 10px 20px !important;
 }
 a {
@@ -28,4 +28,7 @@ a {
     overflow: hidden;
     white-space: nowrap;
     width: 300px
+}
+.addMessage {
+    width: 500px
 }
