@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Autocomplete from "react-autocomplete"
 import {Container, Row} from "react-bootstrap";
 import {useDispatch} from "react-redux";
-import {autocompleteAddMessage} from "../redux/autocomplete/actionCreator";
+import {addMessage} from "../redux/addMessage/actionCreator";
 
 export const AutocompleteInput = () => {
 
@@ -22,7 +22,7 @@ export const AutocompleteInput = () => {
                         {id: '2', label: 'Попробуйте его включить в источник питания.'},
                         {id: '3', label: 'Я вам отвечу через несколько часов.'},
                     ]}
-                    inputProps={{id: 'messages-autocomplete', className: 'form-control autocomplete'}}
+                    inputProps={{id: 'messages-addMessage', className: 'form-control addMessage'}}
                     shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
                     getItemValue={item => item.label}
                     renderItem={(item, highlighted) =>
@@ -45,7 +45,7 @@ export const AutocompleteInput = () => {
                     value={value}
                     onChange={e => setValue(e.target.value)}
                     onSelect={value => {
-                        dispatch(autocompleteAddMessage(value))
+                        dispatch(addMessage(value))
                         setValue('')
                     }}
                 />

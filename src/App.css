@@ -13,7 +13,7 @@ h1 {
     text-align: center;
     margin: 20px 0;
 }
-button {
+.button {
     padding: 10px 20px !important;
 }
 a {
@@ -29,6 +29,6 @@ a {
     white-space: nowrap;
     width: 300px
 }
-.autocomplete {
+.addMessage {
     width: 500px
 }
