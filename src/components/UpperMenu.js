@@ -11,13 +11,13 @@ export const UpperMenu = () => {
     return (
         <Container>
             <Row>
-                <Col md={3}>
+                <Col>
                     <h1>ChatApp</h1>
                 </Col>
-                <Col md={6}>
+                <Col>
                     <h3>{operatorID}</h3>
                 </Col>
-                <Col md={3}>
+                <Col>
                     <LogOut />
                 </Col>
             </Row>
