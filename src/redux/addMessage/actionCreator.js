@@ -1,4 +1,4 @@
-import {ADD_MESSAGE} from "./types";
+import {ADD_MESSAGE, CLEAR_MESSAGE} from "./types";
 
 
 export function addMessage(message) {
@@ -7,3 +7,5 @@ export function addMessage(message) {
         payload: message
     }
 }
+
+export const clearMessage =() => ({type: CLEAR_MESSAGE})

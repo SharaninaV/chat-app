@@ -8,13 +8,15 @@ import {ShowDialog} from "./components/ShowDialog";
 const App = () => {
 
     return (
-        <BrowserRouter>
-            <Switch>
-                <Route exact path="/" component={AuthWindow}/>
-                <Route exact path="/main" component={Main} />
-                <Route path="/current" component={ShowDialog} />
-            </Switch>
-        </BrowserRouter>
+
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path="/" component={AuthWindow}/>
+                    <Route exact path="/main" component={Main}/>
+                    <Route path="/current" component={ShowDialog}/>
+                </Switch>
+            </BrowserRouter>
+
     );
 }
 
