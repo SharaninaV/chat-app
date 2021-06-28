@@ -30,5 +30,8 @@ a {
     width: 300px
 }
 .addMessage {
-    width: 500px
+    width: 300px;
+}
+.ReactModal__Overlay--after-open {
+    z-index: 100;
 }
