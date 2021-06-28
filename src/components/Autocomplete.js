@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import Autocomplete from "react-autocomplete"
-import {Container, Row} from "react-bootstrap";
+import {Container, Row, Col} from "react-bootstrap";
 import {useDispatch} from "react-redux";
 import {addMessage} from "../redux/addMessage/actionCreator";
+
 
 export const AutocompleteInput = () => {
 
@@ -16,6 +17,7 @@ export const AutocompleteInput = () => {
                 <p>Выберите из готовых сообщений</p>
             </Row>
             <Row>
+                <Col>
                 <Autocomplete
                     items={[
                         {id: '1', label: 'Здравствуйте! Сейчас помогу.'},
@@ -49,6 +51,7 @@ export const AutocompleteInput = () => {
                         setValue('')
                     }}
                 />
+                </Col>
             </Row>
         </Container>
     )

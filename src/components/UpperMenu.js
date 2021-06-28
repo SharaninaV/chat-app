@@ -1,26 +1,39 @@
 import React from "react";
-import {Col, Container, Row} from "react-bootstrap";
-import {useSelector} from "react-redux";
+import {Button, Col, Container, Row} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
 import {LogOut} from "./LogOut";
+import {ProfileSettings} from "./ProfileSettings";
+import {showSettings} from "../redux/profileSettings/actionCreator";
 
 export const UpperMenu = () => {
 
     const operatorEmail = useSelector((state) => state.auth.email)
+    const isShowSettings = useSelector((state) => state.profileSettings.isShowSettings)
+
+    const dispatch = useDispatch()
+
     const operatorID = operatorEmail.split('@')[0]
+    const handleShowSettings = event => {
+        dispatch(showSettings())
+    }
 
     return (
         <Container>
             <Row>
-                <Col md={3}>
+                <Col>
                     <h1>ChatApp</h1>
                 </Col>
-                <Col md={6}>
+                <Col>
                     <h3>{operatorID}</h3>
                 </Col>
-                <Col md={3}>
+                <Col>
+                    <Button onClick={handleShowSettings}>Настройки</Button>
+                </Col>
+                <Col>
                     <LogOut />
                 </Col>
             </Row>
+            <ProfileSettings isShowSettings={isShowSettings}/>
         </Container>
     )
 }
