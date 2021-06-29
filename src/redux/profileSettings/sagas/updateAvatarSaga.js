@@ -9,7 +9,6 @@ function* updateAvatarSaga(action) {
         const ref = yield call(() => firebase.database().ref('operators/' + action.payload.id))
         yield call(() => ref.update({avatar:action.payload.avatar}))
         yield put(updateAvatarSuccess())
-        alert('Аватар успешно обновлен.')
     } catch(error) {
         yield put(updateAvatarFailure(error))
     }
