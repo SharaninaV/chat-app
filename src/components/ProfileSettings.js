@@ -20,9 +20,8 @@ const ProfileSettings = (props) => {
     const operatorEmail = useSelector((state) => state.auth.email)
     const operatorPassword = useSelector((state) => state.auth.password)
     const profileData = useSelector((state) => state.profileSettings.profileData)
-    const isNameUpdated = useSelector((state) => state.profileSettings.isNameUpdated)
-    const successful = useSelector((state) => state.auth.successful)
-    const isAvatarUpdated = useSelector((state) => state.profileSettings.isAvatarUpdated)
+    const isAuthorized = useSelector((state) => state.auth.successful)
+    const isProfileUpdated = useSelector((state) => state.profileSettings.isProfileUpdated)
 
     const [avatarIcon, setAvatarIcon] = useState("https://diora.pro/assets/img/staff/kontakt.jpg")
     const [avatarUrl, setAvatarUrl] = useState('')
@@ -57,7 +56,6 @@ const ProfileSettings = (props) => {
 
     useEffect(() => {
         dispatch(fetchProfileDataRequest(operatorID))
-
     }, [])
 
     useEffect(() => {
@@ -68,29 +66,22 @@ const ProfileSettings = (props) => {
     }, [profileData])
 
     useEffect(() => {
-        if (isNameUpdated) {
-            alert("Имя успешно обновлено.")
-        }
-        dispatch(fetchProfileDataRequest(operatorID))
-    }, [isNameUpdated])
-
-    useEffect(() => {
-        if (isAvatarUpdated) {
-            alert("Аватар успешо обновлен.")
+        if (isProfileUpdated) {
+            alert("Профиль успешно обновлен.")
         }
         if (profileData.data) {
             if (profileData.data.avatar) {
                 setAvatarIcon(profileData.data.avatar)
             }
         }
-        dispatch(fetchProfileDataRequest(operatorID))
-    }, [isAvatarUpdated])
+        handleHideSettings()
+    }, [isProfileUpdated])
 
     useEffect(() => {
-        if (!successful) {
+        if (!isAuthorized) {
             history.push('/')
         }
-    }, [successful])
+    }, [isAuthorized])
 
     return (
         <ReactModal
@@ -128,7 +119,14 @@ const ProfileSettings = (props) => {
                               {({input, meta}) => (
                                   <div>
                                       <label>Аватар: </label>
-                                      <img alt="avatar" src={avatarIcon} style={{height: "80px"}}/>
+                                      <img alt="avatar"
+                                           src={avatarIcon}
+                                           style={{
+                                               height: "80px",
+                                               width: "80px",
+                                               objectFit: "cover",
+                                               borderRadius: "50%"
+                                           }}/>
                                       <br/>
                                       <label>Новый аватар: </label>
                                       <input
