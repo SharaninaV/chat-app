@@ -1,6 +1,15 @@
 import {
-    SHOW_SETTINGS, HIDE_SETTINGS, PROFILE_DATA_REQUEST, PROFILE_DATA_SUCCESS, PROFILE_DATA_FAILURE,
-    UPDATE_NAME_FAILURE, UPDATE_NAME_SUCCESS, UPDATE_PASSWORD_SUCCESS, UPDATE_PASSWORD_FAILURE, CLEAR_FIELDS
+    SHOW_SETTINGS,
+    HIDE_SETTINGS,
+    PROFILE_DATA_REQUEST,
+    PROFILE_DATA_SUCCESS,
+    PROFILE_DATA_FAILURE,
+    UPDATE_NAME_FAILURE,
+    UPDATE_NAME_SUCCESS,
+    UPDATE_PASSWORD_SUCCESS,
+    UPDATE_PASSWORD_FAILURE,
+    CLEAR_FIELDS,
+    UPDATE_AVATAR_SUCCESS
 } from "./types";
 
 const initialState = {
@@ -9,7 +18,7 @@ const initialState = {
     profileErrors: [],
     isNameUpdated: false,
     isPasswordUpdated: false,
-    needClearFields: false
+    isAvatarUpdated: false
 }
 
 export const profileSettingsReducer = (state = initialState, action) => {
@@ -32,6 +41,8 @@ export const profileSettingsReducer = (state = initialState, action) => {
             return {...state, isPasswordUpdated: true}
         case UPDATE_PASSWORD_FAILURE:
             return {...state, isPasswordUpdated: false}
+        case UPDATE_AVATAR_SUCCESS:
+            return {...state, isAvatarUpdated: true}
         default: return state
     }
 }

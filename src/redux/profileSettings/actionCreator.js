@@ -1,7 +1,7 @@
 import {SHOW_SETTINGS, HIDE_SETTINGS, PROFILE_DATA_FAILURE, PROFILE_DATA_REQUEST, PROFILE_DATA_SUCCESS,
         UPDATE_NAME_REQUEST, UPDATE_NAME_SUCCESS, UPDATE_NAME_FAILURE,
         UPDATE_PASSWORD_REQUEST, UPDATE_PASSWORD_SUCCESS, UPDATE_PASSWORD_FAILURE,
-        CLEAR_FIELDS
+        UPDATE_AVATAR_REQUEST, UPDATE_AVATAR_SUCCESS, UPDATE_AVATAR_FAILURE
 } from "./types";
 
 export const showSettings =() => ({type: SHOW_SETTINGS})
@@ -50,6 +50,22 @@ export const updatePasswordSuccess = () => ({type: UPDATE_PASSWORD_SUCCESS})
 export function updatePasswordFailure(error) {
     return {
         type: UPDATE_PASSWORD_FAILURE,
+        payload: {error}
+    }
+}
+
+export function updateAvatarRequest({id, avatar}) {
+    return {
+        type: UPDATE_AVATAR_REQUEST,
+        payload: {id, avatar}
+    }
+}
+
+export const updateAvatarSuccess = () => ({type: UPDATE_AVATAR_SUCCESS})
+
+export function updateAvatarFailure(error) {
+    return {
+        type: UPDATE_AVATAR_FAILURE,
         payload: {error}
     }
 }
