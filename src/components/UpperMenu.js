@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Button, Col, Container, Row} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {LogOut} from "./LogOut";
 import {ProfileSettings} from "./ProfileSettings";
-import {showSettings} from "../redux/profileSettings/actionCreator";
+import {fetchProfileDataRequest, showSettings} from "../redux/profileSettings/actionCreator";
 
 export const UpperMenu = () => {
 
@@ -12,9 +12,10 @@ export const UpperMenu = () => {
 
     const dispatch = useDispatch()
 
-    const operatorID = operatorEmail.split('@')[0]
+    const operatorID = operatorEmail.split('.')[0]
     const handleShowSettings = event => {
         dispatch(showSettings())
+        dispatch(fetchProfileDataRequest(operatorID))
     }
 
     return (
@@ -24,7 +25,7 @@ export const UpperMenu = () => {
                     <h1>ChatApp</h1>
                 </Col>
                 <Col>
-                    <h3>{operatorID}</h3>
+                    <h3>{operatorEmail}</h3>
                 </Col>
                 <Col>
                     <Button onClick={handleShowSettings}>Настройки</Button>

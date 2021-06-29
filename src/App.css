@@ -35,3 +35,7 @@ a {
 .ReactModal__Overlay--after-open {
     z-index: 100;
 }
+.ReactModal__Content--after-open {
+    width: 50%;
+    margin: auto
+}

@@ -7,6 +7,9 @@ import DeleteDialogSaga from '../deleteDialog/deleteDialogsSaga'
 import EnterDialogSaga from '../enterDialog/enterDialogsSaga'
 import SaveDialogSaga from '../saveDialog/saveDialogsSaga'
 import FetchCurrentDialogSaga from '../currentDialog/fetchCurrentDialogSaga'
+import FetchProfileDataSaga from "../profileSettings/sagas/profileSettingsSaga"
+import UpdateNameSaga from "../profileSettings/sagas/updateNameSaga"
+import UpdatePasswordSaga from "../profileSettings/sagas/updatePasswordSaga"
 
 export default function* rootSaga() {
     yield all([
@@ -17,6 +20,9 @@ export default function* rootSaga() {
         DeleteDialogSaga,
         EnterDialogSaga,
         SaveDialogSaga,
-        FetchCurrentDialogSaga
+        FetchCurrentDialogSaga,
+        FetchProfileDataSaga,
+        UpdateNameSaga,
+        UpdatePasswordSaga
     ])
 }
