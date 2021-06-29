@@ -16,9 +16,7 @@ const initialState = {
     isShowSettings: false,
     profileData: {},
     profileErrors: [],
-    isNameUpdated: false,
-    isPasswordUpdated: false,
-    isAvatarUpdated: false
+    isProfileUpdated: false
 }
 
 export const profileSettingsReducer = (state = initialState, action) => {
@@ -34,15 +32,11 @@ export const profileSettingsReducer = (state = initialState, action) => {
         case PROFILE_DATA_FAILURE:
             return {...state, profileErrors: action.payload.error}
         case UPDATE_NAME_SUCCESS:
-            return {...state, isNameUpdated: true}
-        case UPDATE_NAME_FAILURE:
-            return {...state, isNameUpdated: false}
+            return {...state, isProfileUpdated: true}
         case UPDATE_PASSWORD_SUCCESS:
-            return {...state, isPasswordUpdated: true}
-        case UPDATE_PASSWORD_FAILURE:
-            return {...state, isPasswordUpdated: false}
+            return {...state, isProfileUpdated: true}
         case UPDATE_AVATAR_SUCCESS:
-            return {...state, isAvatarUpdated: true}
+            return {...state, isProfileUpdated: true}
         default: return state
     }
 }
