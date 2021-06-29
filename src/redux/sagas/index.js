@@ -10,6 +10,7 @@ import FetchCurrentDialogSaga from '../currentDialog/fetchCurrentDialogSaga'
 import FetchProfileDataSaga from "../profileSettings/sagas/profileSettingsSaga"
 import UpdateNameSaga from "../profileSettings/sagas/updateNameSaga"
 import UpdatePasswordSaga from "../profileSettings/sagas/updatePasswordSaga"
+import UpdateAvatarSaga from "../profileSettings/sagas/updateAvatarSaga"
 
 export default function* rootSaga() {
     yield all([
@@ -23,6 +24,7 @@ export default function* rootSaga() {
         FetchCurrentDialogSaga,
         FetchProfileDataSaga,
         UpdateNameSaga,
-        UpdatePasswordSaga
+        UpdatePasswordSaga,
+        UpdateAvatarSaga
     ])
 }

@@ -1,11 +1,11 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import ReactModal from 'react-modal'
 import {Button} from "react-bootstrap";
 import {Form, Field} from "react-final-form";
 import {useDispatch, useSelector} from "react-redux";
 import {
     fetchProfileDataRequest,
-    hideSettings,
+    hideSettings, updateAvatarRequest,
     updateNameRequest,
     updatePasswordRequest
 } from "../redux/profileSettings/actionCreator";
@@ -22,6 +22,10 @@ const ProfileSettings = (props) => {
     const profileData = useSelector((state) => state.profileSettings.profileData)
     const isNameUpdated = useSelector((state) => state.profileSettings.isNameUpdated)
     const successful = useSelector((state) => state.auth.successful)
+    const isAvatarUpdated = useSelector((state) => state.profileSettings.isAvatarUpdated)
+
+    const [avatarIcon, setAvatarIcon] = useState("https://diora.pro/assets/img/staff/kontakt.jpg")
+    const [avatarUrl, setAvatarUrl] = useState('')
 
     const operatorID = operatorEmail.split('.')[0]
 
@@ -36,19 +40,51 @@ const ProfileSettings = (props) => {
             dispatch(updateNameRequest({id: operatorID, name}))
         }
         if (password) {
-            dispatch(updatePasswordRequest({id: operatorID, newPassword:password, oldPassword: operatorPassword}))
+            dispatch(updatePasswordRequest({id: operatorID, newPassword: password, oldPassword: operatorPassword}))
         }
+        if (avatarUrl) {
+            dispatch(updateAvatarRequest({id: operatorID, avatar: avatarUrl}))
+        }
+    }
+
+    const handleChangeUrl = event => {
+        setAvatarUrl(event.target.value)
+    }
+
+    const handleChangeAvatar = event => {
+        setAvatarIcon(avatarUrl)
     }
 
     useEffect(() => {
         dispatch(fetchProfileDataRequest(operatorID))
-    },[])
+
+    }, [])
+
+    useEffect(() => {
+        if (profileData.data) {
+            if (profileData.data.avatar)
+                setAvatarIcon(profileData.data.avatar)
+        }
+    }, [profileData])
 
     useEffect(() => {
         if (isNameUpdated) {
-            alert("Профиль успешно обновлен")
+            alert("Имя успешно обновлено.")
         }
+        dispatch(fetchProfileDataRequest(operatorID))
     }, [isNameUpdated])
+
+    useEffect(() => {
+        if (isAvatarUpdated) {
+            alert("Аватар успешо обновлен.")
+        }
+        if (profileData.data) {
+            if (profileData.data.avatar) {
+                setAvatarIcon(profileData.data.avatar)
+            }
+        }
+        dispatch(fetchProfileDataRequest(operatorID))
+    }, [isAvatarUpdated])
 
     useEffect(() => {
         if (!successful) {
@@ -92,8 +128,16 @@ const ProfileSettings = (props) => {
                               {({input, meta}) => (
                                   <div>
                                       <label>Аватар: </label>
-                                      <img alt="no avatar" src={profileData.data.avatar} style={{height: "80px"}}/>
-                                      <button>Загрузить новый</button>
+                                      <img alt="avatar" src={avatarIcon} style={{height: "80px"}}/>
+                                      <br/>
+                                      <label>Новый аватар: </label>
+                                      <input
+                                          {...input}
+                                          type="url"
+                                          value={avatarUrl}
+                                          onChange={handleChangeUrl}
+                                      />
+                                      <button type="button" onClick={handleChangeAvatar}>Загрузить новый</button>
                                   </div>
                               )}
                           </Field>
@@ -111,27 +155,27 @@ const ProfileSettings = (props) => {
                           </Field>
                           <Field name="password">
                               {({input, meta}) => (
-                          <div>
-                              <label>Пароль: </label>
-                              <input
-                                  {...input}
-                                  type="password"
-                              />
-                              {meta.error && meta.touched && <span>{meta.error}</span>}
-                          </div>
-                                  )}
+                                  <div>
+                                      <label>Пароль: </label>
+                                      <input
+                                          {...input}
+                                          type="password"
+                                      />
+                                      {meta.error && meta.touched && <span>{meta.error}</span>}
+                                  </div>
+                              )}
                           </Field>
                           <Field name="passwordConfirm">
                               {({input, meta}) => (
-                          <div>
-                              <label>Подтверждение пароля: </label>
-                              <input
-                                  {...input}
-                                  type="password"
-                              />
-                              {meta.error && meta.touched && <span>{meta.error}</span>}
-                          </div>
-                                  )}
+                                  <div>
+                                      <label>Подтверждение пароля: </label>
+                                      <input
+                                          {...input}
+                                          type="password"
+                                      />
+                                      {meta.error && meta.touched && <span>{meta.error}</span>}
+                                  </div>
+                              )}
                           </Field>
                           <button type="submit">Обновить профиль</button>
                           <button type="button" onClick={form.reset}>Очистить форму</button>
