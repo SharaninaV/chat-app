@@ -1,15 +1,21 @@
 import React, {useEffect, useState} from "react";
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import Picker from 'emoji-picker-react';
+import {usePubNub} from "pubnub-react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSmile} from "@fortawesome/free-regular-svg-icons";
 import {AutocompleteInput} from "./Autocomplete";
 import {useDispatch, useSelector} from "react-redux";
 import {addMessage, clearMessage} from "../redux/addMessage/actionCreator";
-import {usePubNub} from "pubnub-react";
 
 const WriteMessage = (props) => {
 
     const dispatch = useDispatch()
     const message = useSelector((state) => state.addMessage.message)
+
+    const [isShowEmoji, setIsShowEmoji] = useState(false)
+
+    const iconSmile = <FontAwesomeIcon icon={faSmile}/>
 
     const client = usePubNub()
 
@@ -50,6 +56,10 @@ const WriteMessage = (props) => {
         }
     }
 
+    const toggleShowEmoji = event => {
+        setIsShowEmoji(!isShowEmoji)
+    }
+
     useEffect(() => {
         client.addListener({signal: handleSignal})
         setCurrentMessage(currentMessage + message)
@@ -61,7 +71,7 @@ const WriteMessage = (props) => {
             <Row>
                 <Col>
                     <Row>
-                        <Col md={10}>
+                        <Col>
                             <Form>
                                 <Form.Group controlId="writeMessage">
                                     <Form.Label>Отправьте ответ</Form.Label>
@@ -77,6 +87,7 @@ const WriteMessage = (props) => {
                     <p>Сейчас печатает:<span>{props.userEmail}</span></p>}
                     <Row>
                         <Col>
+                            {isShowEmoji &&
                             <Picker
                                 onEmojiClick={onEmojiClick}
                                 disableSearchBar="false"
@@ -97,8 +108,10 @@ const WriteMessage = (props) => {
                                 }}
                                 native
                             />
+                            }
                         </Col>
-                        <Col>
+                        <Col md={4}>
+                            <Button variant="light" onClick={toggleShowEmoji}>{iconSmile}</Button>
                             <Button variant="info">Отправить</Button>
                         </Col>
                     </Row>
