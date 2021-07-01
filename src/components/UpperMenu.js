@@ -11,11 +11,11 @@ export const UpperMenu = () => {
     const isShowSettings = useSelector((state) => state.profileSettings.isShowSettings)
     const fetchedDialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
 
-    const queuedDialogsQuantity = fetchedDialogs.filter(dialog => dialog.data.status === 'queued').length
-
     const dispatch = useDispatch()
 
+    const queuedDialogsQuantity = fetchedDialogs.filter(dialog => dialog.data.status === 'queued').length
     const operatorID = operatorEmail.split('.')[0]
+
     const handleShowSettings = event => {
         dispatch(showSettings())
         dispatch(fetchProfileDataRequest(operatorID))
