@@ -11,6 +11,9 @@ export const AutocompleteInput = () => {
     const [value, setValue] = useState('')
     const dispatch = useDispatch()
     const isShowSettings = useSelector((state) => state.dialogsSettings.isShowSettings)
+    const operatorEmail = useSelector((state) => state.auth.email)
+
+    const operatorID = operatorEmail.split(".")[0]
 
     const handleShowSettings = event => {
         dispatch(showDialogsSettings())
@@ -61,7 +64,7 @@ export const AutocompleteInput = () => {
                     <Button onClick={handleShowSettings}>Настройки</Button>
                 </Col>
             </Row>
-            <DialogsSettings isShowSettings={isShowSettings} />
+            <DialogsSettings isShowSettings={isShowSettings} operatorID={operatorID}/>
         </Container>
     )
 }
