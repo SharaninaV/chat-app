@@ -37,11 +37,11 @@ export const CurrentDialog = () => {
 
     return (
         <Container>
-            {fetchedMessages && fetchedMessages.map(message => (
+            {fetchedMessages && Object.values(fetchedMessages).map(message => (
                 <Row className="my-3">
                     <Col>
                         {/\.(gif|jpg|webp|png)$/i.test(message.content) ?
-                            <img height="200px" src={message.content}/>
+                            <img alt="Изображение" height="200px" src={message.content}/>
                             : (
                                 (message.content)
                             )}

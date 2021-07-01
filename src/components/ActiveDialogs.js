@@ -18,7 +18,7 @@ export const ActiveDialogs = () => {
 
     const getLastMessage = (dialog) => {
         let lastMessage = {content: '', writtenBy: ''}
-        dialog.data.messages.forEach(message => {
+        Object.values(dialog.data.messages).forEach(message => {
             if (message.timestamp === dialog.data.latestActivity) {
                 lastMessage.writtenBy = message.writtenBy
                 lastMessage.content = message.content
@@ -49,7 +49,7 @@ export const ActiveDialogs = () => {
                                         </p>
                                     </Col>
                                     <Col>
-                                        ({moment(dialog.data.latestActivity).locale('ru').format('LLL')})
+                                        ({moment(dialog.data.latestActivity).calendar()})
                                     </Col>
                                     <Col>
                                         <SaveDialogButton dialog={dialog}/>

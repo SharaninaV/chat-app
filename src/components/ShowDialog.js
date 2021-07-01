@@ -34,7 +34,7 @@ export const ShowDialog = () => {
             <h3>{clientID}</h3>
             <CurrentDialog />
             <PubNubProvider client={pubnub}>
-            <WriteMessage  userEmail={userEmail}/>
+            <WriteMessage  userEmail={userEmail} clientID={clientID}/>
             </PubNubProvider>
         </Container>
     )

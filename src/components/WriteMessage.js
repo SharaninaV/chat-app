@@ -7,25 +7,38 @@ import {faSmile} from "@fortawesome/free-regular-svg-icons";
 import {AutocompleteInput} from "./Autocomplete";
 import {useDispatch, useSelector} from "react-redux";
 import {addMessage, clearMessage} from "../redux/addMessage/actionCreator";
+import {sendMessageRequest} from "../redux/sendMessage/actionCreator";
+import {fetchCurrentDialogRequest} from "../redux/currentDialog/actionCreator";
 
-const WriteMessage = (props) => {
+const WriteMessage = ({clientID, userEmail}) => {
 
     const dispatch = useDispatch()
     const message = useSelector((state) => state.addMessage.message)
 
     const [isShowEmoji, setIsShowEmoji] = useState(false)
+    const [currentMessage, setCurrentMessage] = useState('')
+    const [isTyping, setIsTyping] = useState(false)
 
     const iconSmile = <FontAwesomeIcon icon={faSmile}/>
 
     const client = usePubNub()
-
     let timeoutCache = 0
     const isTypingChannel = 'is-typing'
+    const currentChannel = clientID + 'Chat'
+    client.subscribe({channels: [isTypingChannel, currentChannel]})
 
-    client.subscribe({channels: [isTypingChannel]})
-
-    const [currentMessage, setCurrentMessage] = useState('')
-    const [isTyping, setIsTyping] = useState(false)
+    const handleSendMessage = event => {
+        if (currentMessage.length > 0) {
+            const sentMessage = {
+                content: currentMessage,
+                timestamp: Date.now(),
+                writtenBy: 'operator'
+            }
+            dispatch(sendMessageRequest(clientID, sentMessage))
+            dispatch(fetchCurrentDialogRequest(clientID))
+            setCurrentMessage('')
+        }
+    }
 
     const onEmojiClick = (event, emojiObject) => {
         dispatch(addMessage(emojiObject.emoji))
@@ -33,7 +46,6 @@ const WriteMessage = (props) => {
 
     const handleOnChange = event => {
         setCurrentMessage(event.target.value)
-
         const inputHasText = event.target.value.length > 0;
         if ((inputHasText && !isTyping) || (!inputHasText && isTyping)) {
             setIsTyping(!isTyping);
@@ -51,7 +63,7 @@ const WriteMessage = (props) => {
     const handleSignal = (s) => {
         clearTimeout(timeoutCache)
         timeoutCache = setTimeout(hideTypingIndicator, 2000)
-        if (s.message === '0' || s.publisher === props.userEmail) {
+        if (s.message === '0' || s.publisher === userEmail) {
             hideTypingIndicator();
         }
     }
@@ -84,7 +96,7 @@ const WriteMessage = (props) => {
                         </Col>
                     </Row>
                     {isTyping &&
-                    <p>Сейчас печатает:<span>{props.userEmail}</span></p>}
+                    <p>Сейчас печатает:<span>{userEmail}</span></p>}
                     <Row>
                         <Col>
                             {isShowEmoji &&
@@ -112,7 +124,7 @@ const WriteMessage = (props) => {
                         </Col>
                         <Col md={4}>
                             <Button variant="light" onClick={toggleShowEmoji}>{iconSmile}</Button>
-                            <Button variant="info">Отправить</Button>
+                            <Button variant="info" onClick={handleSendMessage}>Отправить</Button>
                         </Col>
                     </Row>
                 </Col>
