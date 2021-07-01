@@ -9,7 +9,6 @@ function* updatePasswordSaga(action) {
     try {
         const currentUser = yield call(() => firebase.auth().currentUser)
         yield call(() => currentUser.updatePassword(action.payload.newPassword))
-        alert('Пароль успешно изменен!')
         yield put(updatePasswordSuccess())
     } catch (error) {
         switch (error.code) {

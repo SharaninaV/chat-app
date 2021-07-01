@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
 import {useSelector} from "react-redux";
 import {useHistory} from "react-router-dom"
-import AuthForm from "./AuthForm";
 import {Col, Container, Row} from "react-bootstrap";
+import AuthForm from "./AuthForm";
 
 const AuthWindow = () => {
 

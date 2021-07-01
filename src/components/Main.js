@@ -22,7 +22,7 @@ export const Main = () => {
             dispatch(setTokenNotValid())
             history.push("/")
         } else {
-            const expireTime = decoded.payload.exp
+            const expireTime = decoded.payload.exp - 3595
             const currentTime = Math.floor(Date.now() / 1000)
             if (currentTime >= expireTime) {
                 dispatch(setTokenNotValid())

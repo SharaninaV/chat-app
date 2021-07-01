@@ -1,13 +1,13 @@
 import React from "react";
 import {Container, Row, Col} from "react-bootstrap";
-import {WriteMessage} from "./WriteMessage";
-import {UpperMenu} from "./UpperMenu";
-import {CurrentDialog} from "./CurrentDialog";
-import {GoBackButton} from "./GoBackButton";
 import {useLocation} from "react-router-dom";
 import PubNub from "pubnub";
 import {PubNubProvider} from "pubnub-react";
 import {useSelector} from "react-redux";
+import {WriteMessage} from "./WriteMessage";
+import {UpperMenu} from "./UpperMenu";
+import {CurrentDialog} from "./CurrentDialog";
+import {GoBackButton} from "./GoBackButton";
 
 export const ShowDialog = () => {
 

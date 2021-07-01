@@ -3,8 +3,8 @@ import {Col, Container, ListGroup, Row} from "react-bootstrap";
 import {useSelector} from "react-redux";
 import moment from 'moment'
 import 'moment/locale/ru'
-import {SaveDialogButton} from "./SaveDialogButton";
 import {useHistory} from "react-router-dom";
+import {SaveDialogButton} from "./SaveDialogButton";
 
 export const ActiveDialogs = () => {
 

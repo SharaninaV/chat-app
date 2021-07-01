@@ -9,7 +9,6 @@ function* deleteDialogSaga(action) {
         yield call(() => ref.update({saved:false}))
         yield put(deleteDialogSuccess())
     } catch (error) {
-        console.log(error)
         yield put(deleteDialogFailure(error))
 
     }

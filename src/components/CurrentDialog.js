@@ -39,6 +39,10 @@ export const CurrentDialog = () => {
         <Container>
             {fetchedMessages && Object.values(fetchedMessages).map(message => (
                 <Row className="my-3">
+                    <Col md={2}>
+                        {message.writtenBy === "operator" ?
+                        <p>Вы:</p> : <p>Клиент:</p>}
+                    </Col>
                     <Col>
                         {/\.(gif|jpg|webp|png)$/i.test(message.content) ?
                             <img alt="Изображение" height="200px" src={message.content}/>

@@ -3,8 +3,8 @@ import {Col, Container, ListGroup, Row} from "react-bootstrap";
 import {useSelector} from "react-redux";
 import moment from 'moment'
 import 'moment/locale/ru'
-import {DeleteButton} from "./DeleteButton";
 import {useHistory} from "react-router-dom";
+import {DeleteButton} from "./DeleteButton";
 
 export const SavedDialogs = () => {
 
@@ -28,7 +28,6 @@ export const SavedDialogs = () => {
     }
 
     const handleShowDialog = (event) => {
-        console.log(event.currentTarget.id)
         history.push('/current/:' + event.currentTarget.id)
     }
 

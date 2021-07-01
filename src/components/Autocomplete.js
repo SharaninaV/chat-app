@@ -4,7 +4,6 @@ import {Container, Row, Col} from "react-bootstrap";
 import {useDispatch} from "react-redux";
 import {addMessage} from "../redux/addMessage/actionCreator";
 
-
 export const AutocompleteInput = () => {
 
     const [value, setValue] = useState('')

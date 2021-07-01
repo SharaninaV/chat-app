@@ -4,8 +4,8 @@ import * as Yup from "yup";
 import {connect} from "react-redux";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSignInAlt, faEnvelope, faKey} from '@fortawesome/free-solid-svg-icons'
-import {loginRequest} from "../redux/auth/sagas/actionCreator";
 import {Alert, Button, Col, Row} from "react-bootstrap";
+import {loginRequest} from "../redux/auth/sagas/actionCreator";
 
 const iconSignIn = <FontAwesomeIcon icon={faSignInAlt}/>
 const iconEmail = < FontAwesomeIcon icon={faEnvelope}/>
