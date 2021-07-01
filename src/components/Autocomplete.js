@@ -1,14 +1,20 @@
 import React, {useState} from "react";
 import Autocomplete from "react-autocomplete"
-import {Container, Row, Col} from "react-bootstrap";
-import {useDispatch} from "react-redux";
+import {Container, Row, Col, Button} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
 import {addMessage} from "../redux/addMessage/actionCreator";
+import {DialogsSettings} from "./DialogsSettings";
+import {showDialogsSettings} from "../redux/dialogsSettings/actionCreator";
 
 export const AutocompleteInput = () => {
 
     const [value, setValue] = useState('')
-
     const dispatch = useDispatch()
+    const isShowSettings = useSelector((state) => state.dialogsSettings.isShowSettings)
+
+    const handleShowSettings = event => {
+        dispatch(showDialogsSettings())
+    }
 
     return (
         <Container>
@@ -51,7 +57,11 @@ export const AutocompleteInput = () => {
                     }}
                 />
                 </Col>
+                <Col>
+                    <Button onClick={handleShowSettings}>Настройки</Button>
+                </Col>
             </Row>
+            <DialogsSettings isShowSettings={isShowSettings} />
         </Container>
     )
 }

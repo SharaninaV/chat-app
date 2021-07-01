@@ -11,7 +11,7 @@ import {
     updatePasswordRequest
 } from "../redux/profileSettings/actionCreator";
 
-const ProfileSettings = (props) => {
+const ProfileSettings = ({isShowSettings}) => {
 
     const dispatch = useDispatch()
 
@@ -85,7 +85,7 @@ const ProfileSettings = (props) => {
 
     return (
         <ReactModal
-            isOpen={props.isShowSettings}
+            isOpen={isShowSettings}
             contentLabel={"Настройки диалогов"}
             portalClassName={"ReactModalPortal"}
         >

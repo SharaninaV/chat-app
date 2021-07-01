@@ -7,6 +7,7 @@ import {fetchDialogsReducer} from "../dialogs/fetchDialogsReducer";
 import {fetchCurrentDialogReducer} from "../currentDialog/fetchCurrentDialogReducer";
 import {addMessageReducer} from "../addMessage/addMessageReducer";
 import {profileSettingsReducer} from "../profileSettings/profileSettingsReducer";
+import {dialogsSettingsReducer} from "../dialogsSettings/profileSettingsReducer";
 
 export const rootReducer = combineReducers({
     auth: authFormReducer,
@@ -16,5 +17,6 @@ export const rootReducer = combineReducers({
     fetchDialogs: fetchDialogsReducer,
     fetchCurrentDialog: fetchCurrentDialogReducer,
     addMessage: addMessageReducer,
-    profileSettings: profileSettingsReducer
+    profileSettings: profileSettingsReducer,
+    dialogsSettings: dialogsSettingsReducer
 })
