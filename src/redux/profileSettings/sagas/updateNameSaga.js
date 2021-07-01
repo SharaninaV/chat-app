@@ -7,7 +7,6 @@ function* updateNameSaga(action) {
 
     try{
         const ref = yield call(() => firebase.database().ref('operators/' + action.payload.id))
-        console.log(action.payload)
         yield call(() => ref.update({name:action.payload.name}))
         yield put(updateNameSuccess())
     } catch(error) {

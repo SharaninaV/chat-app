@@ -3,8 +3,8 @@ import {Col, Container, ListGroup, Row} from "react-bootstrap";
 import {useSelector} from "react-redux";
 import moment from 'moment'
 import 'moment/locale/ru'
-import {DeleteButton} from "./DeleteButton";
 import {useHistory} from "react-router-dom";
+import {DeleteButton} from "./DeleteButton";
 
 export const SavedDialogs = () => {
 
@@ -18,7 +18,7 @@ export const SavedDialogs = () => {
 
     const getLastMessage = (dialog) => {
         let lastMessage = {content: '', writtenBy: ''}
-        dialog.data.messages.forEach(message => {
+        Object.values(dialog.data.messages).forEach(message => {
             if (message.timestamp === dialog.data.latestActivity) {
                 lastMessage.writtenBy = message.writtenBy
                 lastMessage.content = message.content
@@ -28,7 +28,6 @@ export const SavedDialogs = () => {
     }
 
     const handleShowDialog = (event) => {
-        console.log(event.currentTarget.id)
         history.push('/current/:' + event.currentTarget.id)
     }
 
@@ -50,7 +49,7 @@ export const SavedDialogs = () => {
                                         </p>
                                     </Col>
                                     <Col>
-                                        ({moment(dialog.data.latestActivity).locale('ru').format('LLL')})
+                                        ({moment(dialog.data.latestActivity).calendar()})
                                     </Col>
                                     <Col>
                                         <DeleteButton dialog={dialog}/>

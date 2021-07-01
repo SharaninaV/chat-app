@@ -3,13 +3,13 @@ import ReactModal from 'react-modal'
 import {Button} from "react-bootstrap";
 import {Form, Field} from "react-final-form";
 import {useDispatch, useSelector} from "react-redux";
+import {useHistory} from "react-router-dom";
 import {
     fetchProfileDataRequest,
     hideSettings, updateAvatarRequest,
     updateNameRequest,
     updatePasswordRequest
 } from "../redux/profileSettings/actionCreator";
-import {useHistory} from "react-router-dom";
 
 const ProfileSettings = (props) => {
 

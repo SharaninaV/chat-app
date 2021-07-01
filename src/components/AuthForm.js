@@ -4,8 +4,8 @@ import * as Yup from "yup";
 import {connect} from "react-redux";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSignInAlt, faEnvelope, faKey} from '@fortawesome/free-solid-svg-icons'
+import {Alert, Button, Col, Row} from "react-bootstrap";
 import {loginRequest} from "../redux/auth/sagas/actionCreator";
-
 
 const iconSignIn = <FontAwesomeIcon icon={faSignInAlt}/>
 const iconEmail = < FontAwesomeIcon icon={faEnvelope}/>
@@ -23,7 +23,7 @@ const initialValues = {
     password: '',
 }
 
-const AuthForm = ({loginRequest,submitErrors,successful,requesting}) => {
+const AuthForm = ({loginRequest, submitErrors, successful, requesting}) => {
 
     const formik = useFormik({
         initialValues,
@@ -38,19 +38,22 @@ const AuthForm = ({loginRequest,submitErrors,successful,requesting}) => {
     return (
         <form onSubmit={formik.handleSubmit} className="authForm">
             {submitErrors.message &&
-                <div className="row">
-                    <div className="alert-danger col-sm-11">
+            <Row>
+                <Col>
+                    <Alert variant="danger">
                         {submitErrors.message}
-                    </div>
-                </div>
+                    </Alert>
+                </Col>
+            </Row>
             }
-            <div className="input form-group row">
-                <label htmlFor="email" className="col-sm-2 col-form-label d-flex">Email:
-                </label>
-                <div className="col-sm-10 d-flex">
-                    <div className="me-3">
-                        <i className="align-middle">{iconEmail}</i>
-                    </div>
+            <Row className="form-input">
+                <Col md={1}>
+                    <label htmlFor="email" className="align-middle">Email:</label>
+                </Col>
+                <Col md={1} style={{textAlign: "right"}}>
+                    <i className="align-middle">{iconEmail}</i>
+                </Col>
+                <Col md={10}>
                     <input
                         id="email"
                         name="email"
@@ -58,48 +61,61 @@ const AuthForm = ({loginRequest,submitErrors,successful,requesting}) => {
                         onChange={formik.handleChange}
                         value={formik.values.email}
                         placeholder="Email"
-                        class="form-control"
+                        className="form-control"
                     />
-                </div>
-                {formik.touched.email && formik.errors.email &&
-                    <div className="alert-danger">
+                </Col>
+            </Row>
+            {formik.touched.email && formik.errors.email &&
+            <Row>
+                <Col>
+                    <Alert variant="danger">
                         {formik.errors.email}
-                    </div>
-                }
-            </div>
-            <div className="input form-group row">
-                <label htmlFor="password" className="col-sm-2 col-form-label">Пароль:
-                </label>
-                <div className="col-sm-10 d-flex">
-                    <div className="me-3">
-                        <i className="align-middle">{iconPassword}</i>
-                    </div>
+                    </Alert>
+                </Col>
+            </Row>
+            }
+            <Row className="form-input">
+                <Col md={1}>
+                    <label htmlFor="password">Пароль:</label>
+                </Col>
+                <Col md={1} style={{textAlign: "right"}}>
+                    <i className="align-middle">{iconPassword}</i>
+                </Col>
+                <Col md={10}>
                     <input
                         id="password"
                         name="password"
                         type="password"
                         onChange={formik.handleChange}
                         value={formik.values.password}
-                        class="form-control"
+                        className="form-control"
                     />
-                </div>
-                {formik.touched.password && formik.errors.password &&
-                    <div className="alert-danger">
+                </Col>
+            </Row>
+            {formik.touched.password && formik.errors.password &&
+            <Row>
+                <Col>
+                    <Alert variant="danger">
                         {formik.errors.password}
-                    </div>
-                }
-            </div>
-            <div className="btn-submit">
-                <button type="submit" className="btn btn-primary">
-                    Войти
-                    <i className="ms-2">{iconSignIn}</i>
-                </button>
-            </div>
+                    </Alert>
+                </Col>
+            </Row>
+            }
+            <Row className="justify-content-center">
+                <Col md={3}>
+                    <Button type="submit" variant="primary" className="form-button">
+                        Войти
+                        <i className="align-middle">{iconSignIn}</i>
+                    </Button>
+                </Col>
+            </Row>
         </form>
     );
-};
+}
+;
 
-const mapStateToProps = state => {
+const mapStateToProps = state =>
+{
     return {
         email: state.auth.email,
         password: state.auth.password,
@@ -110,6 +126,9 @@ const mapStateToProps = state => {
 }
 
 
-const mapDispatchToProps = {loginRequest}
+const mapDispatchToProps =
+{
+    loginRequest
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthForm);

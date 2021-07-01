@@ -5,22 +5,23 @@ import {FETCH_DIALOGS_REQUEST} from "./types";
 
 function* fetchDialogsSaga(action) {
 
-    try{
+    try {
         const ref = yield call(() => firebase.database().ref('dialogs'))
-        const fetchedDialogs = yield call(() => ref.orderByKey().once('value').then(snapshot => {
+        const fetchedSnapshot = yield call(() => ref.orderByChild('latestActivity').once('value', snapshot => snapshot))
+        const fetchedDialogs = yield call(() => {
             const result = []
-            snapshot.forEach(childSnapshot => {
-                result.push({key:childSnapshot.key, data:childSnapshot.val()})
+            fetchedSnapshot.forEach(childSnapshot => {
+                result.unshift({key: childSnapshot.key, data: childSnapshot.val()})
             })
             return result
-        }))
+        })
         yield put(fetchDialogsSuccess(fetchedDialogs))
-    } catch(error) {
+    } catch (error) {
         yield put(fetchDialogsFailure(error))
     }
 }
 
-function* fetchDialogsSagaWatcher(){
+function* fetchDialogsSagaWatcher() {
     yield takeLatest(FETCH_DIALOGS_REQUEST, fetchDialogsSaga)
 }
 
