@@ -12,6 +12,9 @@ import UpdateNameSaga from "../profileSettings/sagas/updateNameSaga"
 import UpdatePasswordSaga from "../profileSettings/sagas/updatePasswordSaga"
 import UpdateAvatarSaga from "../profileSettings/sagas/updateAvatarSaga"
 import SendMessageSaga from "../sendMessage/sendMessageSaga"
+import FetchDialogsSettingsSaga from "../dialogsSettings/sagas/fetchDialogsSettingsSaga"
+import UpdatePhrasesSaga from "../dialogsSettings/sagas/updatePhrasesSaga"
+import UpdateGreetingSaga from "../dialogsSettings/sagas/updateGreetingSaga"
 
 export default function* rootSaga() {
     yield all([
@@ -27,6 +30,9 @@ export default function* rootSaga() {
         UpdateNameSaga,
         UpdatePasswordSaga,
         UpdateAvatarSaga,
-        SendMessageSaga
+        SendMessageSaga,
+        FetchDialogsSettingsSaga,
+        UpdatePhrasesSaga,
+        UpdateGreetingSaga
     ])
 }
