@@ -36,7 +36,7 @@ export const UpperMenu = () => {
                     </Row>
                 </Col>
                 <Col>
-                    <Button onClick={handleShowSettings}>Настройки</Button>
+                    <Button onClick={handleShowSettings}>Настройки профиля</Button>
                 </Col>
                 <Col>
                     <LogOut />

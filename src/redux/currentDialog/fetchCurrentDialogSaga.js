@@ -9,7 +9,8 @@ function* fetchCurrentDialogSaga(action) {
     try{
         const ref = yield call(() => firebase.database().ref('dialogs/' + action.payload.key))
         const fetchedMessages = yield call(() => ref.orderByChild('/timestamp').once('value')
-            .then(snapshot => snapshot.val()))
+            .then(snapshot => snapshot.val())
+        )
         yield put(fetchCurrentDialogSuccess(fetchedMessages))
     } catch(error) {
         yield put(fetchCurrentDialogFailure(error))

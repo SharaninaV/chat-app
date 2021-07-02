@@ -8,7 +8,7 @@ function* updateGreetingSaga(action) {
     try{
         const ref = yield call(() => firebase.database()
             .ref('operators/' + action.payload.id + '/dialogsSettings'))
-        yield call(() => ref.update({greeting: action.payload.greeting}))
+        yield call(() => ref.set({greeting: action.payload.greeting}))
         yield put(updateGreetingSuccess())
     } catch(error) {
         yield put(updateGreetingFailure(error))

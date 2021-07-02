@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchCurrentDialogRequest} from "../redux/currentDialog/actionCreator";
 import {useLocation} from "react-router-dom";
@@ -10,6 +10,7 @@ export const CurrentDialog = () => {
 
     const dispatch = useDispatch()
     const location = useLocation()
+    const mountedRef = useRef(true)
 
     const fetchedDialog = useSelector((state) => state.fetchCurrentDialog.currentDialog)
     const [needRefresh, setNeedRefresh] = useState(false)
@@ -20,16 +21,22 @@ export const CurrentDialog = () => {
     const isFinished = fetchedDialog.status === 'finished'
 
     const fetchMessages = () => {
-        dispatch(fetchCurrentDialogRequest(key))
-        setInterval(() => {
             dispatch(fetchCurrentDialogRequest(key))
-            setNeedRefresh(!needRefresh)
-        }, 30000)
-    }
+            const interval = setInterval(() => {
+                if (!mountedRef.current) {
+                    clearInterval(interval)
+                }
+                dispatch(fetchCurrentDialogRequest(key))
+                setNeedRefresh(!needRefresh)
+            }, 30000)
+        }
 
-    useEffect(() => {
-        fetchMessages()
-    }, [])
+        useEffect(() => {
+            fetchMessages()
+            return () => {
+                mountedRef.current = false
+            }
+        }, [])
 
     useEffect(() => {
 

@@ -61,7 +61,7 @@ export const AutocompleteInput = () => {
                 />
                 </Col>
                 <Col>
-                    <Button onClick={handleShowSettings}>Настройки</Button>
+                    <Button onClick={handleShowSettings}>Настройки диалогов</Button>
                 </Col>
             </Row>
             <DialogsSettings isShowSettings={isShowSettings} operatorID={operatorID}/>
