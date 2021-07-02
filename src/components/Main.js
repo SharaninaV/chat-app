@@ -9,12 +9,16 @@ import {UpperMenu} from "./UpperMenu";
 import {SearchInUsers} from "./SearchInUsers";
 import {SearchInMessages} from "./SearchInMessages";
 import {Dialogs} from "./Dialogs";
+import {fetchDialogsSettingsRequest} from "../redux/dialogsSettings/actionCreator";
 
 export const Main = () => {
 
     const currentUserToken = useSelector((state) => state.auth.token)
+    const operatorEmail = useSelector((state) => state.auth.email)
     const dispatch = useDispatch()
     const history = useHistory()
+
+    const operatorID = operatorEmail.split('.')[0]
 
     useEffect(() => {
         const decoded = jwt.decode(currentUserToken.i, {complete: true})
@@ -29,6 +33,7 @@ export const Main = () => {
                 history.push("/")
             }
         }
+        dispatch(fetchDialogsSettingsRequest(operatorID))
     }, [])
 
     return (

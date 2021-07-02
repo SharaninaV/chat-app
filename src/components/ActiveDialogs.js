@@ -31,7 +31,6 @@ export const ActiveDialogs = () => {
         history.push('/current/:' + event.currentTarget.id)
     }
 
-
     return (
         <ListGroup>
             {activeDialogs.length > 0 ?

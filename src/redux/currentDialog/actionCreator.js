@@ -1,4 +1,8 @@
-import {FETCH_CURRENT_DIALOG_REQUEST, FETCH_CURRENT_DIALOG_SUCCESS, FETCH_CURRENT_DIALOG_FAILURE} from './types'
+import {
+    FETCH_CURRENT_DIALOG_REQUEST,
+    FETCH_CURRENT_DIALOG_SUCCESS,
+    FETCH_CURRENT_DIALOG_FAILURE
+} from './types'
 
 export function fetchCurrentDialogRequest(key) {
     return {
