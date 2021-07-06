@@ -10,6 +10,7 @@ export const DeleteButton = (props) => {
     const handleDelete = event => {
         dispatch(deleteDialogRequest(props.dialog.key))
         dispatch(fetchDialogsRequest())
+        event.stopPropagation()
     }
 
     return(
