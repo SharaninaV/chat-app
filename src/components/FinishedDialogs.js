@@ -5,7 +5,6 @@ import moment from "moment";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
 import {faStar as farStar} from "@fortawesome/free-regular-svg-icons"
 import PrettyRating from "pretty-rating-react";
-import {useHistory} from "react-router-dom";
 
 export const FinishedDialogs = () => {
 
@@ -14,12 +13,6 @@ export const FinishedDialogs = () => {
 
     const operatorID = operatorEmail.split('@')[0]
     const finishedDialogs = fetchedDialogs.filter(dialog => dialog.data.status === 'finished' && dialog.data.operatorID === operatorID)
-
-    const history = useHistory()
-
-    const handleShowDialog = (event) => {
-        history.push('/current/:' + event.currentTarget.id)
-    }
 
     const getLastMessage = (dialog) => {
         let lastMessage = {content: '', writtenBy: ''}
@@ -48,7 +41,7 @@ export const FinishedDialogs = () => {
         <ListGroup>
             {finishedDialogs.length > 0 ?
                 (finishedDialogs.map(dialog => (
-                        <ListGroup.Item action onClick={handleShowDialog} id={dialog.key}>
+                        <ListGroup.Item action>
                             <Container>
                                 <Row>
                                     <Col>
