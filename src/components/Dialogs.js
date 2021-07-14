@@ -1,11 +1,12 @@
 import React, {useEffect} from "react";
-import {Container, ListGroup, Tab, Tabs} from "react-bootstrap";
+import {Col, Container, ListGroup, Row} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {ActiveDialogs} from "./ActiveDialogs";
 import {SavedDialogs} from "./SavedDialogs";
 import {FinishedDialogs} from "./FinishedDialogs";
 import {fetchDialogsRequest} from "../redux/dialogs/actionCreator";
 import {QueuedDialogs} from "./QueuedDialogs";
+import {LeftMenu} from "./LeftMenu";
 
 export const Dialogs = () => {
 
@@ -13,6 +14,7 @@ export const Dialogs = () => {
     const foundMessages = useSelector((state) => state.searchInMessages.messagesFound)
     const isSearchingInUsers = useSelector((state) => state.searchInUsers.isUserSearching)
     const usersFound = useSelector((state) => state.searchInUsers.usersFound)
+    const filter = useSelector((state) => state.leftMenu.filter)
 
     const dispatch = useDispatch()
     useEffect(() => {
@@ -42,22 +44,34 @@ export const Dialogs = () => {
                 : isSearchingInUsers ?
                     renderFoundMessages(usersFound)
                     :
-                    <Tabs defaultActiveKey="queued" id="dialogs">
-                        <Tab eventKey="queued" title="Очередь">
-                            <QueuedDialogs/>
-                        </Tab>
-                        <Tab eventKey="active" title="Активные">
-                            <ActiveDialogs/>
-                        </Tab>
-                        <Tab eventKey="saved" title="Сохраненные">
-                            <SavedDialogs/>
-                        </Tab>
-                        <Tab eventKey="finished" title="Завершенные">
-                            <FinishedDialogs/>
-                        </Tab>
-                    </Tabs>
+                    <Row>
+                        <Col md={3}>
+                            <LeftMenu/>
+                        </Col>
+                        <Col>
+                            {filter === "queued" &&
+                            <div>
+                                <h2>Очередь</h2>
+                                <QueuedDialogs/>
+                            </div>}
+                            {filter === "active" &&
+                            <div>
+                                <h2>Активные</h2>
+                                <ActiveDialogs/>
+                            </div>}
+                            {filter === "saved" &&
+                            <div>
+                                <h2>Сохраненные</h2>
+                                <SavedDialogs/>
+                            </div>}
+                            {filter === "finished" &&
+                            <div>
+                                <h2>Завершенные</h2>
+                                <FinishedDialogs/>
+                            </div>}
+                        </Col>
+                    </Row>
             }
-
         </Container>
     )
 }

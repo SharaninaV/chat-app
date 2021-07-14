@@ -52,7 +52,7 @@ export const FinishedDialogs = () => {
                             <Container>
                                 <Row>
                                     <Col>
-                                        {dialog.key}
+                                        {dialog.data.clientName}
                                     </Col>
                                     <Col>
                                         {getLastMessage(dialog).writtenBy}: <br/>

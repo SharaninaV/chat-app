@@ -12,6 +12,7 @@ import {PersistGate} from "redux-persist/integration/react";
 import rootSaga from "./redux/sagas";
 import App from './App';
 import './index.css';
+import {Container} from "react-bootstrap";
 
 const persistConfig = {
     key: 'root',
@@ -35,7 +36,9 @@ saga.run(rootSaga)
 const app = (
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-            <App/>
+            <Container className="app">
+            <App />
+            </Container>
         </PersistGate>
     </Provider>
 )

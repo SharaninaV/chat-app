@@ -2,7 +2,7 @@ import {SWITCH_ACTIVE, SWITCH_FINISHED, SWITCH_QUEUED, SWITCH_SAVED} from "./typ
 
 
 const initialState = {
-    filter: ''
+    filter: 'queued'
 }
 
 export const leftMenuReducer = (state = initialState, action) => {
