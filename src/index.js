@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import {applyMiddleware, createStore} from "redux";
@@ -12,7 +12,6 @@ import {PersistGate} from "redux-persist/integration/react";
 import rootSaga from "./redux/sagas";
 import App from './App';
 import './index.css';
-
 
 const persistConfig = {
     key: 'root',

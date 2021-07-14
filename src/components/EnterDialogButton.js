@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Button} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchDialogsRequest} from "../redux/dialogs/actionCreator";
@@ -15,8 +15,87 @@ export const EnterDialogButton = ({dialog}) => {
 
     const operatorID = operatorEmail.split('@')[0]
 
+    window.OneSignal = window.OneSignal || [];
+    const OneSignal = window.OneSignal;
+
+    useEffect(() => {
+        OneSignal.push(() => {
+            OneSignal.init({
+                appId: 'b11b07e3-1352-4f27-9d6b-3b655859ec81'
+            })
+        })
+    }, [])
+
+    // const sendNotification = () => {
+    //     const notificationObj = {
+    //         contents: {ru: "Вам ответил оператор!"},
+    //         // include_player_ids: [userId],
+    //         filters: [
+    //             {
+    //                 field: "tag",
+    //                 key: "dialog",
+    //                 relation: "=",
+    //                 value: dialog.key,
+    //             },
+    //         ],
+    //     };
+    //
+    //     const jsonString = JSON.stringify(notificationObj);
+    //
+    //     OneSignal.push(jsonString);
+    // }
+
+    const sendNotification = (data) => {
+        const headers = {
+            "Content-Type": "application/json; charset=utf-8",
+            "Authorization": "Basic MGViNzY3ZTctNmIxZi00YWE1LTkyYTQtYjg5YmRhOGVlYTVk"
+        };
+
+        const options = {
+            host: "onesignal.com",
+            port: 443,
+            path: "/api/v1/notifications",
+            method: "POST",
+            headers: headers
+        };
+
+        const https = require('https');
+        const req = https.request(options, function(res) {
+            res.on('data', function(data) {
+                console.log("Response:");
+                console.log(JSON.parse(data));
+            });
+        });
+
+        req.on('error', function(e) {
+            console.log("ERROR:");
+            console.log(e);
+        });
+
+        req.write(JSON.stringify(data));
+        req.end();
+    };
+
     const handleEnterDialog = event => {
-        dispatch(enterDialogRequest(dialog.key, operatorID))
+        dispatch(enterDialogRequest(dialog.key, operatorID));
+
+        const message = {
+            app_id: "b11b07e3-1352-4f27-9d6b-3b655859ec81",
+            contents: {en: "Вам ответил оператор"},
+                    // include_player_ids: [userId],
+                    filters: [
+                        {
+                            "field": "tag",
+                            "key": "dialog",
+                            "relation": "=",
+                            "value": dialog.key,
+                        },
+                    ],
+            // included_segments: ['Subscribed Users']
+        };
+
+        sendNotification(message);
+
         if (dialogsSettings.data.greeting) {
             const sentMessage = {
                 content: dialogsSettings.data.greeting,
