@@ -45,20 +45,18 @@ export const CurrentDialog = () => {
     return (
         <Container>
             {fetchedMessages && Object.values(fetchedMessages).map(message => (
-                <Row className="my-3">
+                <Row className="message-row">
                     <Col md={2}>
                         {message.writtenBy === "operator" ?
                         <p>Вы:</p> : <p>Клиент:</p>}
+                        {moment(message.timestamp).calendar()}
                     </Col>
-                    <Col>
+                    <Col className={message.writtenBy} md={5}>
                         {/\.(gif|jpg|webp|png)$/i.test(message.content) ?
                             <img alt="Изображение" height="200px" src={message.content}/>
                             : (
                                 (message.content)
                             )}
-                    </Col>
-                    <Col>
-                        {moment(message.timestamp).calendar()}
                     </Col>
                 </Row>
             ))}

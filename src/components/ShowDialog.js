@@ -8,12 +8,14 @@ import {WriteMessage} from "./WriteMessage";
 import {UpperMenu} from "./UpperMenu";
 import {CurrentDialog} from "./CurrentDialog";
 import {GoBackButton} from "./GoBackButton";
+import {LeftMenu} from "./LeftMenu";
 
 export const ShowDialog = () => {
 
     const location = useLocation()
     const clientID = location.pathname.split(':')[1]
     const userEmail = useSelector((state) => state.auth.email)
+    const fetchedDialog = useSelector((state) => state.fetchCurrentDialog.currentDialog)
 
     const pubnub = new PubNub({
         publishKey: process.env.REACT_APP_PUBLISH_KEY,
@@ -21,21 +23,28 @@ export const ShowDialog = () => {
         uuid: userEmail
     })
 
-    return(
+    return (
         <Container>
             <Row>
                 <Col md={10}>
                     <UpperMenu/>
                 </Col>
                 <Col>
-                    <GoBackButton />
+                    <GoBackButton/>
                 </Col>
             </Row>
-            <h3>{clientID}</h3>
-            <CurrentDialog />
-            <PubNubProvider client={pubnub}>
-            <WriteMessage  userEmail={userEmail} clientID={clientID}/>
-            </PubNubProvider>
+            <Row>
+                <Col md={3}>
+                    <LeftMenu/>
+                </Col>
+                <Col>
+                    <h3>{fetchedDialog && fetchedDialog.clientName}</h3>
+                    <CurrentDialog/>
+                    <PubNubProvider client={pubnub}>
+                        <WriteMessage userEmail={userEmail} clientID={clientID}/>
+                    </PubNubProvider>
+                </Col>
+            </Row>
         </Container>
     )
 }

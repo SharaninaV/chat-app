@@ -40,7 +40,7 @@ export const SavedDialogs = () => {
                             <Container>
                                 <Row>
                                     <Col>
-                                        {dialog.key}
+                                        {dialog.data.clientName}
                                     </Col>
                                     <Col>
                                         {getLastMessage(dialog).writtenBy}: <br/>
