@@ -14,6 +14,7 @@ const WriteMessage = ({clientID, userEmail}) => {
 
     const dispatch = useDispatch()
     const message = useSelector((state) => state.addMessage.message)
+    const currentDialog = useSelector((state) => state.fetchCurrentDialog.currentDialog)
 
     const [isShowEmoji, setIsShowEmoji] = useState(false)
     const [currentMessage, setCurrentMessage] = useState('')
@@ -22,8 +23,7 @@ const WriteMessage = ({clientID, userEmail}) => {
     const iconSmile = <FontAwesomeIcon icon={faSmile}/>
 
     const client = usePubNub()
-    let timeoutCache = 0
-    const isTypingChannel = 'is-typing'
+    const isTypingChannel = clientID + 'is-typing'
     const currentChannel = clientID + 'Chat'
     client.subscribe({channels: [isTypingChannel, currentChannel]})
 
@@ -36,6 +36,7 @@ const WriteMessage = ({clientID, userEmail}) => {
             }
             dispatch(sendMessageRequest(clientID, sentMessage))
             dispatch(fetchCurrentDialogRequest(clientID))
+            client.publish({channel: currentChannel, message: sentMessage})
             setCurrentMessage('')
         }
     }
@@ -47,13 +48,10 @@ const WriteMessage = ({clientID, userEmail}) => {
     const handleOnChange = event => {
         setCurrentMessage(event.target.value)
         const inputHasText = event.target.value.length > 0;
-        if ((inputHasText && !isTyping) || (!inputHasText && isTyping)) {
-            setIsTyping(!isTyping);
-            client.signal({
-                channel: isTypingChannel,
-                message: inputHasText ? '1' : '0'
-            });
-        }
+        client.signal({
+            channel: isTypingChannel,
+            message: inputHasText ? '1' : '0'
+        });
     }
 
     const hideTypingIndicator = () => {
@@ -61,11 +59,15 @@ const WriteMessage = ({clientID, userEmail}) => {
     };
 
     const handleSignal = (s) => {
-        clearTimeout(timeoutCache)
-        timeoutCache = setTimeout(hideTypingIndicator, 2000)
+        setIsTyping(s.message === '2');
+        setTimeout(hideTypingIndicator, 2000)
         if (s.message === '0' || s.publisher === userEmail) {
             hideTypingIndicator();
         }
+    }
+
+    const handleMessage = (m) => {
+
     }
 
     const toggleShowEmoji = event => {
@@ -73,9 +75,16 @@ const WriteMessage = ({clientID, userEmail}) => {
     }
 
     useEffect(() => {
-        client.addListener({signal: handleSignal})
+        const listener = {
+            signal: handleSignal,
+            message: handleMessage
+        }
+        client.addListener(listener)
         setCurrentMessage(currentMessage + message)
         dispatch(clearMessage())
+        return (() => {
+            client.removeListener(listener)
+        })
     }, [message, isTyping])
 
     return (
@@ -86,7 +95,6 @@ const WriteMessage = ({clientID, userEmail}) => {
                         <Col>
                             <Form>
                                 <Form.Group controlId="writeMessage">
-                                    <Form.Label>Отправьте ответ</Form.Label>
                                     <Form.Control as="textarea" placeholder="Введите сообщение..." rows={3}
                                                   value={currentMessage}
                                                   onChange={handleOnChange}
@@ -95,8 +103,8 @@ const WriteMessage = ({clientID, userEmail}) => {
                             </Form>
                         </Col>
                     </Row>
-                    {isTyping &&
-                    <p>Сейчас печатает:<span>{userEmail}</span></p>}
+                    {isTyping && currentDialog &&
+                    <p><span>{currentDialog.clientName}</span> печатает...</p>}
                     <Row>
                         <Col>
                             {isShowEmoji &&

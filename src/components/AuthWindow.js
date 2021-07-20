@@ -15,7 +15,7 @@ const AuthWindow = () => {
     }, [isTokenValid])
 
     return (
-        <Container className="app">
+        <Container className="auth">
             <h1>ChatApp</h1>
             <AuthForm/>
             <Row className="justify-content-center">

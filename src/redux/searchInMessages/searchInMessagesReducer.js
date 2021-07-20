@@ -1,5 +1,5 @@
 import {
-    IS_SEARCHING_MESSAGES,
+    IS_SEARCHING_MESSAGES, RESET_MESSAGES_FOUND,
     SEARCH_MESSAGES_FAILURE,
     SEARCH_MESSAGES_REQUEST,
     SEARCH_MESSAGES_SUCCESS
@@ -38,6 +38,11 @@ export const searchInMessagesReducer = (state = initialState, action) => {
                 searchText: [],
                 messagesFound: [],
                 searchInMessagesError: action.payload.error
+            }
+        case RESET_MESSAGES_FOUND:
+            return {
+                ...state,
+                messagesFound: []
             }
         default:
             return state

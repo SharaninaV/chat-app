@@ -12,10 +12,10 @@ function* searchInMessagesSaga(action) {
         const messagesFound = yield call(() => ref.once('value').then(snapshot => {
             let result = []
             snapshot.forEach(childSnapshot => {
-                childSnapshot.val().messages.forEach(message => {
+                Object.values(childSnapshot.val().messages).forEach(message => {
                     const content = message.content.toLowerCase()
                     if (content.includes(action.payload.text.toLowerCase())) {
-                        result.push({user: childSnapshot.key, content: content})
+                        result.push({user: childSnapshot.val().clientName, content: content})
                     }
                 })
             })

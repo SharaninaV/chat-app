@@ -83,15 +83,15 @@ export const EnterDialogButton = ({dialog}) => {
             app_id: "b11b07e3-1352-4f27-9d6b-3b655859ec81",
             contents: {en: "Вам ответил оператор"},
                     // include_player_ids: [userId],
-                    filters: [
-                        {
-                            "field": "tag",
-                            "key": "dialog",
-                            "relation": "=",
-                            "value": dialog.key,
-                        },
-                    ],
-            // included_segments: ['Subscribed Users']
+                    // filters: [
+                    //     {
+                    //         "field": "tag",
+                    //         "key": "dialog",
+                    //         "relation": "=",
+                    //         "value": dialog.key,
+                    //     },
+                    // ],
+            included_segments: ['Subscribed Users']
         };
 
         sendNotification(message);

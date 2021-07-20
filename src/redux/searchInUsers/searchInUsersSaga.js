@@ -9,8 +9,8 @@ function* searchInUsersSaga(action) {
         const usersFound = yield call(() => ref.once('value').then(snapshot => {
             let result = []
             snapshot.forEach(childSnapshot => {
-                if (childSnapshot.key.toLowerCase().includes(action.payload.text.toLowerCase())) {
-                    result.push({user:childSnapshot.key, data:childSnapshot.val()})
+                if (childSnapshot.val().clientName.toLowerCase().includes(action.payload.text.toLowerCase())) {
+                    result.push({user:childSnapshot.val().clientName, data:childSnapshot.val()})
                 }
             })
             return result

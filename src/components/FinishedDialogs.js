@@ -45,7 +45,7 @@ export const FinishedDialogs = () => {
 
 
     return (
-        <ListGroup>
+        <ListGroup className="dialogs">
             {finishedDialogs.length > 0 ?
                 (finishedDialogs.map(dialog => (
                         <ListGroup.Item action onClick={handleShowDialog} id={dialog.key}>
@@ -53,15 +53,15 @@ export const FinishedDialogs = () => {
                                 <Row>
                                     <Col>
                                         {dialog.data.clientName}
-                                    </Col>
-                                    <Col>
-                                        {getLastMessage(dialog).writtenBy}: <br/>
-                                        <p className="overflow-text">
-                                        {getLastMessage(dialog).content}
-                                        </p>
-                                    </Col>
-                                    <Col>
+                                        <br/>
                                         ({moment(dialog.data.latestActivity).calendar()})
+                                    </Col>
+                                    <Col>
+                                        {getLastMessage(dialog).writtenBy === 'operator' ?
+                                            <p>Вы:</p> : <p>{dialog.data.clientName}:</p>}
+                                        <p className="overflow-text">
+                                            {getLastMessage(dialog).content}
+                                        </p>
                                     </Col>
                                     <Col>
                                         <PrettyRating value={dialog.data.rating} icons={icons.star} colors={colors.star}/>

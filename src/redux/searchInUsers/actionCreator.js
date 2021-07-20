@@ -1,4 +1,10 @@
-import {SEARCH_USERS_REQUEST, SEARCH_USERS_SUCCESS, SEARCH_USERS_FAILURE, IS_USER_SEARCHING} from "./types";
+import {
+    SEARCH_USERS_REQUEST,
+    SEARCH_USERS_SUCCESS,
+    SEARCH_USERS_FAILURE,
+    IS_USER_SEARCHING,
+    RESET_USERS_FOUND
+} from "./types";
 
 export function setSearchUsers(isSearching){
     return {
@@ -25,5 +31,11 @@ export function searchInUsersFailure(error) {
     return{
         type: SEARCH_USERS_FAILURE,
         payload: {error}
+    }
+}
+
+export function resetUsersFound() {
+    return{
+        type: RESET_USERS_FOUND
     }
 }
