@@ -14,6 +14,6 @@ export const LogOut = () => {
         history.push("/")
     }
     return(
-    <Button variant="danger" onClick={handleLogOut}>Выйти</Button>
+    <Button className="logout-btn" variant="danger" onClick={handleLogOut}>Выйти</Button>
     )
 }

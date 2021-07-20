@@ -33,19 +33,47 @@ a {
     margin: auto
 }
 .left-menu {
-    margin: auto;
+    background-color: dodgerblue;
+    margin: 48px 0 0 0;
+    padding-bottom: 20px;
 }
 .left-menu-btn {
     width: 100%;
-    height: 150px;
+    height: 100px;
+    margin-top: 20px;
 }
-.message-row {
+.dialogs {
+    overflow-y: scroll;
+    height: 500px;
+    margin-bottom: 28px;
+}
+.foundItems {
+    overflow-y: scroll;
+    height: 550px;
+}
+.currentDialog {
+    overflow-y: scroll;
+    height: 450px;
+}
+.operator-message-row, .client-message-row {
     margin-top: 50px;
 }
-.operator {
+.operator-message {
     background-color: dodgerblue;
     color: white;
+    border-radius: 10px;
 }
-.client {
+.client-message {
     background-color: #E9EDF1;
+    border-radius: 10px;
+}
+.main {
+    background-color: #E9EDF1;
+}
+.upper-menu {
+    padding-top: 20px;
+    margin-bottom: 20px;
+}
+.logout-btn, .profSettings-btn {
+    width: 100%;
 }

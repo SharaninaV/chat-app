@@ -23,7 +23,7 @@ export const QueuedDialogs = () => {
 
 
     return (
-        <ListGroup>
+        <ListGroup className="dialogs">
             {queuedDialogs.length > 0 ?
                 (queuedDialogs.map(dialog => (
                         <ListGroup.Item>
@@ -31,15 +31,15 @@ export const QueuedDialogs = () => {
                                 <Row>
                                     <Col>
                                         {dialog.data.clientName}
+                                        <br/>
+                                        ({moment(dialog.data.latestActivity).calendar()})
                                     </Col>
                                     <Col>
-                                        {getLastMessage(dialog).writtenBy}: <br/>
+                                        {getLastMessage(dialog).writtenBy === 'operator' ?
+                                            <p>Вы:</p> : <p>{dialog.data.clientName}:</p>}
                                         <p className="overflow-text">
                                         {getLastMessage(dialog).content}
                                         </p>
-                                    </Col>
-                                    <Col>
-                                        ({moment(dialog.data.latestActivity).calendar()})
                                     </Col>
                                     <Col>
                                         <EnterDialogButton dialog={dialog}/>

@@ -2,7 +2,7 @@ import {
     SEARCH_MESSAGES_REQUEST,
     SEARCH_MESSAGES_SUCCESS,
     SEARCH_MESSAGES_FAILURE,
-    IS_SEARCHING_MESSAGES
+    IS_SEARCHING_MESSAGES, RESET_MESSAGES_FOUND
 } from "./types";
 
 export function setSearchMessages(isSearching) {
@@ -32,3 +32,5 @@ export function searchInMessagesFailure(error) {
         payload: {error}
     }
 }
+
+export const resetMessagesFound = () => ({type: RESET_MESSAGES_FOUND})

@@ -41,13 +41,3 @@ export const LeftMenu = () => {
         </Container>
     )
 }
-
-// const handleClick = event => {
-//     switch(event.target.value) {
-//         case 'Очередь': return dispatch(switchQueued())
-//         case 'Активные': return dispatch(switchActive())
-//         case 'Завершенные': return dispatch(switchFinished())
-//         case 'Сохраненные': return dispatch(switchSaved())
-//         default: return
-//     }
-// }

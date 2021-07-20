@@ -37,7 +37,7 @@ export const Main = () => {
     }, [])
 
     return (
-        <Container>
+        <Container className="main">
             <UpperMenu/>
             <Row>
                 <Col>

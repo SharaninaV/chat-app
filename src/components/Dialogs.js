@@ -22,7 +22,7 @@ export const Dialogs = () => {
     }, [isSearchingMessages, isSearchingInUsers])
 
     const renderFoundMessages = (foundMessages) => {
-        return (<ListGroup>
+        return (<ListGroup className="foundItems">
             {foundMessages.length > 0 ?
                 (foundMessages.map(message => (
                         <ListGroup.Item action>

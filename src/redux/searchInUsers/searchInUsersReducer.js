@@ -1,4 +1,10 @@
-import {IS_USER_SEARCHING, SEARCH_USERS_FAILURE, SEARCH_USERS_REQUEST, SEARCH_USERS_SUCCESS} from "./types";
+import {
+    IS_USER_SEARCHING,
+    RESET_USERS_FOUND,
+    SEARCH_USERS_FAILURE,
+    SEARCH_USERS_REQUEST,
+    SEARCH_USERS_SUCCESS
+} from "./types";
 
 
 const initialState = {
@@ -34,6 +40,11 @@ export const searchInUsersReducer = (state = initialState, action) => {
                 searchText: [],
                 usersFound: [],
                 searchInUsersError: action.payload.error
+            }
+        case RESET_USERS_FOUND:
+            return {
+                ...state,
+                usersFound: []
             }
         default:
             return state
