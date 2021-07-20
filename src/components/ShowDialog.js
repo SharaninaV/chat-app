@@ -24,13 +24,10 @@ export const ShowDialog = () => {
     })
 
     return (
-        <Container>
+        <Container className='main'>
             <Row>
-                <Col md={10}>
+                <Col md={12}>
                     <UpperMenu/>
-                </Col>
-                <Col>
-                    <GoBackButton/>
                 </Col>
             </Row>
             <Row>
@@ -38,7 +35,14 @@ export const ShowDialog = () => {
                     <LeftMenu/>
                 </Col>
                 <Col>
-                    <h3>{fetchedDialog && fetchedDialog.clientName}</h3>
+                    <Row>
+                        <Col>
+                            <h3>{fetchedDialog && fetchedDialog.clientName}</h3>
+                        </Col>
+                        <Col md={2}>
+                            <GoBackButton/>
+                        </Col>
+                    </Row>
                     <CurrentDialog/>
                     <PubNubProvider client={pubnub}>
                         <WriteMessage userEmail={userEmail} clientID={clientID}/>

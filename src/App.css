@@ -1,5 +1,8 @@
 .app {
     margin: auto;
+    width: 100%;
+}
+.auth {
     width: 70%;
 }
 h1 {
@@ -54,9 +57,12 @@ a {
 .currentDialog {
     overflow-y: scroll;
     height: 450px;
+    background-color: white;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
 }
 .operator-message-row, .client-message-row {
-    margin-top: 50px;
+    margin-top: 20px;
 }
 .operator-message {
     background-color: dodgerblue;
@@ -68,7 +74,8 @@ a {
     border-radius: 10px;
 }
 .main {
-    background-color: #E9EDF1;
+    background-color: #C9E9EF;
+    width: 100%;
 }
 .upper-menu {
     padding-top: 20px;
@@ -76,4 +83,7 @@ a {
 }
 .logout-btn, .profSettings-btn {
     width: 100%;
+}
+.autocompleteInput {
+    margin-top: 7px
 }

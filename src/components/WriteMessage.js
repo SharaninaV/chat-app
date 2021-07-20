@@ -60,7 +60,7 @@ const WriteMessage = ({clientID, userEmail}) => {
 
     const handleSignal = (s) => {
         setIsTyping(s.message === '2');
-        setTimeout(hideTypingIndicator, 5000)
+        setTimeout(hideTypingIndicator, 2000)
         if (s.message === '0' || s.publisher === userEmail) {
             hideTypingIndicator();
         }
@@ -95,7 +95,6 @@ const WriteMessage = ({clientID, userEmail}) => {
                         <Col>
                             <Form>
                                 <Form.Group controlId="writeMessage">
-                                    <Form.Label>Отправьте ответ</Form.Label>
                                     <Form.Control as="textarea" placeholder="Введите сообщение..." rows={3}
                                                   value={currentMessage}
                                                   onChange={handleOnChange}

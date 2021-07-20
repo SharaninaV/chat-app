@@ -47,7 +47,7 @@ export const CurrentDialog = () => {
 
             dialogRef.current.scrollIntoView({ behavior: "smooth" });
 
-    }, [fetchedMessages])
+    }, [])
 
     return (
         <Container className="currentDialog">
