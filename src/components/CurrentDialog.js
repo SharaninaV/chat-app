@@ -5,21 +5,26 @@ import {useLocation} from "react-router-dom";
 import moment from "moment";
 import 'moment/locale/ru'
 import {Container, Row, Col} from "react-bootstrap";
+import {usePubNub} from "pubnub-react";
 
-export const CurrentDialog = () => {
+export const CurrentDialog = ({clientID}) => {
 
     const dispatch = useDispatch()
     const location = useLocation()
     const mountedRef = useRef(true)
     const dialogRef = useRef()
+    const pubnub = usePubNub()
 
     const fetchedDialog = useSelector((state) => state.fetchCurrentDialog.currentDialog)
     const [needRefresh, setNeedRefresh] = useState(false)
+    const [messages, setMessages] = useState([])
 
-    const fetchedMessages = fetchedDialog.messages
+    // const fetchedMessages = fetchedDialog.messages
 
     const key = location.pathname.split(':')[1]
     const isFinished = fetchedDialog.status === 'finished'
+
+    const currentChannel = clientID + 'Chat';
 
     const fetchMessages = () => {
         dispatch(fetchCurrentDialogRequest(key))
@@ -40,18 +45,50 @@ export const CurrentDialog = () => {
     }, [])
 
     useEffect(() => {
+        if (fetchedDialog && Object.keys(fetchedDialog).length) {
+            console.log(Object.values(fetchedDialog.messages))
+            setMessages(Object.values(fetchedDialog.messages))
+        }
+    }, [fetchedDialog])
+
+    useEffect(() => {
 
     }, [needRefresh])
 
     useEffect(() => {
+        if (pubnub) {
+            pubnub.setUUID(clientID);
+            const listener = {
+                message: (envelope) => {
+                    setMessages((msgs) => [
+                        ...msgs,
+                        {
+                            writtenBy: envelope.message.writtenBy,
+                            content: envelope.message.content,
+                            timestamp: envelope.message.timestamp,
+                            isNew: true
+                        }
+                    ]);
+                }
+            };
 
-            dialogRef.current.scrollIntoView({ behavior: "smooth" });
+            pubnub.addListener(listener);
+            pubnub.subscribe({channels: [currentChannel]});
 
-    }, [])
+            return () => {
+                pubnub.removeListener(listener);
+                pubnub.unsubscribeAll();
+            };
+        }
+    }, [currentChannel, pubnub]);
+
+    useEffect(() => {
+        dialogRef.current.scrollIntoView({behavior: "smooth"});
+    }, [pubnub, messages])
 
     return (
         <Container className="currentDialog">
-            {fetchedMessages && Object.values(fetchedMessages).map(message => (
+            {messages.length && messages.map(message => (
                 message.writtenBy === "operator" ?
                     <Row className="operator-message-row">
                         <Col md={5}>

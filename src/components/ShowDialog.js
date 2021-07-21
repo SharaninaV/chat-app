@@ -43,8 +43,8 @@ export const ShowDialog = () => {
                             <GoBackButton/>
                         </Col>
                     </Row>
-                    <CurrentDialog/>
                     <PubNubProvider client={pubnub}>
+                        <CurrentDialog clientID={clientID}/>
                         <WriteMessage userEmail={userEmail} clientID={clientID}/>
                     </PubNubProvider>
                 </Col>
