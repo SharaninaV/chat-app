@@ -3,7 +3,7 @@ import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import Picker from 'emoji-picker-react';
 import {usePubNub} from "pubnub-react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSmile} from "@fortawesome/free-regular-svg-icons";
+import {faSmile, faPaperPlane} from "@fortawesome/free-regular-svg-icons";
 import {useDispatch, useSelector} from "react-redux";
 import {AutocompleteInput} from "./Autocomplete";
 import {addMessage, clearMessage} from "../redux/addMessage/actionCreator";
@@ -21,11 +21,11 @@ const WriteMessage = ({clientID, userEmail}) => {
     const [isTyping, setIsTyping] = useState(false)
 
     const iconSmile = <FontAwesomeIcon icon={faSmile}/>
+    const iconPlane = <FontAwesomeIcon icon={faPaperPlane}/>
 
     const client = usePubNub()
     const isTypingChannel = clientID + 'is-typing'
     const currentChannel = clientID + 'Chat'
-    client.subscribe({channels: [isTypingChannel, currentChannel]})
 
     const handleSendMessage = event => {
         if (currentMessage.length > 0) {
@@ -61,9 +61,6 @@ const WriteMessage = ({clientID, userEmail}) => {
     const handleSignal = (s) => {
         setIsTyping(s.message === '2');
         setTimeout(hideTypingIndicator, 2000)
-        if (s.message === '0' || s.publisher === userEmail) {
-            hideTypingIndicator();
-        }
     }
 
     const handleMessage = (m) => {
@@ -75,17 +72,21 @@ const WriteMessage = ({clientID, userEmail}) => {
     }
 
     useEffect(() => {
-        const listener = {
-            signal: handleSignal,
-            message: handleMessage
+        if (client) {
+            client.subscribe({channels: [isTypingChannel, currentChannel]})
+            const listener = {
+                signal: handleSignal,
+                message: handleMessage
+            }
+            client.addListener(listener)
+            setCurrentMessage(currentMessage + message)
+            dispatch(clearMessage())
+            return (() => {
+                client.removeListener(listener)
+                client.unsubscribeAll();
+            })
         }
-        client.addListener(listener)
-        setCurrentMessage(currentMessage + message)
-        dispatch(clearMessage())
-        return (() => {
-            client.removeListener(listener)
-        })
-    }, [message, isTyping])
+    }, [client, message, isTyping])
 
     return (
         <Container>
@@ -101,6 +102,14 @@ const WriteMessage = ({clientID, userEmail}) => {
                                     />
                                 </Form.Group>
                             </Form>
+                        </Col>
+                        <Col md={1}>
+                            <Row>
+                                <Button variant="light" onClick={toggleShowEmoji}>{iconSmile}</Button>
+                            </Row>
+                            <Row>
+                                <Button variant="info" onClick={handleSendMessage}>{iconPlane}</Button>
+                            </Row>
                         </Col>
                     </Row>
                     {isTyping && currentDialog &&
@@ -131,8 +140,8 @@ const WriteMessage = ({clientID, userEmail}) => {
                             }
                         </Col>
                         <Col md={4}>
-                            <Button variant="light" onClick={toggleShowEmoji}>{iconSmile}</Button>
-                            <Button variant="info" onClick={handleSendMessage}>Отправить</Button>
+
+
                         </Col>
                     </Row>
                 </Col>

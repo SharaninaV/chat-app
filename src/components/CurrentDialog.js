@@ -19,8 +19,6 @@ export const CurrentDialog = ({clientID}) => {
     const [needRefresh, setNeedRefresh] = useState(false)
     const [messages, setMessages] = useState([])
 
-    // const fetchedMessages = fetchedDialog.messages
-
     const key = location.pathname.split(':')[1]
     const isFinished = fetchedDialog.status === 'finished'
 
@@ -31,6 +29,7 @@ export const CurrentDialog = ({clientID}) => {
         const interval = setInterval(() => {
             if (!mountedRef.current) {
                 clearInterval(interval)
+                return
             }
             dispatch(fetchCurrentDialogRequest(key))
             setNeedRefresh(!needRefresh)
@@ -46,13 +45,11 @@ export const CurrentDialog = ({clientID}) => {
 
     useEffect(() => {
         if (fetchedDialog && Object.keys(fetchedDialog).length) {
-            console.log(Object.values(fetchedDialog.messages))
             setMessages(Object.values(fetchedDialog.messages))
         }
     }, [fetchedDialog])
 
     useEffect(() => {
-
     }, [needRefresh])
 
     useEffect(() => {
@@ -83,6 +80,12 @@ export const CurrentDialog = ({clientID}) => {
     }, [currentChannel, pubnub]);
 
     useEffect(() => {
+       const a = btoa('hello')
+        console.log(a)
+        console.log(atob(a))
+    }, [])
+
+    useEffect(() => {
         dialogRef.current.scrollIntoView({behavior: "smooth"});
     }, [pubnub, messages])
 
@@ -94,11 +97,7 @@ export const CurrentDialog = ({clientID}) => {
                         <Col md={5}>
                         </Col>
                         <Col className="operator-message" md={5}>
-                            {/\.(gif|jpg|webp|png)$/i.test(message.content) ?
-                                <img alt="Изображение" height="200px" src={message.content}/>
-                                : (
-                                    (message.content)
-                                )}
+                            {message.content}
                         </Col>
                         <Col md={2}>
                             <p>Вы:</p>
@@ -111,11 +110,13 @@ export const CurrentDialog = ({clientID}) => {
                             {moment(message.timestamp).calendar()}
                         </Col>
                         <Col className="client-message" md={5}>
-                            {/\.(gif|jpg|webp|png)$/i.test(message.content) ?
+                            {message.content.startsWith('data:image') ?
                                 <img alt="Изображение" height="200px" src={message.content}/>
-                                : (
-                                    (message.content)
-                                )}
+                                :
+                                     (
+                                        message.content
+                                     )
+                                }
                         </Col>
                         <Col md={5}>
                         </Col>

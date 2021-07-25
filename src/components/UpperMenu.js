@@ -25,8 +25,6 @@ export const UpperMenu = () => {
     }
 
     useEffect(() => {
-
-        console.log(profileData)
         if (profileData && Object.keys(profileData).length) {
             setAvatar(profileData.data.avatar)
         } else {
