@@ -87,3 +87,7 @@ a {
 .autocompleteInput {
     margin-top: 7px
 }
+.registerForm {
+    width: 70%;
+    margin: auto
+}

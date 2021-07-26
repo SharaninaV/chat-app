@@ -73,7 +73,7 @@ export const Registration = () => {
                 </Row>
                 <Row className="justify-content-center">
                     <Col md={3}>
-                        <a href="#">
+                        <a href="/">
                             <p className="text-end">Войти</p>
                         </a>
                     </Col>

@@ -20,13 +20,13 @@ const AuthWindow = () => {
             <AuthForm/>
             <Row className="justify-content-center">
                 <Col md={3}>
-                    <a href="#">
-                        <p className="text-end">Забыли пароль?</p>
+                    <a href="/registration">
+                        <p>Регистрация</p>
                     </a>
                 </Col>
                 <Col md={3}>
                     <a href="#">
-                        <p>Регистрация</p>
+                        <p>Забыли пароль?</p>
                     </a>
                 </Col>
             </Row>
