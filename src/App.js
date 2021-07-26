@@ -4,6 +4,7 @@ import './App.css';
 import {AuthWindow} from "./components/AuthWindow";
 import {Main} from "./components/Main";
 import {ShowDialog} from "./components/ShowDialog";
+import {Registration} from "./components/Registration";
 
 const App = () => {
 
@@ -14,6 +15,7 @@ const App = () => {
                     <Route exact path="/" component={AuthWindow}/>
                     <Route exact path="/main" component={Main}/>
                     <Route path="/current" component={ShowDialog}/>
+                    <Route path="/registration" component={Registration}/>
                 </Switch>
             </BrowserRouter>
 
