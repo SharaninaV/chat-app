@@ -9,6 +9,7 @@ import {UpperMenu} from "./UpperMenu";
 import {CurrentDialog} from "./CurrentDialog";
 import {GoBackButton} from "./GoBackButton";
 import {LeftMenu} from "./LeftMenu";
+import env from "react-dotenv";
 
 export const ShowDialog = () => {
 
@@ -18,8 +19,8 @@ export const ShowDialog = () => {
     const fetchedDialog = useSelector((state) => state.fetchCurrentDialog.currentDialog)
 
     const pubnub = new PubNub({
-        publishKey: process.env.REACT_APP_PUBLISH_KEY,
-        subscribeKey: process.env.REACT_APP_SUBSCRIBE_KEY,
+        publishKey: env.PUBLISH_KEY,
+        subscribeKey: env.SUBSCRIBE_KEY,
         uuid: userEmail
     })
 
