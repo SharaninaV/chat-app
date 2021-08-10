@@ -13,7 +13,7 @@ export const EnterDialogButton = ({dialog}) => {
     const operatorEmail = useSelector((state) => state.auth.email)
     const dialogsSettings = useSelector((state) => state.dialogsSettings.dialogsSettings)
 
-    const operatorID = operatorEmail.split('@')[0]
+    const operatorID = window.btoa(operatorEmail)
 
     window.OneSignal = window.OneSignal || [];
     const OneSignal = window.OneSignal;
@@ -25,25 +25,6 @@ export const EnterDialogButton = ({dialog}) => {
             })
         })
     }, [])
-
-    // const sendNotification = () => {
-    //     const notificationObj = {
-    //         contents: {ru: "Вам ответил оператор!"},
-    //         // include_player_ids: [userId],
-    //         filters: [
-    //             {
-    //                 field: "tag",
-    //                 key: "dialog",
-    //                 relation: "=",
-    //                 value: dialog.key,
-    //             },
-    //         ],
-    //     };
-    //
-    //     const jsonString = JSON.stringify(notificationObj);
-    //
-    //     OneSignal.push(jsonString);
-    // }
 
     const sendNotification = (data) => {
         const headers = {
@@ -91,10 +72,8 @@ export const EnterDialogButton = ({dialog}) => {
                             "value": dialog.key,
                         },
                     ],
-            // included_segments: ['Subscribed Users']
         };
 
-        console.log(message);
         sendNotification(message);
 
         if (dialogsSettings.data.greeting) {

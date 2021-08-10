@@ -63,10 +63,6 @@ const WriteMessage = ({clientID, userEmail}) => {
         setTimeout(hideTypingIndicator, 2000)
     }
 
-    const handleMessage = (m) => {
-
-    }
-
     const toggleShowEmoji = event => {
         setIsShowEmoji(!isShowEmoji)
     }
@@ -75,8 +71,7 @@ const WriteMessage = ({clientID, userEmail}) => {
         if (client) {
             client.subscribe({channels: [isTypingChannel, currentChannel]})
             const listener = {
-                signal: handleSignal,
-                message: handleMessage
+                signal: handleSignal
             }
             client.addListener(listener)
             setCurrentMessage(currentMessage + message)

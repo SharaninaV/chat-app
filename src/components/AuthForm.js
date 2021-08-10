@@ -105,7 +105,7 @@ const AuthForm = ({loginRequest, submitErrors, successful, requesting}) => {
                 <Col md={3}>
                     <Button type="submit" variant="primary" className="form-button">
                         Войти
-                        <i className="align-middle">{iconSignIn}</i>
+                        <i className="auth-icon">{iconSignIn}</i>
                     </Button>
                 </Col>
             </Row>

@@ -13,7 +13,7 @@ export const AutocompleteInput = () => {
     const isShowSettings = useSelector((state) => state.dialogsSettings.isShowSettings)
     const operatorEmail = useSelector((state) => state.auth.email)
 
-    const operatorID = operatorEmail.split(".")[0]
+    const operatorID = window.btoa(operatorEmail)
 
     const handleShowSettings = event => {
         dispatch(showDialogsSettings())

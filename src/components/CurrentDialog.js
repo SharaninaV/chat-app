@@ -80,13 +80,7 @@ export const CurrentDialog = ({clientID}) => {
     }, [currentChannel, pubnub]);
 
     useEffect(() => {
-       const a = btoa('hello')
-        console.log(a)
-        console.log(atob(a))
-    }, [])
-
-    useEffect(() => {
-        dialogRef.current.scrollIntoView({behavior: "smooth"});
+        dialogRef.current.scrollIntoView({behavior: "auto"});
     }, [pubnub, messages])
 
     return (

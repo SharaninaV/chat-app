@@ -15,9 +15,10 @@ export const UpperMenu = () => {
     const dispatch = useDispatch()
 
     const [avatar, setAvatar] = useState('')
+    const [operatorName, setOperatorName] = useState('Оператор')
 
     const queuedDialogsQuantity = fetchedDialogs.filter(dialog => dialog.data.status === 'queued').length
-    const operatorID = operatorEmail.split('.')[0]
+    const operatorID = window.btoa(operatorEmail)
 
     const handleShowSettings = event => {
         dispatch(showSettings())
@@ -27,8 +28,11 @@ export const UpperMenu = () => {
     useEffect(() => {
         if (profileData && Object.keys(profileData).length) {
             setAvatar(profileData.data.avatar)
-        } else {
-            dispatch(fetchProfileDataRequest(operatorID))
+            if (profileData.data.name && profileData.data.name.length) {
+                setOperatorName(profileData.data.name)
+            } else {
+                dispatch(fetchProfileDataRequest(operatorID))
+            }
         }
     }, [profileData])
 
@@ -50,7 +54,7 @@ export const UpperMenu = () => {
                 </Col>
                 <Col md={4}>
                     <Row>
-                        <h3>{operatorEmail}</h3>
+                        <h3>Привет, {operatorName}</h3>
                     </Row>
                     <Row>
                         Количество диалогов в очереди: {queuedDialogsQuantity}

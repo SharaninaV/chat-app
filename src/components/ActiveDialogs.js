@@ -11,7 +11,7 @@ export const ActiveDialogs = () => {
     const operatorEmail = useSelector((state) => state.auth.email)
     const fetchedDialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
 
-    const operatorID = operatorEmail.split('@')[0]
+    const operatorID = window.btoa(operatorEmail)
     const activeDialogs = fetchedDialogs.filter(dialog => dialog.data.status === 'active' && dialog.data.operatorID === operatorID)
 
     const history = useHistory()
