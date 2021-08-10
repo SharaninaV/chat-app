@@ -18,19 +18,21 @@ export const Main = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const operatorID = operatorEmail.split('.')[0]
+    const operatorID = window.btoa(operatorEmail)
 
     useEffect(() => {
-        const decoded = jwt.decode(currentUserToken.i, {complete: true})
-        if (!decoded) {
-            dispatch(setTokenNotValid())
-            history.push("/")
-        } else {
-            const expireTime = decoded.payload.exp
-            const currentTime = Math.floor(Date.now() / 1000)
-            if (currentTime >= expireTime) {
+        if (currentUserToken) {
+            const decoded = jwt.decode(currentUserToken.i, {complete: true})
+            if (!decoded) {
                 dispatch(setTokenNotValid())
                 history.push("/")
+            } else {
+                const expireTime = decoded.payload.exp
+                const currentTime = Math.floor(Date.now() / 1000)
+                if (currentTime >= expireTime) {
+                    dispatch(setTokenNotValid())
+                    history.push("/")
+                }
             }
         }
         dispatch(fetchDialogsSettingsRequest(operatorID))

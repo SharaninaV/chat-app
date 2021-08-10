@@ -26,7 +26,7 @@ const ProfileSettings = ({isShowSettings}) => {
     const [avatarIcon, setAvatarIcon] = useState("https://diora.pro/assets/img/staff/kontakt.jpg")
     const [avatarUrl, setAvatarUrl] = useState('')
 
-    const operatorID = operatorEmail.split('.')[0]
+    const operatorID = window.btoa(operatorEmail)
 
     const handleHideSettings = event => {
         dispatch(hideSettings())
