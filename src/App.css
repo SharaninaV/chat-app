@@ -4,6 +4,16 @@
 }
 .auth {
     width: 70%;
+    text-align: center;
+}
+.auth-icon {
+    margin-left: 10px;
+}
+.google-btn {
+    margin-right: 20px;
+}
+.auth p {
+    margin: 20px 0;
 }
 h1 {
     text-align: center;
@@ -13,7 +23,7 @@ h1 {
 }
 .form-button {
     text-align: center;
-    margin: 30px 0;
+    margin: 30px 0 10px 0;
     padding: 10px 20px;
 }
 a {

@@ -2,10 +2,14 @@ import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom"
 import {Button, Col, Container, Row} from "react-bootstrap";
-import AuthForm from "./AuthForm";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faGoogle, faGithub} from "@fortawesome/free-brands-svg-icons";
 import {githubProvider, googleProvider} from "../firebase/authMethods";
-import {setTokenIsValid} from "../redux/main/sagas/actionCreator";
+import AuthForm from "./AuthForm";
 import {smAuthRequest} from "../redux/auth/sagas/actionCreator";
+
+const iconGoogle = <FontAwesomeIcon icon={faGoogle}/>
+const iconGithub = <FontAwesomeIcon icon={faGithub}/>
 
 const AuthWindow = () => {
 
@@ -29,23 +33,31 @@ const AuthWindow = () => {
             <h1>ChatApp</h1>
             <AuthForm/>
             <Row  className="justify-content-center">
-                <Col md={3}>
-                    Войти через:
+                <Col>
+                    <p>
+                    Войти с помощью:
+                    </p>
                 </Col>
             </Row>
             <Row className="d-flex justify-content-center">
-                <Col md={4}>
-                    <Button onClick={() => handleOnClick(googleProvider)}>Google</Button>
-                    <Button onClick={() => handleOnClick(githubProvider)}>GitHub</Button>
+                <Col>
+                    <Button className="google-btn" onClick={() => handleOnClick(googleProvider)}>
+                        Google
+                        <i className="auth-icon">{iconGoogle}</i>
+                    </Button>
+                    <Button className="github-btn" onClick={() => handleOnClick(githubProvider)}>
+                        GitHub
+                        <i className="auth-icon">{iconGithub}</i>
+                    </Button>
                 </Col>
             </Row>
             <Row className="justify-content-center">
-                <Col md={3}>
+                <Col md={5}>
                     <a href="/registration">
                         <p>Регистрация</p>
                     </a>
                 </Col>
-                <Col md={3}>
+                <Col md={5}>
                     <a href="#">
                         <p>Забыли пароль?</p>
                     </a>
