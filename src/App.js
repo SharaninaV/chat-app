@@ -10,7 +10,6 @@ import {ForgotPassword} from "./components/ForgotPassword";
 const App = () => {
 
     return (
-
             <BrowserRouter>
                 <Switch>
                     <Route exact path="/" component={AuthWindow}/>
@@ -21,7 +20,6 @@ const App = () => {
                     <Route path="/forgotPassword" component={ForgotPassword}/>
                 </Switch>
             </BrowserRouter>
-
     );
 }
 

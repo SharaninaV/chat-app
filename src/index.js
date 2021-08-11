@@ -13,6 +13,8 @@ import rootSaga from "./redux/sagas";
 import App from './App';
 import './index.css';
 import {Container} from "react-bootstrap";
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const persistConfig = {
     key: 'root',
@@ -31,6 +33,8 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 const store = createStore(persistedReducer, composeWithDevTools(...enhancers))
 const persistor = persistStore(store)
 
+
+
 saga.run(rootSaga)
 
 const app = (
@@ -38,6 +42,7 @@ const app = (
         <PersistGate loading={null} persistor={persistor}>
             <Container className="app">
             <App />
+                <ToastContainer />
             </Container>
         </PersistGate>
     </Provider>

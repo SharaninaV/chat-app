@@ -5,6 +5,7 @@ import {useDispatch} from "react-redux";
 import {Alert, Button, Col, Container, Row} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
 import {sendResetEmailRequest} from "../redux/forgotPassword/actionCreator";
+import {toast} from "react-toastify";
 
 const initialValues = {
     email: ''
@@ -28,9 +29,12 @@ export const ForgotPassword = () => {
 
         onSubmit(values) {
             dispatch(sendResetEmailRequest(values.email))
+            sendEmailNotification()
             // history.push('/newPassword')
         },
     });
+
+    const sendEmailNotification = () => toast("Письмо отправлено на почту");
 
     return (
         <Container className="forgotPassword">
