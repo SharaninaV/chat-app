@@ -5,7 +5,7 @@ import {
     LOG_OUT,
     SM_AUTH_REQUEST,
     SM_AUTH_SUCCESS,
-    SM_AUTH_FAILURE, RESET_AUTH_FORM
+    SM_AUTH_FAILURE, RESET_AUTH_ERRORS
 } from './types'
 
 export function loginRequest({email, password}) {
@@ -30,7 +30,7 @@ export function loginFailure(error) {
     }
 }
 
-export const resetAuthForm = () => ({type: RESET_AUTH_FORM})
+export const resetAuthErrors = () => ({type: RESET_AUTH_ERRORS})
 
 export const logOut = () => ({type: LOG_OUT})
 

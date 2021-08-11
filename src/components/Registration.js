@@ -2,11 +2,15 @@ import React from "react";
 import {Alert, Button, Col, Row} from "react-bootstrap";
 import {useFormik} from "formik";
 import * as Yup from "yup";
+import {registrationRequest} from "../redux/registration/actionCreator";
+import {useDispatch} from "react-redux";
+import {useHistory} from "react-router-dom";
 
 const initialValues = {
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    name: ''
 }
 
 const validationSchema = Yup.object({
@@ -24,13 +28,17 @@ const validationSchema = Yup.object({
 
 export const Registration = () => {
 
+    const dispatch = useDispatch()
+    const history = useHistory()
+
     const formik = useFormik({
         initialValues,
         autocomplete: 'off',
         validationSchema: validationSchema,
 
         onSubmit(values) {
-            // registrationRequest(values)
+            dispatch(registrationRequest(values))
+            history.push('/main')
         },
     });
     return (
@@ -62,6 +70,22 @@ export const Registration = () => {
                 </Col>
             </Row>
             }
+            <Row className="form-input">
+                <Col md={2}>
+                    <label htmlFor="name" className="align-middle">Имя:</label>
+                </Col>
+                <Col md={10}>
+                    <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        onChange={formik.handleChange}
+                        value={formik.values.name}
+                        placeholder="Имя"
+                        className="form-control"
+                    />
+                </Col>
+            </Row>
             <Row className="form-input">
                 <Col md={2}>
                     <label htmlFor="email" className="align-middle">Email:</label>
