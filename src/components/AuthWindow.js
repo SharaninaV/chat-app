@@ -5,7 +5,7 @@ import {Button, Col, Container, Row} from "react-bootstrap";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faGoogle, faGithub} from "@fortawesome/free-brands-svg-icons";
 import {githubProvider, googleProvider} from "../firebase/authMethods";
-import AuthForm from "./AuthForm";
+import {AuthForm} from "./AuthForm";
 import {smAuthRequest} from "../redux/auth/sagas/actionCreator";
 
 const iconGoogle = <FontAwesomeIcon icon={faGoogle}/>

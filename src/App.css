@@ -12,10 +12,10 @@
 .google-btn {
     margin-right: 20px;
 }
-.auth p {
+.auth p, .registerForm p {
     margin: 20px 0;
 }
-h1 {
+h1,h2 {
     text-align: center;
 }
 .form-input {
