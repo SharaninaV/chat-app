@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSignInAlt, faEnvelope, faKey} from '@fortawesome/free-solid-svg-icons'
 import {Alert, Button, Col, Row} from "react-bootstrap";
-import {loginRequest, resetAuthForm} from "../redux/auth/sagas/actionCreator";
+import {loginRequest, resetAuthErrors} from "../redux/auth/sagas/actionCreator";
 
 const iconSignIn = <FontAwesomeIcon icon={faSignInAlt}/>
 const iconEmail = < FontAwesomeIcon icon={faEnvelope}/>
@@ -40,7 +40,7 @@ export const AuthForm = () => {
         });
 
         useEffect(() => {
-            dispatch(resetAuthForm())
+            dispatch(resetAuthErrors())
         },[])
 
         return (
@@ -49,7 +49,6 @@ export const AuthForm = () => {
                 <Row>
                     <Col>
                         <Alert variant="danger">
-                            {/*{submitErrors.message}*/}
                             Неверный email или пароль
                         </Alert>
                     </Col>

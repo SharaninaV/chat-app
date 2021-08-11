@@ -6,6 +6,8 @@ import {PROFILE_DATA_REQUEST} from "../types";
 function* fetchProfileDataSaga(action) {
 
     try{
+        console.log(action)
+        console.log('saga')
         const ref = yield call(() => firebase.database().ref('operators/' + action.id))
         const fetchedData = yield call(() => ref.once('value').then(snapshot => {
             return {key:snapshot.key, data:snapshot.val()}

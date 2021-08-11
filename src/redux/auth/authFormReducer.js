@@ -2,7 +2,7 @@ import {
     FETCH_LOGIN_FAILURE,
     FETCH_LOGIN_REQUEST,
     FETCH_LOGIN_SUCCESS,
-    LOG_OUT, RESET_AUTH_FORM, SM_AUTH_FAILURE, SM_AUTH_SUCCESS
+    LOG_OUT, RESET_AUTH_ERRORS, SM_AUTH_FAILURE, SM_AUTH_SUCCESS
 } from "./sagas/types";
 
 const initialState = {
@@ -42,15 +42,10 @@ export const authFormReducer = (state = initialState, action) => {
                 errors: action.payload.error,
                 token: {}
             }
-        case RESET_AUTH_FORM:
+        case RESET_AUTH_ERRORS:
             return {
                 ...state,
-                email: '',
-                password: '',
-                requesting: false,
-                successful: false,
-                errors: [],
-                token: {}
+                errors: []
             }
         case LOG_OUT:
             return {
