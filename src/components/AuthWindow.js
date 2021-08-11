@@ -58,7 +58,7 @@ const AuthWindow = () => {
                     </a>
                 </Col>
                 <Col md={5}>
-                    <a href="#">
+                    <a href="/forgotPassword">
                         <p>Забыли пароль?</p>
                     </a>
                 </Col>

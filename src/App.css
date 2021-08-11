@@ -2,7 +2,7 @@
     margin: auto;
     width: 100%;
 }
-.auth {
+.auth, .forgotPassword {
     width: 70%;
     text-align: center;
 }
@@ -27,7 +27,7 @@ h1,h2 {
     padding: 10px 20px;
 }
 a {
-    text-decoration: none;
+    text-decoration: none !important;
 }
 .overflow-text {
     text-overflow: ellipsis;
