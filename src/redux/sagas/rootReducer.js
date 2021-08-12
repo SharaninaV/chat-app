@@ -10,6 +10,7 @@ import {profileSettingsReducer} from "../profileSettings/profileSettingsReducer"
 import {dialogsSettingsReducer} from "../dialogsSettings/dialogsSettingsReducer";
 import {leftMenuReducer} from "../leftMenu/leftMenuReducer"
 import {registrationReducer} from "../registration/registrationReducer";
+import {resetPasswordReducer} from "../resetPassword/resetPasswordReducer";
 
 export const rootReducer = combineReducers({
     auth: authFormReducer,
@@ -22,5 +23,6 @@ export const rootReducer = combineReducers({
     profileSettings: profileSettingsReducer,
     dialogsSettings: dialogsSettingsReducer,
     leftMenu: leftMenuReducer,
-    registration: registrationReducer
+    registration: registrationReducer,
+    resetPassword: resetPasswordReducer
 })
