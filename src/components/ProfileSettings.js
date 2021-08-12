@@ -35,6 +35,8 @@ const ProfileSettings = ({isShowSettings}) => {
     const handleHideSettings = event => {
         dispatch(hideSettings())
         dispatch(resetProfileUpdatedState())
+        dispatch(fetchProfileDataRequest(operatorID))
+        setIsProfileUpdated(false)
     }
 
     const onSubmit = (values) => {
@@ -71,13 +73,11 @@ const ProfileSettings = ({isShowSettings}) => {
     }, [profileData])
 
     useEffect(() => {
-        if (isNameUpdated || isPasswordUpdated || isAvatarUpdated) {
-            setIsProfileUpdated(true)
-        }
+            setIsProfileUpdated(isNameUpdated || isPasswordUpdated || isAvatarUpdated)
     }, [isAvatarUpdated, isNameUpdated, isPasswordUpdated])
 
     useEffect(() => {
-        if (isProfileUpdated) {
+        if (isNameUpdated || isPasswordUpdated || isAvatarUpdated) {
             toast.success('Профиль успешно обновлен')
         }
         if (profileData.data) {
