@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {
     fetchProfileDataRequest,
-    hideSettings, updateAvatarRequest,
+    hideSettings, resetProfileUpdatedState, updateAvatarRequest,
     updateNameRequest,
     updatePasswordRequest
 } from "../redux/profileSettings/actionCreator";
@@ -34,6 +34,7 @@ const ProfileSettings = ({isShowSettings}) => {
 
     const handleHideSettings = event => {
         dispatch(hideSettings())
+        dispatch(resetProfileUpdatedState())
     }
 
     const onSubmit = (values) => {

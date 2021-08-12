@@ -6,13 +6,11 @@ import {SEND_RESET_EMAIL_REQUEST} from "./types";
 function* sendResetEmailSaga(action) {
 
     try {
-        console.log(action.payload.email)
         yield call(() => firebase.auth()
             .sendPasswordResetEmail(action.payload.email))
 
         yield put(sendResetEmailSuccess())
     } catch (error) {
-        console.log(error)
         yield put(sendResetEmailFailure(error))
     }
 }

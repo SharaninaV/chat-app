@@ -4,7 +4,7 @@ import {
     FETCH_DIALOGS_SETTINGS_SUCCESS,
     UPDATE_PHRASES_SUCCESS,
     UPDATE_GREETING_SUCCESS,
-    RESET_UPDATED_STATE
+    RESET_DIALOGS_UPDATED_STATE
 } from "./types";
 
 const initialState = {
@@ -26,6 +26,8 @@ export const dialogsSettingsReducer = (state = initialState, action) => {
             return {...state, isPhrasesUpdated: true}
         case UPDATE_GREETING_SUCCESS:
             return {...state, isGreetingUpdated: true}
+        case RESET_DIALOGS_UPDATED_STATE:
+            return {...state, isGreetingUpdated: false, isPhrasesUpdated: false}
         default: return state
     }
 }

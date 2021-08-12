@@ -9,9 +9,8 @@ import {
     UPDATE_PASSWORD_SUCCESS,
     UPDATE_PASSWORD_FAILURE,
     CLEAR_FIELDS,
-    UPDATE_AVATAR_SUCCESS
+    UPDATE_AVATAR_SUCCESS, RESET_PROFILE_UPDATED_STATE
 } from "./types";
-import {RESET_UPDATED_STATE} from "../dialogsSettings/types";
 
 const initialState = {
     isShowSettings: false,
@@ -40,7 +39,7 @@ export const profileSettingsReducer = (state = initialState, action) => {
             return {...state, isPasswordUpdated: true}
         case UPDATE_AVATAR_SUCCESS:
             return {...state, isAvatarUpdated: true}
-        case RESET_UPDATED_STATE:
+        case RESET_PROFILE_UPDATED_STATE:
             return {...state, isAvatarUpdated: false, isPasswordUpdated: false, isNameUpdated: false}
         default: return state
     }

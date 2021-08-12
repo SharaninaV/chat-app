@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Formik, Form, FieldArray, Field} from "formik";
 import {
     fetchDialogsSettingsRequest,
-    hideDialogsSettings, resetUpdatedState, updateGreetingRequest,
+    hideDialogsSettings, resetDialogsUpdatedState, updateGreetingRequest,
     updatePhrasesRequest
 } from "../redux/dialogsSettings/actionCreator";
 import {toast} from "react-toastify";
@@ -21,7 +21,6 @@ const DialogsSettings = ({isShowSettings, operatorID}) => {
     const [newPhrase, setNewPhrase] = useState('')
     const [greeting, setGreeting] = useState('')
     const [newGreeting, setNewGreeting] = useState('')
-    const [isSettingsUpdated, setIsSettingsUpdated] = useState(false)
 
     const handleHideSettings = event => {
         dispatch(hideDialogsSettings())
@@ -57,7 +56,6 @@ const DialogsSettings = ({isShowSettings, operatorID}) => {
 
     useEffect(() => {
         dispatch(fetchDialogsSettingsRequest(operatorID))
-        console.log(dialogsSettings)
     }, [isShowSettings])
 
     useEffect(() => {
@@ -66,18 +64,11 @@ const DialogsSettings = ({isShowSettings, operatorID}) => {
 
     useEffect(() => {
         if (isGreetingUpdated || isPhrasesUpdated) {
-            setIsSettingsUpdated(true)
-        }
-    }, [isPhrasesUpdated, isGreetingUpdated])
-
-    useEffect(() => {
-        if (isSettingsUpdated) {
             toast.success('Настройки диалогов успешно обновлены')
         }
-        setIsSettingsUpdated(false)
         handleHideSettings()
-        dispatch(resetUpdatedState())
-    }, [isSettingsUpdated])
+        dispatch(resetDialogsUpdatedState())
+    }, [isGreetingUpdated, isPhrasesUpdated])
 
     return (
         <ReactModal
