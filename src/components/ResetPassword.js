@@ -29,7 +29,7 @@ export const ResetPassword = () => {
         validationSchema: validationSchema,
 
         onSubmit(values) {
-            dispatch(resetPasswordRequest(values))
+            // dispatch(resetPasswordRequest(values))
             // history.push('/main')
         },
     });
