@@ -10,7 +10,8 @@ import {
 const initialState = {
     isShowSettings: false,
     dialogsSettings: {},
-    isSettingsUpdated: false
+    isGreetingUpdated: false,
+    isPhrasesUpdated: false
 }
 
 export const dialogsSettingsReducer = (state = initialState, action) => {
@@ -22,9 +23,9 @@ export const dialogsSettingsReducer = (state = initialState, action) => {
         case FETCH_DIALOGS_SETTINGS_SUCCESS:
             return {...state, dialogsSettings: action.payload.data}
         case UPDATE_PHRASES_SUCCESS:
-            return {...state, isSettingsUpdated: true}
+            return {...state, isPhrasesUpdated: true}
         case UPDATE_GREETING_SUCCESS:
-            return {...state, isSettingsUpdated: true}
+            return {...state, isGreetingUpdated: true}
         default: return state
     }
 }

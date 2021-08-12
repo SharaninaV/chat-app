@@ -10,6 +10,7 @@ import {
     updateNameRequest,
     updatePasswordRequest
 } from "../redux/profileSettings/actionCreator";
+import {toast} from "react-toastify";
 
 const ProfileSettings = ({isShowSettings}) => {
 
@@ -21,10 +22,13 @@ const ProfileSettings = ({isShowSettings}) => {
     const operatorPassword = useSelector((state) => state.auth.password)
     const profileData = useSelector((state) => state.profileSettings.profileData)
     const isAuthorized = useSelector((state) => state.auth.successful)
-    const isProfileUpdated = useSelector((state) => state.profileSettings.isProfileUpdated)
+    const isNameUpdated = useSelector((state) => state.profileSettings.isNameUpdated)
+    const isAvatarUpdated = useSelector((state) => state.profileSettings.isAvatarUpdated)
+    const isPasswordUpdated = useSelector((state) => state.profileSettings.isPasswordUpdated)
 
     const [avatarIcon, setAvatarIcon] = useState("https://diora.pro/assets/img/staff/kontakt.jpg")
     const [avatarUrl, setAvatarUrl] = useState('')
+    const [isProfileUpdated, setIsProfileUpdated] = useState(false)
 
     const operatorID = window.btoa(operatorEmail)
 
@@ -66,8 +70,14 @@ const ProfileSettings = ({isShowSettings}) => {
     }, [profileData])
 
     useEffect(() => {
+        if (isNameUpdated || isPasswordUpdated || isAvatarUpdated) {
+            setIsProfileUpdated(true)
+        }
+    }, [isAvatarUpdated, isNameUpdated, isPasswordUpdated])
+
+    useEffect(() => {
         if (isProfileUpdated) {
-            alert("Профиль успешно обновлен.")
+            toast.success('Профиль успешно обновлен')
         }
         if (profileData.data) {
             if (profileData.data.avatar) {

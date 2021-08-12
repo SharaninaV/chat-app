@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Alert, Button, Col, Row} from "react-bootstrap";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {registrationRequest} from "../redux/registration/actionCreator";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
+import {toast} from "react-toastify";
 
 const initialValues = {
     email: '',
@@ -31,6 +32,8 @@ export const Registration = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
+    const isRegistrationSuccessful = useSelector((state) => state.registration.isRegistrationSuccessful)
+
     const formik = useFormik({
         initialValues,
         autocomplete: 'off',
@@ -41,6 +44,12 @@ export const Registration = () => {
             history.push('/main')
         },
     });
+
+    useEffect(() => {
+        if (isRegistrationSuccessful)
+            toast.success('Регистрация прошла успешно!')
+    }, [isRegistrationSuccessful])
+
     return (
         <form onSubmit={formik.handleSubmit} className="registerForm">
             <h1>ChatApp</h1>
@@ -144,7 +153,7 @@ export const Registration = () => {
                     </a>
                 </Col>
                 <Col md={3}>
-                    <a href="#">
+                    <a href="/forgotPassword">
                         <p>Забыли пароль?</p>
                     </a>
                 </Col>

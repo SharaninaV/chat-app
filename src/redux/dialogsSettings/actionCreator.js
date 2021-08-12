@@ -52,3 +52,4 @@ export function updateGreetingFailure(error) {
     }
 }
 
+export const resetUpdatedState = () => ({type: RESET_UPDATED_STATE})

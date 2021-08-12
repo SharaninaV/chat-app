@@ -34,7 +34,7 @@ export const ForgotPassword = () => {
         },
     });
 
-    const sendEmailNotification = () => toast("Письмо отправлено на почту");
+    const sendEmailNotification = () => toast.success("Письмо отправлено на почту");
 
     return (
         <Container className="forgotPassword">

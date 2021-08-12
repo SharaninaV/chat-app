@@ -9,6 +9,7 @@ import {addMessageReducer} from "../addMessage/addMessageReducer";
 import {profileSettingsReducer} from "../profileSettings/profileSettingsReducer";
 import {dialogsSettingsReducer} from "../dialogsSettings/dialogsSettingsReducer";
 import {leftMenuReducer} from "../leftMenu/leftMenuReducer"
+import {registrationReducer} from "../registration/registrationReducer";
 
 export const rootReducer = combineReducers({
     auth: authFormReducer,
@@ -20,5 +21,6 @@ export const rootReducer = combineReducers({
     addMessage: addMessageReducer,
     profileSettings: profileSettingsReducer,
     dialogsSettings: dialogsSettingsReducer,
-    leftMenu: leftMenuReducer
+    leftMenu: leftMenuReducer,
+    registration: registrationReducer
 })

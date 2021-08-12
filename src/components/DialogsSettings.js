@@ -5,20 +5,23 @@ import {useDispatch, useSelector} from "react-redux";
 import {Formik, Form, FieldArray, Field} from "formik";
 import {
     fetchDialogsSettingsRequest,
-    hideDialogsSettings, updateGreetingRequest,
+    hideDialogsSettings, resetUpdatedState, updateGreetingRequest,
     updatePhrasesRequest
 } from "../redux/dialogsSettings/actionCreator";
+import {toast} from "react-toastify";
 
 const DialogsSettings = ({isShowSettings, operatorID}) => {
 
     const dispatch = useDispatch()
 
     const dialogsSettings = useSelector((state) => state.dialogsSettings.dialogsSettings)
-    const isSettingsUpdated = useSelector((state) => state.dialogsSettings.isSettingsUpdated)
+    const isPhrasesUpdated = useSelector((state) => state.dialogsSettings.isPhrasesUpdated)
+    const isGreetingUpdated = useSelector((state) => state.dialogsSettings.isGreetingUpdated)
     const [phrases, setPhrases] = useState([])
     const [newPhrase, setNewPhrase] = useState('')
     const [greeting, setGreeting] = useState('')
     const [newGreeting, setNewGreeting] = useState('')
+    const [isSettingsUpdated, setIsSettingsUpdated] = useState(false)
 
     const handleHideSettings = event => {
         dispatch(hideDialogsSettings())
@@ -44,18 +47,17 @@ const DialogsSettings = ({isShowSettings, operatorID}) => {
     }
 
     useEffect(() => {
-        if (dialogsSettings) {
-            if (dialogsSettings.data) {
-                if (dialogsSettings.data.phrases !== "empty") {
-                    setPhrases(dialogsSettings.data.phrases)
-                }
-                setGreeting(dialogsSettings.data.greeting)
+        if (dialogsSettings && Object.keys(dialogsSettings).length) {
+            if (dialogsSettings.data.phrases !== "empty") {
+                setPhrases(dialogsSettings.data.phrases)
             }
+            setGreeting(dialogsSettings.data.greeting)
         }
     }, [dialogsSettings])
 
     useEffect(() => {
         dispatch(fetchDialogsSettingsRequest(operatorID))
+        console.log(dialogsSettings)
     }, [isShowSettings])
 
     useEffect(() => {
@@ -63,10 +65,18 @@ const DialogsSettings = ({isShowSettings, operatorID}) => {
     }, [phrases, greeting])
 
     useEffect(() => {
-        if (isSettingsUpdated) {
-            alert("Настройки сохранены.")
+        if (isGreetingUpdated || isPhrasesUpdated) {
+            setIsSettingsUpdated(true)
         }
+    }, [isPhrasesUpdated, isGreetingUpdated])
+
+    useEffect(() => {
+        if (isSettingsUpdated) {
+            toast.success('Настройки диалогов успешно обновлены')
+        }
+        setIsSettingsUpdated(false)
         handleHideSettings()
+        dispatch(resetUpdatedState())
     }, [isSettingsUpdated])
 
     return (

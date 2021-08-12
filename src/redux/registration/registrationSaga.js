@@ -17,7 +17,7 @@ function* registrationSaga(action) {
             dialogsSettings:
                 {
                     greeting: '',
-                    phrases: []
+                    phrases: 'empty'
                 }
         }
         yield call(() => ref.set(newOperator))
