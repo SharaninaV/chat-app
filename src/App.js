@@ -6,6 +6,7 @@ import {Main} from "./components/Main";
 import {ShowDialog} from "./components/ShowDialog";
 import {Registration} from "./components/Registration";
 import {ForgotPassword} from "./components/ForgotPassword";
+import {ResetPassword} from "./components/ResetPassword";
 
 const App = () => {
 
@@ -16,7 +17,7 @@ const App = () => {
                     <Route exact path="/main" component={Main}/>
                     <Route path="/current" component={ShowDialog}/>
                     <Route path="/registration" component={Registration}/>
-                    {/*<Route path="/"*/}
+                    <Route path="/resetPassword" component={ResetPassword}/>
                     <Route path="/forgotPassword" component={ForgotPassword}/>
                 </Switch>
             </BrowserRouter>

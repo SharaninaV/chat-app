@@ -3,6 +3,9 @@ import {Alert, Button, Col, Row} from "react-bootstrap";
 import * as Yup from "yup";
 import {useFormik} from "formik";
 import {useDispatch} from "react-redux";
+import * as queryString from 'query-string'
+import {useLocation} from "react-router-dom";
+import {resetPasswordRequest} from "../redux/resetPassword/actionCreator";
 
 const initialValues = {
     password: '',
@@ -22,6 +25,7 @@ const validationSchema = Yup.object({
 export const ResetPassword = () => {
 
     const dispatch = useDispatch()
+    const location = useLocation()
 
     const formik = useFormik({
         initialValues,
@@ -29,8 +33,9 @@ export const ResetPassword = () => {
         validationSchema: validationSchema,
 
         onSubmit(values) {
-            // dispatch(resetPasswordRequest(values))
-            // history.push('/main')
+            const code = queryString.parse(location.search).oobCode;
+            console.log(code)
+            dispatch(resetPasswordRequest(code,values.password))
         },
     });
 
