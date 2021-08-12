@@ -9,14 +9,16 @@ import {
     UPDATE_PASSWORD_SUCCESS,
     UPDATE_PASSWORD_FAILURE,
     CLEAR_FIELDS,
-    UPDATE_AVATAR_SUCCESS
+    UPDATE_AVATAR_SUCCESS, RESET_PROFILE_UPDATED_STATE
 } from "./types";
 
 const initialState = {
     isShowSettings: false,
     profileData: {},
     profileErrors: [],
-    isProfileUpdated: false
+    isNameUpdated: false,
+    isAvatarUpdated: false,
+    isPasswordUpdated: false
 }
 
 export const profileSettingsReducer = (state = initialState, action) => {
@@ -32,11 +34,13 @@ export const profileSettingsReducer = (state = initialState, action) => {
         case PROFILE_DATA_FAILURE:
             return {...state, profileErrors: action.payload.error}
         case UPDATE_NAME_SUCCESS:
-            return {...state, isProfileUpdated: true}
+            return {...state, isNameUpdated: true}
         case UPDATE_PASSWORD_SUCCESS:
-            return {...state, isProfileUpdated: true}
+            return {...state, isPasswordUpdated: true}
         case UPDATE_AVATAR_SUCCESS:
-            return {...state, isProfileUpdated: true}
+            return {...state, isAvatarUpdated: true}
+        case RESET_PROFILE_UPDATED_STATE:
+            return {...state, isAvatarUpdated: false, isPasswordUpdated: false, isNameUpdated: false}
         default: return state
     }
 }

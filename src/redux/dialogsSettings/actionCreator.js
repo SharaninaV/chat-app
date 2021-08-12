@@ -8,7 +8,7 @@ import {
     UPDATE_PHRASES_FAILURE,
     UPDATE_PHRASES_SUCCESS,
     UPDATE_GREETING_REQUEST,
-    UPDATE_GREETING_SUCCESS, UPDATE_GREETING_FAILURE, RESET_UPDATED_STATE
+    UPDATE_GREETING_SUCCESS, UPDATE_GREETING_FAILURE, RESET_DIALOGS_UPDATED_STATE
 } from "./types";
 
 export const showDialogsSettings =() => ({type: SHOW_DIALOGS_SETTINGS})
@@ -52,3 +52,4 @@ export function updateGreetingFailure(error) {
     }
 }
 
+export const resetDialogsUpdatedState = () => ({type: RESET_DIALOGS_UPDATED_STATE})
