@@ -1,11 +1,12 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Alert, Button, Col, Row} from "react-bootstrap";
 import * as Yup from "yup";
 import {useFormik} from "formik";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import * as queryString from 'query-string'
-import {useLocation} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import {resetPasswordRequest} from "../redux/resetPassword/actionCreator";
+import {toast} from "react-toastify";
 
 const initialValues = {
     password: '',
@@ -26,6 +27,9 @@ export const ResetPassword = () => {
 
     const dispatch = useDispatch()
     const location = useLocation()
+    const history = useHistory()
+
+    const isResetSuccessful = useSelector((state) => state.resetPassword.isResetSuccessful)
 
     const formik = useFormik({
         initialValues,
@@ -38,6 +42,13 @@ export const ResetPassword = () => {
             dispatch(resetPasswordRequest(code,values.password))
         },
     });
+
+    useEffect(() => {
+        if(isResetSuccessful) {
+            toast.success('Пароль успешно изменен! Войдите под новым паролем.')
+            history.push('/')
+        }
+    }, [isResetSuccessful])
 
     return (
         <form onSubmit={formik.handleSubmit} className="registerForm">
