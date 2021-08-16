@@ -1,5 +1,5 @@
 import React from "react";
-import {Col, Container, ListGroup, Row} from "react-bootstrap";
+import {Col, Container, ListGroup, ListGroupItem, Row} from "reactstrap";
 import {useSelector} from "react-redux";
 import moment from 'moment'
 import 'moment/locale/ru'
@@ -35,7 +35,7 @@ export const SavedDialogs = () => {
         <ListGroup className="dialogs">
             {savedDialogs.length > 0 ?
                 (savedDialogs.map(dialog => (
-                        <ListGroup.Item action onClick={handleShowDialog} id={dialog.key}>
+                        <ListGroupItem action onClick={handleShowDialog} id={dialog.key}  className="list-item">
                             <Container>
                                 <Row>
                                     <Col>
@@ -50,18 +50,18 @@ export const SavedDialogs = () => {
                                             {getLastMessage(dialog).content}
                                         </p>
                                     </Col>
-                                    <Col>
+                                    <Col md={2}>
                                         <DeleteButton dialog={dialog}/>
                                     </Col>
                                 </Row>
                             </Container>
-                        </ListGroup.Item>
+                        </ListGroupItem>
 
                     ))
                 ) : (
-                    <ListGroup.Item>
+                    <ListGroupItem className="list-item">
                         Диалогов не найдено
-                    </ListGroup.Item>
+                    </ListGroupItem>
                 )}
         </ListGroup>
     )

@@ -1,5 +1,5 @@
 import React from "react";
-import {Button} from "react-bootstrap";
+import {Button} from "reactstrap";
 import {useHistory} from "react-router-dom";
 
 export const GoBackButton = () => {
@@ -10,6 +10,6 @@ export const GoBackButton = () => {
     }
 
     return(
-        <Button onClick={handleGoBack}>Назад</Button>
+        <Button onClick={handleGoBack} outline className="form-button float-right goback-btn">Назад</Button>
     )
 }

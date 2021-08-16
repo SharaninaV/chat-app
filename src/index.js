@@ -12,7 +12,7 @@ import {PersistGate} from "redux-persist/integration/react";
 import rootSaga from "./redux/sagas";
 import App from './App';
 import './index.css';
-import {Container} from "react-bootstrap";
+import {Container} from "reactstrap";
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 

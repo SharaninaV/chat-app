@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, Container, Row} from "react-bootstrap";
+import {Button, Col, Container, Row} from "reactstrap";
+import {faUserEdit} from "@fortawesome/free-solid-svg-icons";
 import {useDispatch, useSelector} from "react-redux";
 import {LogOut} from "./LogOut";
 import {ProfileSettings} from "./ProfileSettings";
 import {fetchProfileDataRequest, showSettings} from "../redux/profileSettings/actionCreator";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
+const iconEdit = <FontAwesomeIcon icon={faUserEdit}/>
 
 export const UpperMenu = () => {
 
@@ -38,11 +42,11 @@ export const UpperMenu = () => {
 
     return (
         <Container className="upper-menu">
-            <Row>
-                <Col md={3}>
-                    <h1>ChatApp</h1>
-                </Col>
+            <Row className="justify-content-around">
                 <Col md={2}>
+                    <h1 className="logo">ChatApp</h1>
+                </Col>
+                <Col md={1}>
                     <img alt="avatar"
                          src={avatar}
                          style={{
@@ -53,15 +57,13 @@ export const UpperMenu = () => {
                          }}/>
                 </Col>
                 <Col md={4}>
-                    <Row>
-                        <h3>Привет, {operatorName}</h3>
-                    </Row>
-                    <Row>
-                        Количество диалогов в очереди: {queuedDialogsQuantity}
-                    </Row>
+                    <h3>{operatorName}</h3>
+                    <Button outline className="profSettings-btn form-button" onClick={handleShowSettings}>{iconEdit}</Button>
                 </Col>
                 <Col md={3}>
-                    <Button className="profSettings-btn" onClick={handleShowSettings}>Настройки профиля</Button>
+                    Количество диалогов в очереди: {queuedDialogsQuantity}
+                </Col>
+                <Col md={2}>
                     <LogOut/>
                 </Col>
             </Row>

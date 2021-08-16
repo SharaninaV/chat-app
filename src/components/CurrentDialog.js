@@ -4,7 +4,7 @@ import {fetchCurrentDialogRequest} from "../redux/currentDialog/actionCreator";
 import {useLocation} from "react-router-dom";
 import moment from "moment";
 import 'moment/locale/ru'
-import {Container, Row, Col} from "react-bootstrap";
+import {Container, Row, Col} from "reactstrap";
 import {usePubNub} from "pubnub-react";
 
 export const CurrentDialog = ({clientID}) => {
@@ -88,31 +88,30 @@ export const CurrentDialog = ({clientID}) => {
             {messages.length && messages.map(message => (
                 message.writtenBy === "operator" ?
                     <Row className="operator-message-row">
-                        <Col md={5}>
+                        <Col>
                         </Col>
-                        <Col className="operator-message" md={5}>
+                        <Col className="operator-message">
                             {message.content}
                         </Col>
-                        <Col md={2}>
-                            <p>Вы:</p>
-                            {moment(message.timestamp).calendar()}
+                        <Col md={3}>
+                            <p>Вы<br/>
+                                {moment(message.timestamp).calendar()}
+                            </p>
                         </Col>
                     </Row> :
                     <Row className="client-message-row">
-                        <Col md={2}>
-                            <p>{fetchedDialog.clientName}:</p>
-                            {moment(message.timestamp).calendar()}
+                        <Col md={3}>
+                            <p>{fetchedDialog.clientName}<br/>
+                                {moment(message.timestamp).calendar()}
+                            </p>
                         </Col>
-                        <Col className="client-message" md={5}>
+                        <Col className="client-message">
                             {message.content.startsWith('data:image') ?
                                 <img alt="Изображение" height="200px" src={message.content}/>
-                                :
-                                     (
-                                        message.content
-                                     )
-                                }
+                                : (message.content)
+                            }
                         </Col>
-                        <Col md={5}>
+                        <Col>
                         </Col>
                     </Row>
             ))}

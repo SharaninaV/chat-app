@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import {Button, Col, Container, Form, Row, FormGroup, Input} from "reactstrap";
 import Picker from 'emoji-picker-react';
 import {usePubNub} from "pubnub-react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -84,38 +84,21 @@ const WriteMessage = ({clientID, userEmail}) => {
     }, [client, message, isTyping])
 
     return (
-        <Container>
+        <Container className="writeMessage">
             <Row>
                 <Col>
-                    <Row>
-                        <Col>
-                            <Form>
-                                <Form.Group controlId="writeMessage">
-                                    <Form.Control as="textarea" placeholder="Введите сообщение..." rows={3}
-                                                  value={currentMessage}
-                                                  onChange={handleOnChange}
-                                    />
-                                </Form.Group>
-                            </Form>
-                        </Col>
-                        <Col md={1}>
-                            <Row>
-                                <Button variant="light" onClick={toggleShowEmoji}>{iconSmile}</Button>
-                            </Row>
-                            <Row>
-                                <Button variant="info" onClick={handleSendMessage}>{iconPlane}</Button>
-                            </Row>
-                        </Col>
-                    </Row>
-                    {isTyping && currentDialog &&
-                    <p><span>{currentDialog.clientName}</span> печатает...</p>}
+                    <AutocompleteInput/>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
                     <Row>
                         <Col>
                             {isShowEmoji &&
                             <Picker
                                 onEmojiClick={onEmojiClick}
-                                disableSearchBar="false"
-                                pickerStyle={{height: "200px"}}
+                                disableSearchBar="true"
+                                pickerStyle={{height: "200px", marginTop: "150px"}}
                                 groupNames={{
                                     smileys_people: 'смайлики и люди',
                                     animals_nature: 'животные и природа',
@@ -134,14 +117,25 @@ const WriteMessage = ({clientID, userEmail}) => {
                             />
                             }
                         </Col>
-                        <Col md={4}>
-
-
+                    </Row>
+                    <Row className="messageInput" noGutters={true}>
+                        <Col>
+                            <Form>
+                                <FormGroup>
+                                    <Input type="textarea" placeholder="Введите сообщение..." rows={3}
+                                           value={currentMessage}
+                                           onChange={handleOnChange}
+                                    />
+                                </FormGroup>
+                            </Form>
+                        </Col>
+                        <Col md={2}>
+                            <Button className="smile-btn" color="light" onClick={toggleShowEmoji}>{iconSmile}</Button>
+                            <Button className="send-btn" color="info" onClick={handleSendMessage}>{iconPlane}</Button>
                         </Col>
                     </Row>
-                </Col>
-                <Col>
-                    <AutocompleteInput/>
+                    {isTyping && currentDialog &&
+                    <p><span>{currentDialog.clientName}</span> печатает...</p>}
                 </Col>
             </Row>
         </Container>

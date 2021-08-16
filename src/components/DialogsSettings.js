@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import ReactModal from 'react-modal'
-import {Button} from "react-bootstrap";
+import {Button, Col, Container, Input, Row} from "reactstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {Formik, Form, FieldArray, Field} from "formik";
 import {
@@ -75,66 +75,105 @@ const DialogsSettings = ({isShowSettings, operatorID}) => {
             isOpen={isShowSettings}
             contentLabel={"Настройки диалогов"}
             portalClassName={"ReactModalPortal"}
+            style={{
+                content: {
+                    background: "https://i.pinimg.com/originals/d4/79/35/d479359444438e53a87e3fcd7a752b0e.png"
+                }
+            }}
         >
             <h2>Настройки диалогов</h2>
-            <h5>Готовые фразы:</h5>
+            <h3>Шаблоны:</h3>
             <Formik
                 initialValues={{phrases: phrases}}
                 render={({values}) => (
-                    <Form>
-                        <FieldArray
-                            name="phrases"
-                            render={arrayHelpers => (
-                                <div>
-                                    {values.phrases && values.phrases.length >= 0 ? (
-                                        values.phrases.map((phrase, index) => (
-                                            <div key={index}>
-                                                <Field name={`phrases.${index}`}/>
-                                                <button
-                                                    type="button"
+                    <Container>
+                        <Form>
+                            <FieldArray
+                                name="phrases"
+                                render={arrayHelpers => (
+                                    <div>
+                                        {values.phrases && values.phrases.length >= 0 ? (
+                                            values.phrases.map((phrase, index) => (
+                                                <div key={index}>
+                                                    <Row>
+                                                        <Col>
+                                                            <Field name={`phrases.${index}`} disabled={true}/>
+                                                        </Col>
+                                                        <Col md={3}>
+                                                            <Button
+                                                                color="info"
+                                                                className="form-button deletePhrase-btn"
+                                                                onClick={() => {
+                                                                    arrayHelpers.remove(index)
+                                                                    setPhrases(phrases.slice(0, index)
+                                                                        .concat(phrases.slice(index + 1, phrases.length)))
+                                                                }}
+                                                            >
+                                                                Удалить
+                                                            </Button>
+                                                        </Col>
+                                                    </Row>
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <p>Нет</p>
+                                        )}
+                                        <Row>
+                                            <Col>
+                                                <Field as="textarea" name="newPhrase" placeholder="Введите фразу..."
+                                                       onChange={handlePhraseChange}/>
+                                            </Col>
+                                            <Col md={3}>
+                                                <Button
+                                                    className="form-button addPhrase-btn"
+                                                    color="info"
                                                     onClick={() => {
-                                                        arrayHelpers.remove(index)
-                                                        setPhrases(phrases.slice(0, index)
-                                                            .concat(phrases.slice(index + 1, phrases.length)))
-                                                    }}
+                                                        arrayHelpers.push(newPhrase)
+                                                        setPhrases(phrases.concat(newPhrase))
+                                                    }
+                                                    }
                                                 >
-                                                    Удалить
-                                                </button>
-
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <p>Нет</p>
-                                    )}
-                                    <Field as="textarea" name="newPhrase" placeholder="Введите фразу..."
-                                           onChange={handlePhraseChange}/>
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            arrayHelpers.push(newPhrase)
-                                            setPhrases(phrases.concat(newPhrase))
-                                        }
-                                        }
-                                    >
-                                        Добавить
-                                    </button>
-                                </div>
-                            )}
-                        />
-
-                        <div>
-                            <h5>Приветствие по умолчанию:</h5> <br/> {greeting ? greeting : "нет"}
-                        </div>
-                        <div>
-                            <h5>Изменить текст приветствия:</h5> <br/>
-                            <Field as="textarea" name="greeting" placeholder="Введите текст приветствия..."
-                                   onChange={handleGreetingChange}/>
-                        </div>
-                    </Form>
+                                                    Добавить
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                )}
+                            />
+                            <Row>
+                                <Col>
+                                    <p>Приветствие по умолчанию:</p>
+                                </Col>
+                                <Col>
+                                    <p>
+                                        {greeting ? greeting : "нет"}
+                                    </p>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <h3>Изменить текст приветствия:</h3>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <Field as="textarea" name="greeting" placeholder="Введите текст приветствия..."
+                                           onChange={handleGreetingChange}/>
+                                </Col>
+                            </Row>
+                        </Form>
+                    </Container>
                 )}
             />
-            <Button onClick={handleSaveDialogsSettings} style={{marginTop: "50px"}}>Сохранить настройки</Button>
-            <Button onClick={handleHideSettings} style={{marginTop: "50px"}} variant="danger">Закрыть</Button>
+            <Row>
+                <Col>
+                    <Button onClick={handleSaveDialogsSettings} color="info" className="form-button">Сохранить</Button>
+                </Col>
+                <Col>
+                    <Button onClick={handleHideSettings} color="info"
+                            className="form-button float-right">Закрыть</Button>
+                </Col>
+            </Row>
         </ReactModal>
     )
 }

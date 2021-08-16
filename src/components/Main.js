@@ -3,7 +3,7 @@ import {useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import * as jwt from "jsonwebtoken"
 import {useHistory} from "react-router-dom";
-import {Col, Container, Row} from "react-bootstrap";
+import {Col, Container, Row} from "reactstrap";
 import {setTokenNotValid} from "../redux/main/sagas/actionCreator";
 import {UpperMenu} from "./UpperMenu";
 import {SearchInUsers} from "./SearchInUsers";
@@ -41,11 +41,11 @@ export const Main = () => {
     return (
         <Container className="main">
             <UpperMenu/>
-            <Row>
-                <Col>
+            <Row className="justify-content-around">
+                <Col md={5}>
                     <SearchInUsers/>
                 </Col>
-                <Col>
+                <Col md={5}>
                     <SearchInMessages/>
                 </Col>
             </Row>

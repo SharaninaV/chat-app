@@ -1,5 +1,5 @@
 import React from "react";
-import {Col, Container, ListGroup, Row} from "react-bootstrap";
+import {Col, Container, ListGroup, ListGroupItem, Row} from "reactstrap";
 import moment from "moment";
 import {useSelector} from "react-redux";
 import {EnterDialogButton} from "./EnterDialogButton";
@@ -26,7 +26,7 @@ export const QueuedDialogs = () => {
         <ListGroup className="dialogs">
             {queuedDialogs.length > 0 ?
                 (queuedDialogs.map(dialog => (
-                        <ListGroup.Item>
+                        <ListGroupItem  className="list-item">
                             <Container>
                                 <Row>
                                     <Col>
@@ -41,17 +41,17 @@ export const QueuedDialogs = () => {
                                         {getLastMessage(dialog).content}
                                         </p>
                                     </Col>
-                                    <Col>
+                                    <Col md={2}>
                                         <EnterDialogButton dialog={dialog}/>
                                     </Col>
                                 </Row>
                             </Container>
-                        </ListGroup.Item>
+                        </ListGroupItem>
                     ))
                 ) : (
-                    <ListGroup.Item>
+                    <ListGroupItem  className="list-item">
                         Диалогов не найдено
-                    </ListGroup.Item>
+                    </ListGroupItem>
                 )}
         </ListGroup>
     )

@@ -1,5 +1,5 @@
 import React from "react";
-import {Container, FormControl, InputGroup, Row} from "react-bootstrap";
+import {Container, Input, InputGroup, Row} from "reactstrap";
 import {useDispatch} from "react-redux";
 import debounce from 'lodash.debounce'
 import {resetUsersFound, searchInUsersRequest, setSearchUsers} from "../redux/searchInUsers/actionCreator"
@@ -17,10 +17,10 @@ export const SearchInUsers = () => {
     }
 
     return (
-        <Container>
+        <Container className="search">
             <Row>
                 <InputGroup className="mb-3">
-                    <FormControl
+                    <Input
                         type="text"
                         placeholder="Поиск по пользователям..."
                         onChange={debounce(handleInputChange, 500)}
