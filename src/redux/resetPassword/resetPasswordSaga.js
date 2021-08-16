@@ -1,13 +1,19 @@
-import {call, put, takeLatest} from "redux-saga/effects";
-import firebase from "../../firebase/firebase";
+import { call, put, takeLatest } from 'redux-saga/effects'
+import firebase from '../../firebase/firebase'
 
-import {RESET_PASSWORD_REQUEST} from "./types";
-import {resetPasswordFailure, resetPasswordSuccess} from "./actionCreator";
+import { RESET_PASSWORD_REQUEST } from './types'
+import { resetPasswordFailure, resetPasswordSuccess } from './actionCreator'
 
 function* resetPasswordSaga(action) {
-
     try {
-        yield call(() => firebase.auth().confirmPasswordReset(action.payload.code, action.payload.password))
+        yield call(() =>
+            firebase
+                .auth()
+                .confirmPasswordReset(
+                    action.payload.code,
+                    action.payload.password
+                )
+        )
         yield put(resetPasswordSuccess())
     } catch (error) {
         console.log(error)

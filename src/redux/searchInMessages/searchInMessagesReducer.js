@@ -1,16 +1,16 @@
 import {
-    IS_SEARCHING_MESSAGES, RESET_MESSAGES_FOUND,
+    IS_SEARCHING_MESSAGES,
+    RESET_MESSAGES_FOUND,
     SEARCH_MESSAGES_FAILURE,
     SEARCH_MESSAGES_REQUEST,
-    SEARCH_MESSAGES_SUCCESS
-} from "./types";
-
+    SEARCH_MESSAGES_SUCCESS,
+} from './types'
 
 const initialState = {
     searchText: '',
     messagesFound: [],
     searchInMessagesError: [],
-    searchMessagesNeeded: false
+    searchMessagesNeeded: false,
 }
 
 export const searchInMessagesReducer = (state = initialState, action) => {
@@ -18,31 +18,31 @@ export const searchInMessagesReducer = (state = initialState, action) => {
         case IS_SEARCHING_MESSAGES:
             return {
                 ...state,
-                searchMessagesNeeded: action.payload
+                searchMessagesNeeded: action.payload,
             }
         case SEARCH_MESSAGES_REQUEST:
             return {
                 ...state,
                 searchText: action.payload.searchText,
-                searchInMessagesError: []
+                searchInMessagesError: [],
             }
         case SEARCH_MESSAGES_SUCCESS:
             return {
                 ...state,
                 messagesFound: action.payload.data,
-                searchInMessagesError: []
+                searchInMessagesError: [],
             }
         case SEARCH_MESSAGES_FAILURE:
             return {
                 ...state,
                 searchText: [],
                 messagesFound: [],
-                searchInMessagesError: action.payload.error
+                searchInMessagesError: action.payload.error,
             }
         case RESET_MESSAGES_FOUND:
             return {
                 ...state,
-                messagesFound: []
+                messagesFound: [],
             }
         default:
             return state
