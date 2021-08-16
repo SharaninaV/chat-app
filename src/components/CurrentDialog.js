@@ -19,6 +19,7 @@ export const CurrentDialog = ({ clientID }) => {
     )
     const [needRefresh, setNeedRefresh] = useState(false)
     const [messages, setMessages] = useState([])
+    const [needScroll, setNeedScroll] = useState(false)
 
     const key = location.pathname.split(':')[1]
     const isFinished = fetchedDialog.status === 'finished'
@@ -47,6 +48,7 @@ export const CurrentDialog = ({ clientID }) => {
     useEffect(() => {
         if (fetchedDialog && Object.keys(fetchedDialog).length) {
             setMessages(Object.values(fetchedDialog.messages))
+            setNeedScroll(true)
         }
     }, [fetchedDialog])
 
@@ -82,7 +84,7 @@ export const CurrentDialog = ({ clientID }) => {
 
     useEffect(() => {
         dialogRef.current.scrollIntoView({ behavior: 'auto' })
-    }, [pubnub, messages])
+    }, [needScroll])
 
     return (
         <Container className='currentDialog'>
