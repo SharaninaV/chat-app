@@ -83,7 +83,6 @@ export const FinishedDialogs = () => {
                                         value={dialog.data.rating}
                                         icons={icons.star}
                                         colors={colors.star}
-                                        style
                                     />
                                 </Col>
                             </Row>
