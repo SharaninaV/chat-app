@@ -84,6 +84,7 @@ export const WriteMessage = ({ clientID, userEmail }) => {
         }
     }, [client, message, isTyping])
 
+
     return (
         <Container className='writeMessage'>
             <Row>

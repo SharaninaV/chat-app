@@ -97,10 +97,6 @@ a {
 }
 .autocompleteInput {
     padding: 25px 0 0 0;
-    position: relative;
-}
-.autocompleteInput button {
-    position: absolute;
 }
 .addMessage {
     width: 300px;
@@ -216,6 +212,9 @@ a {
 }
 .uploadAvatar-btn,
 .deletePhrase-btn,
-.addPhrase-btn {
+.addPhrase-btn, .template-btn {
     margin: 0;
+}
+.template-btn {
+    margin-bottom: 10px;
 }
