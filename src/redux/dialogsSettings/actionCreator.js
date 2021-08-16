@@ -21,19 +21,15 @@ export const fetchDialogsSettingsRequest = (id) => ({
     id,
 })
 
-export function fetchDialogsSettingsSuccess(data) {
-    return {
-        type: FETCH_DIALOGS_SETTINGS_SUCCESS,
-        payload: { data },
-    }
-}
+export const fetchDialogsSettingsSuccess = (data) => ({
+    type: FETCH_DIALOGS_SETTINGS_SUCCESS,
+    payload: { data },
+})
 
-export function fetchDialogsSettingsFailure(error) {
-    return {
-        type: FETCH_DIALOGS_SETTINGS_FAILURE,
-        payload: { error },
-    }
-}
+export const fetchDialogsSettingsFailure = (error) => ({
+    type: FETCH_DIALOGS_SETTINGS_FAILURE,
+    payload: { error },
+})
 
 export const updatePhrasesRequest = (phrases, id) => ({
     type: UPDATE_PHRASES_REQUEST,
@@ -42,12 +38,10 @@ export const updatePhrasesRequest = (phrases, id) => ({
 
 export const updatePhrasesSuccess = () => ({ type: UPDATE_PHRASES_SUCCESS })
 
-export function updatePhrasesFailure(error) {
-    return {
-        type: UPDATE_PHRASES_FAILURE,
-        payload: { error },
-    }
-}
+export const updatePhrasesFailure = (error) => ({
+    type: UPDATE_PHRASES_FAILURE,
+    payload: { error },
+})
 
 export const updateGreetingRequest = (greeting, id) => ({
     type: UPDATE_GREETING_REQUEST,
@@ -56,12 +50,10 @@ export const updateGreetingRequest = (greeting, id) => ({
 
 export const updateGreetingSuccess = () => ({ type: UPDATE_GREETING_SUCCESS })
 
-export function updateGreetingFailure(error) {
-    return {
-        type: UPDATE_GREETING_FAILURE,
-        payload: { error },
-    }
-}
+export const updateGreetingFailure = (error) => ({
+    type: UPDATE_GREETING_FAILURE,
+    payload: { error },
+})
 
 export const resetDialogsUpdatedState = () => ({
     type: RESET_DIALOGS_UPDATED_STATE,

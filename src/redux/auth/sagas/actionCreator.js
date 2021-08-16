@@ -9,26 +9,20 @@ import {
     RESET_AUTH_ERRORS,
 } from './types'
 
-export function loginRequest({ email, password }) {
-    return {
-        type: FETCH_LOGIN_REQUEST,
-        payload: { email: email, password: password },
-    }
-}
+export const loginRequest = ({ email, password }) => ({
+    type: FETCH_LOGIN_REQUEST,
+    payload: { email: email, password: password },
+})
 
-export function loginSuccess(payload) {
-    return {
-        type: FETCH_LOGIN_SUCCESS,
-        payload: { payload },
-    }
-}
+export const loginSuccess = (payload) => ({
+    type: FETCH_LOGIN_SUCCESS,
+    payload: { payload },
+})
 
-export function loginFailure(error) {
-    return {
-        type: FETCH_LOGIN_FAILURE,
-        payload: { error },
-    }
-}
+export const loginFailure = (error) => ({
+    type: FETCH_LOGIN_FAILURE,
+    payload: { error },
+})
 
 export const resetAuthErrors = () => ({ type: RESET_AUTH_ERRORS })
 

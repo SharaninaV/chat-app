@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { Button } from 'reactstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchDialogsRequest } from '../redux/dialogs/actionCreator'
-import { enterDialogRequest } from '../redux/enterDialog/actionCreator'
-import { sendMessageRequest } from '../redux/sendMessage/actionCreator'
 import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
+import { fetchDialogsRequest } from '../redux/dialogs/actionCreator'
+import { enterDialogRequest } from '../redux/enterDialog/actionCreator'
+import { sendMessageRequest } from '../redux/sendMessage/actionCreator'
 
 const iconEnter = <FontAwesomeIcon icon={faArrowAltCircleRight} />
 
@@ -15,7 +15,7 @@ export const EnterDialogButton = ({ dialog }) => {
     const history = useHistory()
     const operatorEmail = useSelector((state) => state.auth.email)
     const dialogsSettings = useSelector(
-        (state) => state.dialogsSettings.dialogsSettings
+        (state) => state.dialogsSettings.dialogsSettings,
     )
 
     const operatorID = window.btoa(operatorEmail)
@@ -47,14 +47,14 @@ export const EnterDialogButton = ({ dialog }) => {
         }
 
         const https = require('https')
-        const req = https.request(options, function (res) {
-            res.on('data', function (data) {
+        const req = https.request(options, function(res) {
+            res.on('data', function(data) {
                 console.log('Response:')
                 console.log(JSON.parse(data))
             })
         })
 
-        req.on('error', function (e) {
+        req.on('error', function(e) {
             console.log('ERROR:')
             console.log(e)
         })
@@ -69,7 +69,6 @@ export const EnterDialogButton = ({ dialog }) => {
         const message = {
             app_id: 'b11b07e3-1352-4f27-9d6b-3b655859ec81',
             contents: { en: 'Вам ответил оператор' },
-            // include_player_ids: [userId],
             filters: [
                 {
                     field: 'tag',
@@ -97,10 +96,10 @@ export const EnterDialogButton = ({ dialog }) => {
     return (
         <Button
             onClick={handleEnterDialog}
-            className="form-button enter-btn float-right"
+            className='form-button enter-btn float-right'
             outline
         >
-            Войти<i className="btn-icon">{iconEnter}</i>
+            Войти<i className='btn-icon'>{iconEnter}</i>
         </Button>
     )
 }

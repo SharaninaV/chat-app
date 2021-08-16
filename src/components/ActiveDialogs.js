@@ -9,14 +9,14 @@ import { SaveDialogButton } from './SaveDialogButton'
 export const ActiveDialogs = () => {
     const operatorEmail = useSelector((state) => state.auth.email)
     const fetchedDialogs = useSelector(
-        (state) => state.fetchDialogs.fetchedDialogs
+        (state) => state.fetchDialogs.fetchedDialogs,
     )
 
     const operatorID = window.btoa(operatorEmail)
     const activeDialogs = fetchedDialogs.filter(
         (dialog) =>
             dialog.data.status === 'active' &&
-            dialog.data.operatorID === operatorID
+            dialog.data.operatorID === operatorID,
     )
 
     const history = useHistory()
@@ -37,13 +37,13 @@ export const ActiveDialogs = () => {
     }
 
     return (
-        <ListGroup className="dialogs">
+        <ListGroup className='dialogs'>
             {activeDialogs.length > 0 ? (
                 activeDialogs.map((dialog) => (
                     <ListGroupItem
                         action
                         onClick={handleShowDialog}
-                        className="list-item"
+                        className='list-item'
                         id={dialog.key}
                     >
                         <Container>
@@ -52,7 +52,7 @@ export const ActiveDialogs = () => {
                                     {dialog.data.clientName}
                                     <br />(
                                     {moment(
-                                        dialog.data.latestActivity
+                                        dialog.data.latestActivity,
                                     ).calendar()}
                                     )
                                 </Col>
@@ -63,7 +63,7 @@ export const ActiveDialogs = () => {
                                     ) : (
                                         <p>{dialog.data.clientName}:</p>
                                     )}
-                                    <p className="overflow-text">
+                                    <p className='overflow-text'>
                                         {getLastMessage(dialog).content}
                                     </p>
                                 </Col>
@@ -75,7 +75,7 @@ export const ActiveDialogs = () => {
                     </ListGroupItem>
                 ))
             ) : (
-                <ListGroupItem className="list-item">
+                <ListGroupItem className='list-item'>
                     Диалогов не найдено
                 </ListGroupItem>
             )}

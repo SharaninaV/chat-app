@@ -12,6 +12,7 @@ import {
 import { Form, Field } from 'react-final-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import {
     fetchProfileDataRequest,
     hideSettings,
@@ -20,9 +21,8 @@ import {
     updateNameRequest,
     updatePasswordRequest,
 } from '../redux/profileSettings/actionCreator'
-import { toast } from 'react-toastify'
 
-const ProfileSettings = ({ isShowSettings }) => {
+export const ProfileSettings = ({ isShowSettings }) => {
     const dispatch = useDispatch()
 
     const history = useHistory()
@@ -30,21 +30,21 @@ const ProfileSettings = ({ isShowSettings }) => {
     const operatorEmail = useSelector((state) => state.auth.email)
     const operatorPassword = useSelector((state) => state.auth.password)
     const profileData = useSelector(
-        (state) => state.profileSettings.profileData
+        (state) => state.profileSettings.profileData,
     )
     const isAuthorized = useSelector((state) => state.auth.successful)
     const isNameUpdated = useSelector(
-        (state) => state.profileSettings.isNameUpdated
+        (state) => state.profileSettings.isNameUpdated,
     )
     const isAvatarUpdated = useSelector(
-        (state) => state.profileSettings.isAvatarUpdated
+        (state) => state.profileSettings.isAvatarUpdated,
     )
     const isPasswordUpdated = useSelector(
-        (state) => state.profileSettings.isPasswordUpdated
+        (state) => state.profileSettings.isPasswordUpdated,
     )
 
     const [avatarIcon, setAvatarIcon] = useState(
-        'https://diora.pro/assets/img/staff/kontakt.jpg'
+        'https://diora.pro/assets/img/staff/kontakt.jpg',
     )
     const [avatarUrl, setAvatarUrl] = useState('')
     const [isProfileUpdated, setIsProfileUpdated] = useState(false)
@@ -70,7 +70,7 @@ const ProfileSettings = ({ isShowSettings }) => {
                     id: operatorID,
                     newPassword: password,
                     oldPassword: operatorPassword,
-                })
+                }),
             )
         }
         if (avatarUrl) {
@@ -98,7 +98,7 @@ const ProfileSettings = ({ isShowSettings }) => {
 
     useEffect(() => {
         setIsProfileUpdated(
-            isNameUpdated || isPasswordUpdated || isAvatarUpdated
+            isNameUpdated || isPasswordUpdated || isAvatarUpdated,
         )
     }, [isAvatarUpdated, isNameUpdated, isPasswordUpdated])
 
@@ -147,12 +147,12 @@ const ProfileSettings = ({ isShowSettings }) => {
                     return errors
                 }}
                 render={({
-                    form,
-                    handleSubmit,
-                    submitting,
-                    pristine,
-                    values,
-                }) => (
+                             form,
+                             handleSubmit,
+                             submitting,
+                             pristine,
+                             values,
+                         }) => (
                     <Container>
                         <form onSubmit={handleSubmit}>
                             <Row>
@@ -160,7 +160,7 @@ const ProfileSettings = ({ isShowSettings }) => {
                                     <h3>Настройки профиля</h3>
                                 </Col>
                             </Row>
-                            <Row className="form-item">
+                            <Row className='form-item'>
                                 <Col>
                                     <p>
                                         Ваше имя:{' '}
@@ -168,27 +168,27 @@ const ProfileSettings = ({ isShowSettings }) => {
                                     </p>
                                 </Col>
                             </Row>
-                            <Row className="form-input">
-                                <Field name="name">
+                            <Row className='form-input'>
+                                <Field name='name'>
                                     {({ input, meta }) => (
                                         <InputGroup>
                                             <Col md={3}>
                                                 <Label>Изменить имя: </Label>
                                             </Col>
                                             <Col>
-                                                <Input {...input} type="text" />
+                                                <Input {...input} type='text' />
                                             </Col>
                                         </InputGroup>
                                     )}
                                 </Field>
                             </Row>
-                            <Row className="form-input">
+                            <Row className='form-input'>
                                 <Col md={3}>
                                     <Label>Аватар: </Label>
                                 </Col>
                                 <Col>
                                     <img
-                                        alt="avatar"
+                                        alt='avatar'
                                         src={avatarIcon}
                                         style={{
                                             height: '80px',
@@ -199,24 +199,24 @@ const ProfileSettings = ({ isShowSettings }) => {
                                     />
                                 </Col>
                             </Row>
-                            <Field name="avatar">
+                            <Field name='avatar'>
                                 {({ input, meta }) => (
-                                    <Row className="form-input">
+                                    <Row className='form-input'>
                                         <Col md={3}>
                                             <Label>Новый аватар: </Label>
                                         </Col>
                                         <Col>
                                             <Input
                                                 {...input}
-                                                type="url"
+                                                type='url'
                                                 value={avatarUrl}
                                                 onChange={handleChangeUrl}
                                             />
                                         </Col>
                                         <Col>
                                             <Button
-                                                className="form-button uploadAvatar-btn"
-                                                color="info"
+                                                className='form-button uploadAvatar-btn'
+                                                color='info'
                                                 onClick={handleChangeAvatar}
                                             >
                                                 Загрузить новый
@@ -230,8 +230,8 @@ const ProfileSettings = ({ isShowSettings }) => {
                                     <h3>Изменить пароль</h3>
                                 </Col>
                             </Row>
-                            <Row className="form-input">
-                                <Field name="oldPassword">
+                            <Row className='form-input'>
+                                <Field name='oldPassword'>
                                     {({ input, meta }) => (
                                         <InputGroup>
                                             <Col md={3}>
@@ -240,15 +240,15 @@ const ProfileSettings = ({ isShowSettings }) => {
                                             <Col>
                                                 <Input
                                                     {...input}
-                                                    type="password"
+                                                    type='password'
                                                 />
                                             </Col>
                                         </InputGroup>
                                     )}
                                 </Field>
                             </Row>
-                            <Row className="form-input">
-                                <Field name="password">
+                            <Row className='form-input'>
+                                <Field name='password'>
                                     {({ input, meta }) => (
                                         <InputGroup>
                                             <Col md={3}>
@@ -257,7 +257,7 @@ const ProfileSettings = ({ isShowSettings }) => {
                                             <Col>
                                                 <Input
                                                     {...input}
-                                                    type="password"
+                                                    type='password'
                                                 />
                                             </Col>
                                             {meta.error && meta.touched && (
@@ -267,8 +267,8 @@ const ProfileSettings = ({ isShowSettings }) => {
                                     )}
                                 </Field>
                             </Row>
-                            <Row className="form-input">
-                                <Field name="passwordConfirm">
+                            <Row className='form-input'>
+                                <Field name='passwordConfirm'>
                                     {({ input, meta }) => (
                                         <InputGroup>
                                             <Col md={3}>
@@ -279,7 +279,7 @@ const ProfileSettings = ({ isShowSettings }) => {
                                             <Col>
                                                 <Input
                                                     {...input}
-                                                    type="password"
+                                                    type='password'
                                                 />
                                             </Col>
                                             {meta.error && meta.touched && (
@@ -289,12 +289,12 @@ const ProfileSettings = ({ isShowSettings }) => {
                                     )}
                                 </Field>
                             </Row>
-                            <Row className="justify-content-center">
+                            <Row className='justify-content-center'>
                                 <Col md={3}>
                                     <Button
-                                        type="submit"
-                                        className="form-button"
-                                        color="info"
+                                        type='submit'
+                                        className='form-button'
+                                        color='info'
                                     >
                                         Сохранить
                                     </Button>
@@ -302,8 +302,8 @@ const ProfileSettings = ({ isShowSettings }) => {
                                 <Col md={3}>
                                     <Button
                                         onClick={handleHideSettings}
-                                        className="form-button"
-                                        color="info"
+                                        className='form-button'
+                                        color='info'
                                     >
                                         Закрыть
                                     </Button>
@@ -316,5 +316,3 @@ const ProfileSettings = ({ isShowSettings }) => {
         </ReactModal>
     )
 }
-
-export { ProfileSettings }

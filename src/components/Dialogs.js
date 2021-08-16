@@ -10,13 +10,13 @@ import { LeftMenu } from './LeftMenu'
 
 export const Dialogs = () => {
     const isSearchingMessages = useSelector(
-        (state) => state.searchInMessages.searchMessagesNeeded
+        (state) => state.searchInMessages.searchMessagesNeeded,
     )
     const foundMessages = useSelector(
-        (state) => state.searchInMessages.messagesFound
+        (state) => state.searchInMessages.messagesFound,
     )
     const isSearchingInUsers = useSelector(
-        (state) => state.searchInUsers.isUserSearching
+        (state) => state.searchInUsers.isUserSearching,
     )
     const usersFound = useSelector((state) => state.searchInUsers.usersFound)
     const filter = useSelector((state) => state.leftMenu.filter)
@@ -29,7 +29,7 @@ export const Dialogs = () => {
     const renderFoundMessages = (foundMessages) => {
         return (
             <Container>
-                <ListGroup className="foundItems">
+                <ListGroup className='foundItems'>
                     {foundMessages.length > 0 ? (
                         foundMessages.map((message) => (
                             <Row>

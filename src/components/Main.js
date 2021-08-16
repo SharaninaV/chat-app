@@ -38,9 +38,9 @@ export const Main = () => {
     }, [])
 
     return (
-        <Container className="main">
+        <Container className='main'>
             <UpperMenu />
-            <Row className="justify-content-around">
+            <Row className='justify-content-around'>
                 <Col md={5}>
                     <SearchInUsers />
                 </Col>

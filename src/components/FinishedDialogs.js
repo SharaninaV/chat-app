@@ -10,14 +10,14 @@ import { useHistory } from 'react-router-dom'
 export const FinishedDialogs = () => {
     const operatorEmail = useSelector((state) => state.auth.email)
     const fetchedDialogs = useSelector(
-        (state) => state.fetchDialogs.fetchedDialogs
+        (state) => state.fetchDialogs.fetchedDialogs,
     )
 
     const operatorID = window.btoa(operatorEmail)
     const finishedDialogs = fetchedDialogs.filter(
         (dialog) =>
             dialog.data.status === 'finished' &&
-            dialog.data.operatorID === operatorID
+            dialog.data.operatorID === operatorID,
     )
 
     const history = useHistory()
@@ -48,14 +48,14 @@ export const FinishedDialogs = () => {
     }
 
     return (
-        <ListGroup className="dialogs">
+        <ListGroup className='dialogs'>
             {finishedDialogs.length > 0 ? (
                 finishedDialogs.map((dialog) => (
                     <ListGroupItem
                         action
                         onClick={handleShowDialog}
                         id={dialog.key}
-                        className="list-item"
+                        className='list-item'
                     >
                         <Container>
                             <Row>
@@ -63,7 +63,7 @@ export const FinishedDialogs = () => {
                                     {dialog.data.clientName}
                                     <br />(
                                     {moment(
-                                        dialog.data.latestActivity
+                                        dialog.data.latestActivity,
                                     ).calendar()}
                                     )
                                 </Col>
@@ -74,7 +74,7 @@ export const FinishedDialogs = () => {
                                     ) : (
                                         <p>{dialog.data.clientName}:</p>
                                     )}
-                                    <p className="overflow-text">
+                                    <p className='overflow-text'>
                                         {getLastMessage(dialog).content}
                                     </p>
                                 </Col>
@@ -90,7 +90,7 @@ export const FinishedDialogs = () => {
                     </ListGroupItem>
                 ))
             ) : (
-                <ListGroupItem className="list-item">
+                <ListGroupItem className='list-item'>
                     Диалогов не найдено
                 </ListGroupItem>
             )}

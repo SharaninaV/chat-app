@@ -12,7 +12,7 @@ export const GoBackButton = () => {
         <Button
             onClick={handleGoBack}
             outline
-            className="form-button float-right goback-btn"
+            className='form-button float-right goback-btn'
         >
             Назад
         </Button>

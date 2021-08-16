@@ -12,12 +12,12 @@ const App = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path="/" component={AuthWindow} />
-                <Route exact path="/main" component={Main} />
-                <Route path="/current" component={ShowDialog} />
-                <Route path="/registration" component={Registration} />
-                <Route path="/resetPassword" component={ResetPassword} />
-                <Route path="/forgotPassword" component={ForgotPassword} />
+                <Route exact path='/' component={AuthWindow} />
+                <Route exact path='/main' component={Main} />
+                <Route path='/current' component={ShowDialog} />
+                <Route path='/registration' component={Registration} />
+                <Route path='/resetPassword' component={ResetPassword} />
+                <Route path='/forgotPassword' component={ForgotPassword} />
             </Switch>
         </BrowserRouter>
     )

@@ -1,10 +1,10 @@
 import React from 'react'
 import { Button } from 'reactstrap'
 import { useDispatch } from 'react-redux'
-import { fetchDialogsRequest } from '../redux/dialogs/actionCreator'
-import { saveDialogRequest } from '../redux/saveDialog/actionCreator'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
+import { fetchDialogsRequest } from '../redux/dialogs/actionCreator'
+import { saveDialogRequest } from '../redux/saveDialog/actionCreator'
 
 const iconSave = <FontAwesomeIcon icon={faSave} />
 
@@ -22,15 +22,15 @@ export const SaveDialogButton = (props) => {
             {props.dialog.data.saved ? (
                 <Button
                     disabled
-                    color="success"
-                    className="form-button enter-btn float-right"
+                    color='success'
+                    className='form-button enter-btn float-right'
                 >
                     {iconSave}
                 </Button>
             ) : (
                 <Button
                     onClick={handleSave}
-                    className="form-button save-btn float-right"
+                    className='form-button save-btn float-right'
                     outline
                 >
                     {iconSave}
