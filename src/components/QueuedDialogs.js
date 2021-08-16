@@ -42,13 +42,13 @@ export const QueuedDialogs = () => {
                                 <Col>
                                     {getLastMessage(dialog).writtenBy ===
                                     'operator' ? (
-                                        <p>Вы:</p>
+                                        <div>Вы:</div>
                                     ) : (
-                                        <p>{dialog.data.clientName}:</p>
+                                        <div>{dialog.data.clientName}:</div>
                                     )}
-                                    <p className='overflow-text'>
+                                    <div className='overflow-text'>
                                         {getLastMessage(dialog).content}
-                                    </p>
+                                    </div>
                                 </Col>
                                 <Col md={2}>
                                     <EnterDialogButton dialog={dialog} />

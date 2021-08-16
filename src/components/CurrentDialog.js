@@ -130,7 +130,7 @@ export const CurrentDialog = ({ clientID }) => {
             )}
             <div ref={dialogRef}></div>
             {isFinished && (
-                <p>
+                <p style={{textAlign: 'center', marginTop: '20px'}}>
                     Диалог завершился{' '}
                     {moment(fetchedDialog.latestActivity).calendar()}
                 </p>
