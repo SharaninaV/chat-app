@@ -2,10 +2,24 @@ import React from "react";
 import * as Yup from "yup";
 import {useFormik} from "formik";
 import {useDispatch} from "react-redux";
-import {Alert, Button, Col, Container, Row} from "react-bootstrap";
-import {useHistory} from "react-router-dom";
+import {
+    Alert,
+    Button,
+    Col,
+    Container, Form,
+    FormGroup,
+    Input,
+    InputGroup,
+    InputGroupAddon,
+    InputGroupText,
+    Row
+} from "reactstrap";
 import {sendResetEmailRequest} from "../redux/forgotPassword/actionCreator";
 import {toast} from "react-toastify";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
+
+const iconEmail = < FontAwesomeIcon icon={faEnvelope}/>
 
 const initialValues = {
     email: ''
@@ -20,7 +34,6 @@ const validationSchema = Yup.object({
 export const ForgotPassword = () => {
 
     const dispatch = useDispatch()
-    const history = useHistory()
 
     const formik = useFormik({
         initialValues,
@@ -30,7 +43,6 @@ export const ForgotPassword = () => {
         onSubmit(values) {
             dispatch(sendResetEmailRequest(values.email))
             sendEmailNotification()
-            // history.push('/newPassword')
         },
     });
 
@@ -38,35 +50,38 @@ export const ForgotPassword = () => {
 
     return (
         <Container className="forgotPassword">
-            <form onSubmit={formik.handleSubmit} className="registerForm">
-                <h1>ChatApp</h1>
-                <h2>Восстановление пароля</h2>
+            <Form onSubmit={formik.handleSubmit} >
+                <h1 className="logo">ChatApp</h1>
                 {formik.touched.email && formik.errors.email &&
                 <Row>
                     <Col>
-                        <Alert variant="danger">
+                        <Alert color="danger">
                             {formik.errors.email}
                         </Alert>
                     </Col>
                 </Row>
                 }
-                <Row className="form-input">
-                    <Col md={2}>
-                        <label htmlFor="email" className="align-middle">Email:</label>
-                    </Col>
-                    <Col md={10}>
-                        <input
-                            id="email"
-                            name="email"
-                            type="text"
-                            onChange={formik.handleChange}
-                            value={formik.values.email}
-                            placeholder="Email"
-                            className="form-control"
-                        />
-                    </Col>
-                </Row>
-                <Button className="form-button" type="submit">Отправить ссылку для восстановления</Button>
+                <FormGroup>
+                    <Row className="form-input justify-content-center">
+                        <Col md={10}>
+                            <InputGroup>
+                                <InputGroupAddon addonType="prepend">
+                                    <InputGroupText><i>{iconEmail}</i></InputGroupText>
+                                </InputGroupAddon>
+                                <Input
+                                    id="email"
+                                    name="email"
+                                    type="text"
+                                    onChange={formik.handleChange}
+                                    value={formik.values.email}
+                                    placeholder="Email"
+                                    className="form-control"
+                                />
+                            </InputGroup>
+                        </Col>
+                    </Row>
+                </FormGroup>
+                <Button className="form-button" outline color="primary" type="submit">Сбросить пароль</Button>
                 <Row className="justify-content-center">
                     <Col md={5}>
                         <a href="/">
@@ -79,7 +94,7 @@ export const ForgotPassword = () => {
                         </a>
                     </Col>
                 </Row>
-            </form>
+            </Form>
         </Container>
     )
 }

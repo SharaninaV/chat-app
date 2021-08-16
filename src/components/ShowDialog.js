@@ -1,5 +1,5 @@
 import React from "react";
-import {Container, Row, Col} from "react-bootstrap";
+import {Container, Row, Col} from "reactstrap";
 import {useLocation} from "react-router-dom";
 import PubNub from "pubnub";
 import {PubNubProvider} from "pubnub-react";
@@ -25,7 +25,7 @@ export const ShowDialog = () => {
     })
 
     return (
-        <Container className='main'>
+        <Container className='showDialog'>
             <Row>
                 <Col md={12}>
                     <UpperMenu/>
@@ -38,15 +38,21 @@ export const ShowDialog = () => {
                 <Col>
                     <Row>
                         <Col>
-                            <h3>{fetchedDialog && fetchedDialog.clientName}</h3>
+                            <h2>{fetchedDialog && fetchedDialog.clientName}</h2>
                         </Col>
                         <Col md={2}>
                             <GoBackButton/>
                         </Col>
                     </Row>
                     <PubNubProvider client={pubnub}>
-                        <CurrentDialog clientID={clientID}/>
-                        <WriteMessage userEmail={userEmail} clientID={clientID}/>
+                        <Row>
+                            <Col md={8}>
+                                <CurrentDialog clientID={clientID}/>
+                            </Col>
+                            <Col>
+                                <WriteMessage userEmail={userEmail} clientID={clientID}/>
+                            </Col>
+                        </Row>
                     </PubNubProvider>
                 </Col>
             </Row>

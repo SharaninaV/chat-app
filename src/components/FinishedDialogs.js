@@ -1,6 +1,6 @@
 import React from "react";
 import {useSelector} from "react-redux";
-import {Col, Container, ListGroup, Row} from "react-bootstrap";
+import {Col, Container, ListGroup, ListGroupItem, Row} from "reactstrap";
 import moment from "moment";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
 import {faStar as farStar} from "@fortawesome/free-regular-svg-icons"
@@ -48,7 +48,7 @@ export const FinishedDialogs = () => {
         <ListGroup className="dialogs">
             {finishedDialogs.length > 0 ?
                 (finishedDialogs.map(dialog => (
-                        <ListGroup.Item action onClick={handleShowDialog} id={dialog.key}>
+                        <ListGroupItem action onClick={handleShowDialog} id={dialog.key}  className="list-item">
                             <Container>
                                 <Row>
                                     <Col>
@@ -63,17 +63,17 @@ export const FinishedDialogs = () => {
                                             {getLastMessage(dialog).content}
                                         </p>
                                     </Col>
-                                    <Col>
+                                    <Col md={2}>
                                         <PrettyRating value={dialog.data.rating} icons={icons.star} colors={colors.star}/>
                                     </Col>
                                 </Row>
                             </Container>
-                        </ListGroup.Item>
+                        </ListGroupItem>
                     ))
                 ) : (
-                    <ListGroup.Item>
+                    <ListGroupItem  className="list-item">
                         Диалогов не найдено
-                    </ListGroup.Item>
+                    </ListGroupItem>
                 )}
         </ListGroup>
     )

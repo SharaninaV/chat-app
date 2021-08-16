@@ -1,10 +1,14 @@
 import React, {useState} from "react";
 import Autocomplete from "react-autocomplete"
-import {Container, Row, Col, Button} from "react-bootstrap";
+import {Container, Row, Col, Button} from "reactstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {addMessage} from "../redux/addMessage/actionCreator";
 import {DialogsSettings} from "./DialogsSettings";
 import {showDialogsSettings} from "../redux/dialogsSettings/actionCreator";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEdit} from "@fortawesome/free-solid-svg-icons";
+
+const iconEdit = <FontAwesomeIcon icon={faEdit}/>
 
 export const AutocompleteInput = () => {
 
@@ -22,15 +26,9 @@ export const AutocompleteInput = () => {
     return (
         <Container>
             <Row>
-                <Col md={4}>
-                    <p>Шаблоны</p>
-                </Col>
-                <Col>
-                    <Button onClick={handleShowSettings}>Настройки диалогов</Button>
-                </Col>
-            </Row>
-            <Row>
                 <Col className="autocompleteInput">
+                    <p>Шаблоны</p>
+                    <Button onClick={handleShowSettings} color="info" className="template-btn">{iconEdit}</Button>
                     <Autocomplete
                         items={[
                             {id: '1', label: 'Здравствуйте! Сейчас помогу.'},
@@ -43,7 +41,9 @@ export const AutocompleteInput = () => {
                         renderItem={(item, highlighted) =>
                             <div
                                 key={item.id}
-                                style={{backgroundColor: highlighted ? 'turquoise' : 'transparent'}}
+                                style={{backgroundColor: highlighted ? '#028DAE' : 'transparent',
+                                width: "300px",
+                                border: "2px solid #028DAE"}}
                             >
                                 {item.label}
                             </div>
@@ -51,7 +51,7 @@ export const AutocompleteInput = () => {
                         renderMenu={(items, value) => (
                             <div className="menu">
                                 {value === '' ? (
-                                    <div className="item">Начните вводить сообщение...</div>
+                                    <div className="item">Поиск в готовых<br/>сообщениях...</div>
                                 ) : items.length === 0 ? (
                                     <div className="item">Совпадений не найдено</div>
                                 ) : items}

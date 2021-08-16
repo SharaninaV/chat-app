@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Col, Container, ListGroup, Row} from "react-bootstrap";
+import {Col, Container, ListGroup, ListGroupItem, Row} from "reactstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {ActiveDialogs} from "./ActiveDialogs";
 import {SavedDialogs} from "./SavedDialogs";
@@ -22,19 +22,33 @@ export const Dialogs = () => {
     }, [isSearchingMessages, isSearchingInUsers])
 
     const renderFoundMessages = (foundMessages) => {
-        return (<ListGroup className="foundItems">
-            {foundMessages.length > 0 ?
-                (foundMessages.map(message => (
-                        <ListGroup.Item action>
-                            {message.user} <br/> {message.content}
-                        </ListGroup.Item>
-                    ))
-                ) : (
-                    <ListGroup.Item>
-                        Диалогов не найдено
-                    </ListGroup.Item>
-                )}
-        </ListGroup>)
+        return (
+            <Container>
+                <ListGroup className="foundItems">
+                    {foundMessages.length > 0 ?
+                        (foundMessages.map(message => (
+                                <Row>
+                                    <Col>
+                                        <ListGroupItem action>
+                                            {message.user} <br/> {message.content}
+                                        </ListGroupItem>
+                                    </Col>
+                                </Row>
+                            ))
+                        ) : (
+                            <Row>
+                                <Col>
+                                    <ListGroupItem>
+                                        <p>
+                                            Диалогов не найдено
+                                        </p>
+                                    </ListGroupItem>
+                                </Col>
+                            </Row>
+                        )}
+                </ListGroup>
+            </Container>
+        )
     }
 
     return (

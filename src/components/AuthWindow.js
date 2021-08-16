@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom"
-import {Button, Col, Container, Row} from "react-bootstrap";
+import {Button, Col, Container, Row} from "reactstrap";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faGoogle, faGithub} from "@fortawesome/free-brands-svg-icons";
 import {githubProvider, googleProvider} from "../firebase/authMethods";
@@ -30,7 +30,7 @@ const AuthWindow = () => {
 
     return (
         <Container className="auth">
-            <h1>ChatApp</h1>
+            <h1 className="logo">ChatApp</h1>
             <AuthForm/>
             <Row  className="justify-content-center">
                 <Col>
@@ -40,14 +40,16 @@ const AuthWindow = () => {
                 </Col>
             </Row>
             <Row className="d-flex justify-content-center">
-                <Col>
-                    <Button className="google-btn" onClick={() => handleOnClick(googleProvider)}>
+                <Col md={4}>
+                    <Button className="form-button google-btn" outline onClick={() => handleOnClick(googleProvider)}>
                         Google
-                        <i className="auth-icon">{iconGoogle}</i>
+                        <i className="btn-icon">{iconGoogle}</i>
                     </Button>
-                    <Button className="github-btn" onClick={() => handleOnClick(githubProvider)}>
+                </Col>
+                <Col md={4}>
+                    <Button className="form-button github-btn" outline onClick={() => handleOnClick(githubProvider)}>
                         GitHub
-                        <i className="auth-icon">{iconGithub}</i>
+                        <i className="btn-icon">{iconGithub}</i>
                     </Button>
                 </Col>
             </Row>

@@ -1,8 +1,12 @@
 import React from "react";
-import {Button} from "react-bootstrap";
+import {Button} from "reactstrap";
 import {useDispatch} from "react-redux";
 import {fetchDialogsRequest} from "../redux/dialogs/actionCreator";
 import {saveDialogRequest} from "../redux/saveDialog/actionCreator";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSave} from "@fortawesome/free-solid-svg-icons";
+
+const iconSave = <FontAwesomeIcon icon={faSave}/>
 
 export const SaveDialogButton = props => {
 
@@ -17,9 +21,9 @@ export const SaveDialogButton = props => {
     return(
         <>
         {props.dialog.data.saved ?
-            <Button disabled variant='success'>Сохранено</Button> :
-        <Button onClick={handleSave}>
-            Сохранить
+            <Button disabled color='success' className="form-button enter-btn float-right">{iconSave}</Button> :
+        <Button onClick={handleSave} className="form-button save-btn float-right" outline>
+            {iconSave}
         </Button>}
         </>
     )
