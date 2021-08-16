@@ -3,6 +3,7 @@ import firebase from '../../../firebase/firebase'
 import { updatePasswordFailure, updatePasswordSuccess } from '../actionCreator'
 import { UPDATE_PASSWORD_REQUEST } from '../types'
 import { logOut } from '../../auth/sagas/actionCreator'
+import { toast } from 'react-toastify'
 
 function* updatePasswordSaga(action) {
     try {
@@ -12,7 +13,7 @@ function* updatePasswordSaga(action) {
     } catch (error) {
         switch (error.code) {
             case 'auth/requires-recent-login': {
-                alert(
+                toast.success(
                     'Пароль успешно изменен! Войдите в систему с новым паролем.'
                 )
                 yield put(logOut())

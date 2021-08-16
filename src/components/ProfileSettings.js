@@ -55,7 +55,7 @@ export const ProfileSettings = ({ isShowSettings }) => {
         dispatch(hideSettings())
         dispatch(resetProfileUpdatedState())
         dispatch(fetchProfileDataRequest(operatorID))
-        setIsProfileUpdated(false)
+        setTimeout(() => setIsProfileUpdated(false), 1000)
     }
 
     const onSubmit = (values) => {
