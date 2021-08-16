@@ -19,6 +19,11 @@ export const SearchInUsers = () => {
         }
     }
 
+    const handleOnBlur = event => {
+        dispatch(setSearchUsers(false))
+        event.target.value = ''
+    }
+
     return (
         <Container className='search'>
             <Row>
@@ -28,7 +33,7 @@ export const SearchInUsers = () => {
                         placeholder='Поиск по пользователям...'
                         onChange={debounce(handleInputChange, 500)}
                         onFocus={() => dispatch(setSearchUsers(true))}
-                        onBlur={() => dispatch(setSearchUsers(false))}
+                        onBlur={handleOnBlur}
                     />
                 </InputGroup>
             </Row>
