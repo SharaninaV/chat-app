@@ -28,7 +28,7 @@ export const AutocompleteInput = () => {
 
     useEffect(() => {
         const phrases = dialogsSettings.data.phrases
-        if (phrases && phrases.length) {
+        if (phrases && phrases.length && phrases!== 'empty') {
             setItems(phrases.map(item => ({ id: phrases.indexOf(item) + 1, label: item })))
         }
     }, [dialogsSettings])
@@ -44,7 +44,6 @@ export const AutocompleteInput = () => {
                         <Col>
                             <Button
                                 onClick={handleShowSettings}
-                                // color='info'
                                 className='form-button template-btn'
                                 outline
                             >
