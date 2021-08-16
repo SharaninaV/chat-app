@@ -1,30 +1,41 @@
-import React from "react";
-import {Button} from "reactstrap";
-import {useDispatch} from "react-redux";
-import {fetchDialogsRequest} from "../redux/dialogs/actionCreator";
-import {saveDialogRequest} from "../redux/saveDialog/actionCreator";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSave} from "@fortawesome/free-solid-svg-icons";
+import React from 'react'
+import { Button } from 'reactstrap'
+import { useDispatch } from 'react-redux'
+import { fetchDialogsRequest } from '../redux/dialogs/actionCreator'
+import { saveDialogRequest } from '../redux/saveDialog/actionCreator'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSave } from '@fortawesome/free-solid-svg-icons'
 
-const iconSave = <FontAwesomeIcon icon={faSave}/>
+const iconSave = <FontAwesomeIcon icon={faSave} />
 
-export const SaveDialogButton = props => {
-
+export const SaveDialogButton = (props) => {
     const dispatch = useDispatch()
 
-    const handleSave = event => {
+    const handleSave = (event) => {
         dispatch(saveDialogRequest(props.dialog.key))
-        dispatch((fetchDialogsRequest()))
+        dispatch(fetchDialogsRequest())
         event.stopPropagation()
     }
 
-    return(
+    return (
         <>
-        {props.dialog.data.saved ?
-            <Button disabled color='success' className="form-button enter-btn float-right">{iconSave}</Button> :
-        <Button onClick={handleSave} className="form-button save-btn float-right" outline>
-            {iconSave}
-        </Button>}
+            {props.dialog.data.saved ? (
+                <Button
+                    disabled
+                    color="success"
+                    className="form-button enter-btn float-right"
+                >
+                    {iconSave}
+                </Button>
+            ) : (
+                <Button
+                    onClick={handleSave}
+                    className="form-button save-btn float-right"
+                    outline
+                >
+                    {iconSave}
+                </Button>
+            )}
         </>
     )
 }

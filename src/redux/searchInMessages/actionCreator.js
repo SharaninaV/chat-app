@@ -2,35 +2,36 @@ import {
     SEARCH_MESSAGES_REQUEST,
     SEARCH_MESSAGES_SUCCESS,
     SEARCH_MESSAGES_FAILURE,
-    IS_SEARCHING_MESSAGES, RESET_MESSAGES_FOUND
-} from "./types";
+    IS_SEARCHING_MESSAGES,
+    RESET_MESSAGES_FOUND,
+} from './types'
 
 export function setSearchMessages(isSearching) {
     return {
         type: IS_SEARCHING_MESSAGES,
-        payload: isSearching
+        payload: isSearching,
     }
 }
 
-export function searchInMessagesRequest(text){
+export function searchInMessagesRequest(text) {
     return {
         type: SEARCH_MESSAGES_REQUEST,
-        payload: {text}
+        payload: { text },
     }
 }
 
-export function searchInMessagesSuccess({data}) {
+export function searchInMessagesSuccess({ data }) {
     return {
         type: SEARCH_MESSAGES_SUCCESS,
-        payload: {data}
+        payload: { data },
     }
 }
 
 export function searchInMessagesFailure(error) {
-    return{
+    return {
         type: SEARCH_MESSAGES_FAILURE,
-        payload: {error}
+        payload: { error },
     }
 }
 
-export const resetMessagesFound = () => ({type: RESET_MESSAGES_FOUND})
+export const resetMessagesFound = () => ({ type: RESET_MESSAGES_FOUND })

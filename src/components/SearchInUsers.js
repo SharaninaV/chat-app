@@ -1,14 +1,17 @@
-import React from "react";
-import {Container, Input, InputGroup, Row} from "reactstrap";
-import {useDispatch} from "react-redux";
+import React from 'react'
+import { Container, Input, InputGroup, Row } from 'reactstrap'
+import { useDispatch } from 'react-redux'
 import debounce from 'lodash.debounce'
-import {resetUsersFound, searchInUsersRequest, setSearchUsers} from "../redux/searchInUsers/actionCreator"
+import {
+    resetUsersFound,
+    searchInUsersRequest,
+    setSearchUsers,
+} from '../redux/searchInUsers/actionCreator'
 
 export const SearchInUsers = () => {
-
     const dispatch = useDispatch()
 
-    const handleInputChange = event => {
+    const handleInputChange = (event) => {
         if (!event.target.value.length) {
             dispatch(resetUsersFound())
         } else {

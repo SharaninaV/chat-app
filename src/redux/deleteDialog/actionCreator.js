@@ -1,17 +1,21 @@
-import {DELETE_DIALOG_REQUEST, DELETE_DIALOG_SUCCESS, DELETE_DIALOG_FAILURE} from "./types";
+import {
+    DELETE_DIALOG_REQUEST,
+    DELETE_DIALOG_SUCCESS,
+    DELETE_DIALOG_FAILURE,
+} from './types'
 
-export function deleteDialogRequest(key){
+export function deleteDialogRequest(key) {
     return {
         type: DELETE_DIALOG_REQUEST,
-        payload: {key}
+        payload: { key },
     }
 }
 
-export const deleteDialogSuccess = () => ({type: DELETE_DIALOG_SUCCESS})
+export const deleteDialogSuccess = () => ({ type: DELETE_DIALOG_SUCCESS })
 
 export function deleteDialogFailure(error) {
-    return{
+    return {
         type: DELETE_DIALOG_FAILURE,
-        payload: {error}
+        payload: { error },
     }
 }

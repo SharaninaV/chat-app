@@ -1,22 +1,34 @@
-import {call, put, takeLatest} from "redux-saga/effects";
-import {SEND_MESSAGE_REQUEST} from "./types";
-import firebase from "../../firebase/firebase";
-import {sendMessageSuccess, sendMessageFailure} from "./actionCreator";
+import { call, put, takeLatest } from 'redux-saga/effects'
+import { SEND_MESSAGE_REQUEST } from './types'
+import firebase from '../../firebase/firebase'
+import { sendMessageSuccess, sendMessageFailure } from './actionCreator'
 
 function* sendMessageSaga(action) {
     try {
-        const refMessages = firebase.database().ref('dialogs/' + action.payload.clientID +
-            '/messages/' + action.payload.message.timestamp)
+        const refMessages = firebase
+            .database()
+            .ref(
+                'dialogs/' +
+                    action.payload.clientID +
+                    '/messages/' +
+                    action.payload.message.timestamp
+            )
         yield call(() => refMessages.set(action.payload.message))
-        const refActivity = firebase.database().ref('dialogs/' + action.payload.clientID)
-        yield call(() => refActivity.update({latestActivity: action.payload.message.timestamp}))
+        const refActivity = firebase
+            .database()
+            .ref('dialogs/' + action.payload.clientID)
+        yield call(() =>
+            refActivity.update({
+                latestActivity: action.payload.message.timestamp,
+            })
+        )
         yield put(sendMessageSuccess())
     } catch (error) {
         yield put(sendMessageFailure(error))
     }
 }
 
-function* sendMessageSagaWatcher(){
+function* sendMessageSagaWatcher() {
     yield takeLatest(SEND_MESSAGE_REQUEST, sendMessageSaga)
 }
 

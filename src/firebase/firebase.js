@@ -1,9 +1,9 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+import 'firebase/auth'
 import 'firebase/database'
 import 'firebase/analytics'
-import env from "react-dotenv";
+import env from 'react-dotenv'
 
 const config = {
     apiKey: env.API_KEY,
@@ -13,9 +13,9 @@ const config = {
     storageBucket: env.STORAGE_BUCKET,
     messagingSenderId: env.MESSAGING_SENDER_ID,
     appId: env.APP_ID,
-    measurementId: env.MESUREMENT_ID
-};
+    measurementId: env.MESUREMENT_ID,
+}
 
-firebase.initializeApp(config);
+firebase.initializeApp(config)
 
-export default firebase;
+export default firebase
