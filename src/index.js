@@ -9,12 +9,11 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import storage from 'redux-persist/lib/storage'
 import { persistReducer, persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
-import rootSaga from './redux/sagas'
-import App from './App'
-import './index.css'
 import { Container } from 'reactstrap'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import rootSaga from './redux/sagas'
+import App from './App'
 
 const persistConfig = {
     key: 'root',

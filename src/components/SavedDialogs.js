@@ -9,13 +9,13 @@ import { DeleteButton } from './DeleteButton'
 export const SavedDialogs = () => {
     const operatorEmail = useSelector((state) => state.auth.email)
     const fetchedDialogs = useSelector(
-        (state) => state.fetchDialogs.fetchedDialogs
+        (state) => state.fetchDialogs.fetchedDialogs,
     )
 
     const operatorID = window.btoa(operatorEmail)
     const savedDialogs = fetchedDialogs.filter(
         (dialog) =>
-            dialog.data.saved === true && dialog.data.operatorID === operatorID
+            dialog.data.saved === true && dialog.data.operatorID === operatorID,
     )
 
     const history = useHistory()
@@ -36,14 +36,14 @@ export const SavedDialogs = () => {
     }
 
     return (
-        <ListGroup className="dialogs">
+        <ListGroup className='dialogs'>
             {savedDialogs.length > 0 ? (
                 savedDialogs.map((dialog) => (
                     <ListGroupItem
                         action
                         onClick={handleShowDialog}
                         id={dialog.key}
-                        className="list-item"
+                        className='list-item'
                     >
                         <Container>
                             <Row>
@@ -51,7 +51,7 @@ export const SavedDialogs = () => {
                                     {dialog.data.clientName}
                                     <br />(
                                     {moment(
-                                        dialog.data.latestActivity
+                                        dialog.data.latestActivity,
                                     ).calendar()}
                                     )
                                 </Col>
@@ -62,7 +62,7 @@ export const SavedDialogs = () => {
                                     ) : (
                                         <p>{dialog.data.clientName}:</p>
                                     )}
-                                    <p className="overflow-text">
+                                    <p className='overflow-text'>
                                         {getLastMessage(dialog).content}
                                     </p>
                                 </Col>
@@ -74,7 +74,7 @@ export const SavedDialogs = () => {
                     </ListGroupItem>
                 ))
             ) : (
-                <ListGroupItem className="list-item">
+                <ListGroupItem className='list-item'>
                     Диалогов не найдено
                 </ListGroupItem>
             )}

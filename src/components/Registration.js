@@ -15,12 +15,12 @@ import {
 } from 'reactstrap'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { registrationRequest } from '../redux/registration/actionCreator'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { registrationRequest } from '../redux/registration/actionCreator'
 
 const iconShowPassword = <FontAwesomeIcon icon={faEye} />
 const iconHidePassword = <FontAwesomeIcon icon={faEyeSlash} />
@@ -52,7 +52,7 @@ export const Registration = () => {
     const history = useHistory()
 
     const isRegistrationSuccessful = useSelector(
-        (state) => state.registration.isRegistrationSuccessful
+        (state) => state.registration.isRegistrationSuccessful,
     )
 
     const [isShowPassword, setIsShowPassword] = useState(false)
@@ -74,89 +74,89 @@ export const Registration = () => {
     }, [isRegistrationSuccessful])
 
     return (
-        <Container className="registerForm">
+        <Container className='registerForm'>
             <Form onSubmit={formik.handleSubmit}>
-                <h1 className="logo">ChatApp</h1>
+                <h1 className='logo'>ChatApp</h1>
                 {(formik.touched.email && formik.errors.email && (
                     <Row>
                         <Col>
-                            <Alert color="danger">{formik.errors.email}</Alert>
+                            <Alert color='danger'>{formik.errors.email}</Alert>
                         </Col>
                     </Row>
                 )) ||
-                    (formik.touched.password && formik.errors.password && (
+                (formik.touched.password && formik.errors.password && (
+                    <Row>
+                        <Col>
+                            <Alert color='danger'>
+                                {formik.errors.password}
+                            </Alert>
+                        </Col>
+                    </Row>
+                )) ||
+                (formik.touched.confirmPassword &&
+                    formik.errors.confirmPassword && (
                         <Row>
                             <Col>
-                                <Alert color="danger">
-                                    {formik.errors.password}
+                                <Alert color='danger'>
+                                    {formik.errors.confirmPassword}
                                 </Alert>
                             </Col>
                         </Row>
-                    )) ||
-                    (formik.touched.confirmPassword &&
-                        formik.errors.confirmPassword && (
-                            <Row>
-                                <Col>
-                                    <Alert color="danger">
-                                        {formik.errors.confirmPassword}
-                                    </Alert>
-                                </Col>
-                            </Row>
-                        ))}
-                <FormGroup className="item">
+                    ))}
+                <FormGroup className='item'>
                     <Col md={11}>
                         <InputGroup>
                             <Col md={4}>
-                                <Label htmlFor="name" className="align-middle">
+                                <Label htmlFor='name' className='align-middle'>
                                     Имя:
                                 </Label>
                             </Col>
                             <Input
-                                id="name"
-                                name="name"
-                                type="text"
+                                id='name'
+                                name='name'
+                                type='text'
                                 onChange={formik.handleChange}
                                 value={formik.values.name}
-                                className="form-control"
+                                className='form-control'
                             />
                         </InputGroup>
                     </Col>
                 </FormGroup>
-                <FormGroup className="item">
+                <FormGroup className='item'>
                     <Col md={11}>
                         <InputGroup>
                             <Col md={4}>
-                                <Label htmlFor="email" className="align-middle">
+                                <Label htmlFor='email' className='align-middle'>
                                     Email:
                                 </Label>
                             </Col>
                             <Input
-                                id="email"
-                                name="email"
-                                type="text"
+                                id='email'
+                                name='email'
+                                type='text'
                                 onChange={formik.handleChange}
                                 value={formik.values.email}
-                                className="form-control"
+                                className='form-control'
                             />
                         </InputGroup>
                     </Col>
                 </FormGroup>
-                <FormGroup className="item">
+                <FormGroup className='item'>
                     <Col md={11}>
                         <InputGroup>
                             <Col md={4}>
-                                <Label htmlFor="password">Пароль:</Label>
+                                <Label htmlFor='password'>Пароль:</Label>
                             </Col>
                             <Input
-                                id="password"
-                                name="password"
+                                id='password'
+                                name='password'
                                 type={isShowPassword ? 'text' : 'password'}
                                 onChange={formik.handleChange}
                                 value={formik.values.password}
-                                className="form-control"
+                                className='form-control'
                             />
                             <InputGroupAddon
-                                addonType="append"
+                                addonType='append'
                                 onClick={() =>
                                     setIsShowPassword((prevState) => !prevState)
                                 }
@@ -170,24 +170,24 @@ export const Registration = () => {
                         </InputGroup>
                     </Col>
                 </FormGroup>
-                <FormGroup className="item">
+                <FormGroup className='item'>
                     <Col md={11}>
                         <InputGroup>
                             <Col md={4}>
-                                <Label htmlFor="confirmPassword">
+                                <Label htmlFor='confirmPassword'>
                                     Подтверждение <br /> пароля:
                                 </Label>
                             </Col>
                             <Input
-                                id="confirmPassword"
-                                name="confirmPassword"
+                                id='confirmPassword'
+                                name='confirmPassword'
                                 type={isShowPassword ? 'text' : 'password'}
                                 onChange={formik.handleChange}
                                 value={formik.values.confirmPassword}
-                                className="form-control"
+                                className='form-control'
                             />
                             <InputGroupAddon
-                                addonType="append"
+                                addonType='append'
                                 onClick={() =>
                                     setIsShowPassword((prevState) => !prevState)
                                 }
@@ -201,26 +201,26 @@ export const Registration = () => {
                         </InputGroup>
                     </Col>
                 </FormGroup>
-                <Row className="justify-content-center">
+                <Row className='justify-content-center'>
                     <Col>
                         <Button
-                            type="submit"
+                            type='submit'
                             outline
-                            color="primary"
-                            className="form-button"
+                            color='primary'
+                            className='form-button'
                         >
                             Регистрация
                         </Button>
                     </Col>
                 </Row>
-                <Row className="justify-content-center">
+                <Row className='justify-content-center'>
                     <Col md={5}>
-                        <a href="/">
-                            <p className="text-end">Войти</p>
+                        <a href='/'>
+                            <p className='text-end'>Войти</p>
                         </a>
                     </Col>
                     <Col md={5}>
-                        <a href="/forgotPassword">
+                        <a href='/forgotPassword'>
                             <p>Забыли пароль?</p>
                         </a>
                     </Col>

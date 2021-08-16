@@ -23,67 +23,51 @@ export const fetchProfileDataRequest = (id) => ({
     type: PROFILE_DATA_REQUEST,
     id: id,
 })
-export function fetchProfileDataSuccess(data) {
-    return {
-        type: PROFILE_DATA_SUCCESS,
-        payload: { data },
-    }
-}
+export const fetchProfileDataSuccess = (data) => ({
+    type: PROFILE_DATA_SUCCESS,
+    payload: { data },
+})
 
-export function fetchProfileDataFailure(error) {
-    return {
-        type: PROFILE_DATA_FAILURE,
-        payload: { error },
-    }
-}
+export const fetchProfileDataFailure = (error) => ({
+    type: PROFILE_DATA_FAILURE,
+    payload: { error },
+})
 
-export function updateNameRequest({ id, name }) {
-    return {
-        type: UPDATE_NAME_REQUEST,
-        payload: { id, name },
-    }
-}
+export const updateNameRequest = ({ id, name }) => ({
+    type: UPDATE_NAME_REQUEST,
+    payload: { id, name },
+})
 
 export const updateNameSuccess = () => ({ type: UPDATE_NAME_SUCCESS })
 
-export function updateNameFailure(error) {
-    return {
-        type: UPDATE_NAME_FAILURE,
-        payload: { error },
-    }
-}
+export const updateNameFailure = (error) => ({
+    type: UPDATE_NAME_FAILURE,
+    payload: { error },
+})
 
-export function updatePasswordRequest({ id, newPassword, oldPassword }) {
-    return {
-        type: UPDATE_PASSWORD_REQUEST,
-        payload: { id, newPassword, oldPassword },
-    }
-}
+export const updatePasswordRequest = ({ id, newPassword, oldPassword }) => ({
+    type: UPDATE_PASSWORD_REQUEST,
+    payload: { id, newPassword, oldPassword },
+})
 
 export const updatePasswordSuccess = () => ({ type: UPDATE_PASSWORD_SUCCESS })
 
-export function updatePasswordFailure(error) {
-    return {
-        type: UPDATE_PASSWORD_FAILURE,
-        payload: { error },
-    }
-}
+export const updatePasswordFailure = (error) => ({
+    type: UPDATE_PASSWORD_FAILURE,
+    payload: { error },
+})
 
-export function updateAvatarRequest({ id, avatar }) {
-    return {
-        type: UPDATE_AVATAR_REQUEST,
-        payload: { id, avatar },
-    }
-}
+export const updateAvatarRequest = ({ id, avatar }) => ({
+    type: UPDATE_AVATAR_REQUEST,
+    payload: { id, avatar },
+})
 
 export const updateAvatarSuccess = () => ({ type: UPDATE_AVATAR_SUCCESS })
 
-export function updateAvatarFailure(error) {
-    return {
-        type: UPDATE_AVATAR_FAILURE,
-        payload: { error },
-    }
-}
+export const updateAvatarFailure = (error) => ({
+    type: UPDATE_AVATAR_FAILURE,
+    payload: { error },
+})
 
 export const resetProfileUpdatedState = () => ({
     type: RESET_PROFILE_UPDATED_STATE,

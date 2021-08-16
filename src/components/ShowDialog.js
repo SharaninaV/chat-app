@@ -4,19 +4,19 @@ import { useLocation } from 'react-router-dom'
 import PubNub from 'pubnub'
 import { PubNubProvider } from 'pubnub-react'
 import { useSelector } from 'react-redux'
+import env from 'react-dotenv'
 import { WriteMessage } from './WriteMessage'
 import { UpperMenu } from './UpperMenu'
 import { CurrentDialog } from './CurrentDialog'
 import { GoBackButton } from './GoBackButton'
 import { LeftMenu } from './LeftMenu'
-import env from 'react-dotenv'
 
 export const ShowDialog = () => {
     const location = useLocation()
     const clientID = location.pathname.split(':')[1]
     const userEmail = useSelector((state) => state.auth.email)
     const fetchedDialog = useSelector(
-        (state) => state.fetchCurrentDialog.currentDialog
+        (state) => state.fetchCurrentDialog.currentDialog,
     )
 
     const pubnub = new PubNub({
@@ -26,7 +26,7 @@ export const ShowDialog = () => {
     })
 
     return (
-        <Container className="showDialog">
+        <Container className='showDialog'>
             <Row>
                 <Col md={12}>
                     <UpperMenu />

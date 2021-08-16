@@ -67,34 +67,34 @@ export const AuthForm = () => {
     }, [])
 
     return (
-        <Container className="authForm">
+        <Container className='authForm'>
             <Form onSubmit={formik.handleSubmit}>
                 {submitErrors.message && (
                     <Row>
                         <Col>
-                            <Alert color="danger">
+                            <Alert color='danger'>
                                 Неверный email или пароль
                             </Alert>
                         </Col>
                     </Row>
                 )}
                 <FormGroup>
-                    <Row className="justify-content-center">
+                    <Row className='justify-content-center'>
                         <Col md={10}>
                             <InputGroup>
-                                <InputGroupAddon addonType="prepend">
+                                <InputGroupAddon addonType='prepend'>
                                     <InputGroupText>
                                         <i>{iconEmail}</i>
                                     </InputGroupText>
                                 </InputGroupAddon>
                                 <Input
-                                    id="email"
-                                    name="email"
-                                    type="text"
+                                    id='email'
+                                    name='email'
+                                    type='text'
                                     onChange={formik.handleChange}
                                     value={formik.values.email}
-                                    placeholder="Email"
-                                    className="form-control"
+                                    placeholder='Email'
+                                    className='form-control'
                                 />
                             </InputGroup>
                         </Col>
@@ -103,35 +103,35 @@ export const AuthForm = () => {
                 {formik.touched.email && formik.errors.email && (
                     <Row>
                         <Col>
-                            <Alert variant="danger">
+                            <Alert variant='danger'>
                                 {formik.errors.email}
                             </Alert>
                         </Col>
                     </Row>
                 )}
                 <FormGroup>
-                    <Row className="justify-content-center">
+                    <Row className='justify-content-center'>
                         <Col md={10}>
                             <InputGroup>
-                                <InputGroupAddon addonType="prepend">
+                                <InputGroupAddon addonType='prepend'>
                                     <InputGroupText>
                                         <i>{iconPassword}</i>
                                     </InputGroupText>
                                 </InputGroupAddon>
                                 <Input
-                                    id="password"
-                                    name="password"
+                                    id='password'
+                                    name='password'
                                     type={isShowPassword ? 'text' : 'password'}
                                     onChange={formik.handleChange}
                                     value={formik.values.password}
-                                    className="form-control"
-                                    placeholder="Пароль"
+                                    className='form-control'
+                                    placeholder='Пароль'
                                 />
                                 <InputGroupAddon
-                                    addonType="append"
+                                    addonType='append'
                                     onClick={() =>
                                         setIsShowPassword(
-                                            (prevState) => !prevState
+                                            (prevState) => !prevState,
                                         )
                                     }
                                 >
@@ -148,22 +148,22 @@ export const AuthForm = () => {
                 {formik.touched.password && formik.errors.password && (
                     <Row>
                         <Col>
-                            <Alert variant="danger">
+                            <Alert variant='danger'>
                                 {formik.errors.password}
                             </Alert>
                         </Col>
                     </Row>
                 )}
-                <Row className="justify-content-center">
+                <Row className='justify-content-center'>
                     <Col>
                         <Button
-                            type="submit"
+                            type='submit'
                             outline
-                            color="primary"
-                            className="form-button"
+                            color='primary'
+                            className='form-button'
                         >
                             Войти
-                            <i className="btn-icon">{iconSignIn}</i>
+                            <i className='btn-icon'>{iconSignIn}</i>
                         </Button>
                     </Col>
                 </Row>

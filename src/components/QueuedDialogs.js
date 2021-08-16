@@ -6,11 +6,11 @@ import { EnterDialogButton } from './EnterDialogButton'
 
 export const QueuedDialogs = () => {
     const fetchedDialogs = useSelector(
-        (state) => state.fetchDialogs.fetchedDialogs
+        (state) => state.fetchDialogs.fetchedDialogs,
     )
 
     const queuedDialogs = fetchedDialogs.filter(
-        (dialog) => dialog.data.status === 'queued'
+        (dialog) => dialog.data.status === 'queued',
     )
 
     const getLastMessage = (dialog) => {
@@ -25,17 +25,17 @@ export const QueuedDialogs = () => {
     }
 
     return (
-        <ListGroup className="dialogs">
+        <ListGroup className='dialogs'>
             {queuedDialogs.length > 0 ? (
                 queuedDialogs.map((dialog) => (
-                    <ListGroupItem className="list-item">
+                    <ListGroupItem className='list-item'>
                         <Container>
                             <Row>
                                 <Col>
                                     {dialog.data.clientName}
                                     <br />(
                                     {moment(
-                                        dialog.data.latestActivity
+                                        dialog.data.latestActivity,
                                     ).calendar()}
                                     )
                                 </Col>
@@ -46,7 +46,7 @@ export const QueuedDialogs = () => {
                                     ) : (
                                         <p>{dialog.data.clientName}:</p>
                                     )}
-                                    <p className="overflow-text">
+                                    <p className='overflow-text'>
                                         {getLastMessage(dialog).content}
                                     </p>
                                 </Col>
@@ -58,7 +58,7 @@ export const QueuedDialogs = () => {
                     </ListGroupItem>
                 ))
             ) : (
-                <ListGroupItem className="list-item">
+                <ListGroupItem className='list-item'>
                     Диалогов не найдено
                 </ListGroupItem>
             )}
