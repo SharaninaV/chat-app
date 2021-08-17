@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom'
 import PubNub from 'pubnub'
 import { PubNubProvider } from 'pubnub-react'
 import { useSelector } from 'react-redux'
-import env from 'react-dotenv'
 import { WriteMessage } from './WriteMessage'
 import { UpperMenu } from './UpperMenu'
 import { CurrentDialog } from './CurrentDialog'
@@ -20,8 +19,8 @@ export const ShowDialog = () => {
     )
 
     const pubnub = new PubNub({
-        publishKey: env.PUBLISH_KEY,
-        subscribeKey: env.SUBSCRIBE_KEY,
+        publishKey: process.env.REACT_APP_PUBLISH_KEY,
+        subscribeKey: process.env.REACT_APP_SUBSCRIBE_KEY,
         uuid: userEmail,
     })
 

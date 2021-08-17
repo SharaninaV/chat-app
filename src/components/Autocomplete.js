@@ -27,9 +27,11 @@ export const AutocompleteInput = () => {
     }
 
     useEffect(() => {
-        const phrases = dialogsSettings.data.phrases
-        if (phrases && phrases.length && phrases!== 'empty') {
-            setItems(phrases.map(item => ({ id: phrases.indexOf(item) + 1, label: item })))
+        if (dialogsSettings && Object.keys(dialogsSettings).length) {
+            const phrases = dialogsSettings.data.phrases
+            if (phrases && phrases.length && phrases !== 'empty') {
+                setItems(phrases.map(item => ({ id: phrases.indexOf(item) + 1, label: item })))
+            }
         }
     }, [dialogsSettings])
 
