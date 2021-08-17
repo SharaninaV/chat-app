@@ -7,12 +7,14 @@ import {
     InputGroup,
     Row,
     Col,
-    Container,
+    Container, Alert, InputGroupText, InputGroupAddon,
 } from 'reactstrap'
 import { Form, Field } from 'react-final-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import {
     fetchProfileDataRequest,
     hideSettings,
@@ -22,9 +24,12 @@ import {
     updatePasswordRequest,
 } from '../redux/profileSettings/actionCreator'
 
-export const ProfileSettings = ({ isShowSettings }) => {
-    const dispatch = useDispatch()
+const iconShowPassword = <FontAwesomeIcon icon={faEye} />
+const iconHidePassword = <FontAwesomeIcon icon={faEyeSlash} />
 
+export const ProfileSettings = ({ isShowSettings }) => {
+
+    const dispatch = useDispatch()
     const history = useHistory()
 
     const operatorEmail = useSelector((state) => state.auth.email)
@@ -48,14 +53,17 @@ export const ProfileSettings = ({ isShowSettings }) => {
     )
     const [avatarUrl, setAvatarUrl] = useState('')
     const [isProfileUpdated, setIsProfileUpdated] = useState(false)
+    const [isShowPassword, setIsShowPassword] = useState(false)
 
     const operatorID = window.btoa(operatorEmail)
 
     const handleHideSettings = (event) => {
         dispatch(hideSettings())
-        dispatch(resetProfileUpdatedState())
         dispatch(fetchProfileDataRequest(operatorID))
-        setIsProfileUpdated(false)
+        setTimeout(() => {
+            dispatch(resetProfileUpdatedState())
+            setIsProfileUpdated(false)
+        }, 5000)
     }
 
     const onSubmit = (values) => {
@@ -103,7 +111,7 @@ export const ProfileSettings = ({ isShowSettings }) => {
     }, [isAvatarUpdated, isNameUpdated, isPasswordUpdated])
 
     useEffect(() => {
-        if (isNameUpdated || isPasswordUpdated || isAvatarUpdated) {
+        if (isProfileUpdated) {
             toast.success('Профиль успешно обновлен')
         }
         if (profileData.data) {
@@ -135,14 +143,20 @@ export const ProfileSettings = ({ isShowSettings }) => {
         >
             <Form
                 onSubmit={onSubmit}
+                initialValues={{ password: '', passwordConfirm: '' }}
                 validate={(values) => {
                     const errors = {}
+                    // if (!values.password) {
+                    //     errors.password = 'Пароль должен быть введен'
+                    // }
+                    if (values.password && !values.password.match(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{8,}$/)) {
+                        errors.password = 'Пароль должен содержать цифру, буквы в нижнем и верхнем регистре и иметь длину не менее 8 знаков'
+                    }
+                    if (values.password && !values.passwordConfirm) {
+                        errors.passwordConfirm = 'Повторите пароль'
+                    }
                     if (values.password !== values.passwordConfirm) {
                         errors.passwordConfirm = 'Пароли не совпадают'
-                    }
-                    if (values.password && values.password.length < 6) {
-                        errors.password =
-                            'Пароль должен содержать не менее 6 символов'
                     }
                     return errors
                 }}
@@ -163,7 +177,7 @@ export const ProfileSettings = ({ isShowSettings }) => {
                             <Row className='form-item'>
                                 <Col>
                                     <p>
-                                        Ваше имя:{' '}
+                                        Ваше имя: {' '}
                                         <span>{profileData.data.name}</span>
                                     </p>
                                 </Col>
@@ -231,37 +245,32 @@ export const ProfileSettings = ({ isShowSettings }) => {
                                 </Col>
                             </Row>
                             <Row className='form-input'>
-                                <Field name='oldPassword'>
-                                    {({ input, meta }) => (
-                                        <InputGroup>
-                                            <Col md={3}>
-                                                <Label>Старый пароль: </Label>
-                                            </Col>
-                                            <Col>
-                                                <Input
-                                                    {...input}
-                                                    type='password'
-                                                />
-                                            </Col>
-                                        </InputGroup>
-                                    )}
-                                </Field>
-                            </Row>
-                            <Row className='form-input'>
                                 <Field name='password'>
                                     {({ input, meta }) => (
                                         <InputGroup>
                                             <Col md={3}>
-                                                <Label>Пароль: </Label>
+                                                <Label>Новый пароль: </Label>
                                             </Col>
-                                            <Col>
-                                                <Input
-                                                    {...input}
-                                                    type='password'
-                                                />
-                                            </Col>
+                                            <Input
+                                                {...input}
+                                                type={isShowPassword ? 'text' : 'password'}
+                                            />
+                                            <InputGroupAddon
+                                                addonType='append'
+                                                onClick={() =>
+                                                    setIsShowPassword((prevState) => !prevState)
+                                                }
+                                            >
+                                                <InputGroupText>
+                                                    {isShowPassword
+                                                        ? iconHidePassword
+                                                        : iconShowPassword}
+                                                </InputGroupText>
+                                            </InputGroupAddon>
                                             {meta.error && meta.touched && (
-                                                <span>{meta.error}</span>
+                                                <Alert color='danger'>
+                                                    {meta.error}
+                                                </Alert>
                                             )}
                                         </InputGroup>
                                     )}
@@ -273,17 +282,29 @@ export const ProfileSettings = ({ isShowSettings }) => {
                                         <InputGroup>
                                             <Col md={3}>
                                                 <Label>
-                                                    Подтверждение пароля:{' '}
+                                                    Подтверждение пароля:
                                                 </Label>
                                             </Col>
-                                            <Col>
-                                                <Input
-                                                    {...input}
-                                                    type='password'
-                                                />
-                                            </Col>
+                                            <Input
+                                                {...input}
+                                                type={isShowPassword ? 'text' : 'password'}
+                                            />
+                                            <InputGroupAddon
+                                                addonType='append'
+                                                onClick={() =>
+                                                    setIsShowPassword((prevState) => !prevState)
+                                                }
+                                            >
+                                                <InputGroupText>
+                                                    {isShowPassword
+                                                        ? iconHidePassword
+                                                        : iconShowPassword}
+                                                </InputGroupText>
+                                            </InputGroupAddon>
                                             {meta.error && meta.touched && (
-                                                <span>{meta.error}</span>
+                                                <Alert color='danger'>
+                                                    {meta.error}
+                                                </Alert>
                                             )}
                                         </InputGroup>
                                     )}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Autocomplete from 'react-autocomplete'
 import { Container, Row, Col, Button } from 'reactstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,11 +12,13 @@ const iconEdit = <FontAwesomeIcon icon={faEdit} />
 
 export const AutocompleteInput = () => {
     const [value, setValue] = useState('')
+    const [items, setItems] = useState([])
     const dispatch = useDispatch()
     const isShowSettings = useSelector(
         (state) => state.dialogsSettings.isShowSettings,
     )
     const operatorEmail = useSelector((state) => state.auth.email)
+    const dialogsSettings = useSelector((state) => state.dialogsSettings.dialogsSettings)
 
     const operatorID = window.btoa(operatorEmail)
 
@@ -24,30 +26,35 @@ export const AutocompleteInput = () => {
         dispatch(showDialogsSettings())
     }
 
+    useEffect(() => {
+        if (dialogsSettings && Object.keys(dialogsSettings).length) {
+            const phrases = dialogsSettings.data.phrases
+            if (phrases && phrases.length && phrases !== 'empty') {
+                setItems(phrases.map(item => ({ id: phrases.indexOf(item) + 1, label: item })))
+            }
+        }
+    }, [dialogsSettings])
+
     return (
         <Container>
             <Row>
                 <Col className='autocompleteInput'>
-                    <p>Шаблоны</p>
-                    <Button
-                        onClick={handleShowSettings}
-                        color='info'
-                        className='template-btn'
-                    >
-                        {iconEdit}
-                    </Button>
+                    <Row>
+                        <Col md={4}>
+                            <p>Шаблоны</p>
+                        </Col>
+                        <Col>
+                            <Button
+                                onClick={handleShowSettings}
+                                className='form-button template-btn'
+                                outline
+                            >
+                                {iconEdit}
+                            </Button>
+                        </Col>
+                    </Row>
                     <Autocomplete
-                        items={[
-                            { id: '1', label: 'Здравствуйте! Сейчас помогу.' },
-                            {
-                                id: '2',
-                                label: 'Попробуйте его включить в источник питания.',
-                            },
-                            {
-                                id: '3',
-                                label: 'Я вам отвечу через несколько часов.',
-                            },
-                        ]}
+                        items={items}
                         inputProps={{
                             id: 'messages-addMessage',
                             className: 'form-control addMessage',

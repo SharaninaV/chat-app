@@ -28,9 +28,11 @@ export const DialogsSettings = ({ isShowSettings, operatorID }) => {
     const [newPhrase, setNewPhrase] = useState('')
     const [greeting, setGreeting] = useState('')
     const [newGreeting, setNewGreeting] = useState('')
+    const [isSettingsUpdated, setIsSettingsUpdated] = useState(false)
 
     const handleHideSettings = (event) => {
         dispatch(hideDialogsSettings())
+        setTimeout(() => setIsSettingsUpdated(false), 1000)
     }
 
     const handlePhraseChange = (event) => {
@@ -69,12 +71,16 @@ export const DialogsSettings = ({ isShowSettings, operatorID }) => {
     }, [phrases, greeting])
 
     useEffect(() => {
-        if (isGreetingUpdated || isPhrasesUpdated) {
+        setIsSettingsUpdated(isGreetingUpdated || isPhrasesUpdated)
+    },[isGreetingUpdated, isPhrasesUpdated])
+
+    useEffect(() => {
+        if (isSettingsUpdated) {
             toast.success('Настройки диалогов успешно обновлены')
         }
         handleHideSettings()
         dispatch(resetDialogsUpdatedState())
-    }, [isGreetingUpdated, isPhrasesUpdated])
+    }, [isSettingsUpdated])
 
     return (
         <ReactModal
