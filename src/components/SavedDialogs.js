@@ -94,7 +94,7 @@ export const SavedDialogs = () => {
                             </Container>
                         </ListGroupItem>
                     ))
-                ) : (
+                ) : ( !hasMoreItems &&
                     <ListGroupItem className='list-item'>
                         Диалогов не найдено
                     </ListGroupItem>

@@ -31,7 +31,10 @@ export const QueuedDialogs = () => {
     const loadItems = (page) => {
         setTimeout(() => {
             const coef = (page - 1) * 4
+            console.log('queueddialogs', queuedDialogs)
+            console.log('items', items)
             setItems(items.concat(queuedDialogs.slice(coef, coef + 4)))
+            console.log('items 2', items)
             if (queuedDialogs.length <= coef + 4) {
                 setHasMoreItems(false)
             }
@@ -40,6 +43,7 @@ export const QueuedDialogs = () => {
 
     return (
         <ListGroup className='dialogs'>
+            {queuedDialogs.length &&
             <InfiniteScroll
                 pageStart={0}
                 loadMore={loadItems}
@@ -78,12 +82,13 @@ export const QueuedDialogs = () => {
                             </Container>
                         </ListGroupItem>
                     ))
-                ) : (
+                ) : (!hasMoreItems &&
                     <ListGroupItem className='list-item'>
                         Диалогов не найдено
                     </ListGroupItem>
                 )}
             </InfiniteScroll>
+            }
         </ListGroup>
     )
 }
