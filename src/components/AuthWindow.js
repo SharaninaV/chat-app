@@ -7,6 +7,7 @@ import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons'
 import { githubProvider, googleProvider } from '../firebase/authMethods'
 import { AuthForm } from './AuthForm'
 import { smAuthRequest } from '../redux/auth/sagas/actionCreator'
+import { isTokenValidSelector } from '../redux/main/selectors'
 
 const iconGoogle = <FontAwesomeIcon icon={faGoogle} />
 const iconGithub = <FontAwesomeIcon icon={faGithub} />
@@ -15,7 +16,7 @@ export const AuthWindow = () => {
     const history = useHistory()
     const dispatch = useDispatch()
 
-    const isTokenValid = useSelector((state) => state.main.isTokenValid)
+    const isTokenValid = useSelector(isTokenValidSelector)
 
     const handleOnClick = (provider) => {
         dispatch(smAuthRequest(provider))
@@ -28,44 +29,44 @@ export const AuthWindow = () => {
     }, [isTokenValid])
 
     return (
-        <Container className='auth'>
-            <h1 className='logo'>ChatApp</h1>
+        <Container className="auth">
+            <h1 className="logo">ChatApp</h1>
             <AuthForm />
-            <Row className='justify-content-center'>
+            <Row className="justify-content-center">
                 <Col>
                     <p>Войти с помощью:</p>
                 </Col>
             </Row>
-            <Row className='d-flex justify-content-center'>
+            <Row className="d-flex justify-content-center">
                 <Col md={4}>
                     <Button
-                        className='form-button google-btn'
+                        className="form-button google-btn"
                         outline
                         onClick={() => handleOnClick(googleProvider)}
                     >
                         Google
-                        <i className='btn-icon'>{iconGoogle}</i>
+                        <i className="btn-icon">{iconGoogle}</i>
                     </Button>
                 </Col>
                 <Col md={4}>
                     <Button
-                        className='form-button github-btn'
+                        className="form-button github-btn"
                         outline
                         onClick={() => handleOnClick(githubProvider)}
                     >
                         GitHub
-                        <i className='btn-icon'>{iconGithub}</i>
+                        <i className="btn-icon">{iconGithub}</i>
                     </Button>
                 </Col>
             </Row>
-            <Row className='justify-content-center'>
+            <Row className="justify-content-center">
                 <Col md={5}>
-                    <a href='/registration'>
+                    <a href="/registration">
                         <p>Регистрация</p>
                     </a>
                 </Col>
                 <Col md={5}>
-                    <a href='/forgotPassword'>
+                    <a href="/forgotPassword">
                         <p>Забыли пароль?</p>
                     </a>
                 </Col>

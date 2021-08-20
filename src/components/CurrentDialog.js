@@ -6,6 +6,7 @@ import 'moment/locale/ru'
 import { Container, Row, Col } from 'reactstrap'
 import { usePubNub } from 'pubnub-react'
 import { fetchCurrentDialogRequest } from '../redux/currentDialog/actionCreator'
+import { fetchCurrentDialogSelector } from '../redux/currentDialog/selectors'
 
 export const CurrentDialog = ({ clientID }) => {
     const dispatch = useDispatch()
@@ -14,9 +15,8 @@ export const CurrentDialog = ({ clientID }) => {
     const dialogRef = useRef()
     const pubnub = usePubNub()
 
-    const fetchedDialog = useSelector(
-        (state) => state.fetchCurrentDialog.currentDialog,
-    )
+    const fetchedDialog = useSelector(fetchCurrentDialogSelector)
+
     const [needRefresh, setNeedRefresh] = useState(false)
     const [messages, setMessages] = useState([])
     const [needScroll, setNeedScroll] = useState(false)
@@ -52,8 +52,7 @@ export const CurrentDialog = ({ clientID }) => {
         }
     }, [fetchedDialog])
 
-    useEffect(() => {
-    }, [needRefresh])
+    useEffect(() => {}, [needRefresh])
 
     useEffect(() => {
         if (pubnub) {
@@ -87,50 +86,50 @@ export const CurrentDialog = ({ clientID }) => {
     }, [needScroll])
 
     return (
-        <Container className='currentDialog'>
+        <Container className="currentDialog">
             {messages.length &&
-            messages.map((message) =>
-                message.writtenBy === 'operator' ? (
-                    <Row className='operator-message-row'>
-                        <Col></Col>
-                        <Col className='operator-message'>
-                            {message.content}
-                        </Col>
-                        <Col md={3}>
-                            <p>
-                                Вы
-                                <br />
-                                {moment(message.timestamp).calendar()}
-                            </p>
-                        </Col>
-                    </Row>
-                ) : (
-                    <Row className='client-message-row'>
-                        <Col md={3}>
-                            <p>
-                                {fetchedDialog.clientName}
-                                <br />
-                                {moment(message.timestamp).calendar()}
-                            </p>
-                        </Col>
-                        <Col className='client-message'>
-                            {message.content.startsWith('data:image') ? (
-                                <img
-                                    alt='Изображение'
-                                    height='200px'
-                                    src={message.content}
-                                />
-                            ) : (
-                                message.content
-                            )}
-                        </Col>
-                        <Col></Col>
-                    </Row>
-                ),
-            )}
+                messages.map((message) =>
+                    message.writtenBy === 'operator' ? (
+                        <Row className="operator-message-row">
+                            <Col></Col>
+                            <Col className="operator-message">
+                                {message.content}
+                            </Col>
+                            <Col md={3}>
+                                <p>
+                                    Вы
+                                    <br />
+                                    {moment(message.timestamp).calendar()}
+                                </p>
+                            </Col>
+                        </Row>
+                    ) : (
+                        <Row className="client-message-row">
+                            <Col md={3}>
+                                <p>
+                                    {fetchedDialog.clientName}
+                                    <br />
+                                    {moment(message.timestamp).calendar()}
+                                </p>
+                            </Col>
+                            <Col className="client-message">
+                                {message.content.startsWith('data:image') ? (
+                                    <img
+                                        alt="Изображение"
+                                        height="200px"
+                                        src={message.content}
+                                    />
+                                ) : (
+                                    message.content
+                                )}
+                            </Col>
+                            <Col></Col>
+                        </Row>
+                    )
+                )}
             <div ref={dialogRef}></div>
             {isFinished && (
-                <p style={{textAlign: 'center', marginTop: '20px'}}>
+                <p style={{ textAlign: 'center', marginTop: '20px' }}>
                     Диалог завершился{' '}
                     {moment(fetchedDialog.latestActivity).calendar()}
                 </p>

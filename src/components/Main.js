@@ -10,10 +10,12 @@ import { SearchInUsers } from './SearchInUsers'
 import { SearchInMessages } from './SearchInMessages'
 import { Dialogs } from './Dialogs'
 import { fetchDialogsSettingsRequest } from '../redux/dialogsSettings/actionCreator'
+import { operatorEmailSelector, tokenSelector } from '../redux/auth/selectors'
 
 export const Main = () => {
-    const currentUserToken = useSelector((state) => state.auth.token)
-    const operatorEmail = useSelector((state) => state.auth.email)
+    const currentUserToken = useSelector(tokenSelector)
+    const operatorEmail = useSelector(operatorEmailSelector)
+
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -38,9 +40,9 @@ export const Main = () => {
     }, [])
 
     return (
-        <Container className='main'>
+        <Container className="main">
             <UpperMenu />
-            <Row className='justify-content-around'>
+            <Row className="justify-content-around">
                 <Col md={5}>
                     <SearchInUsers />
                 </Col>

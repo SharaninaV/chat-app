@@ -1,8 +1,4 @@
-import {
-    FETCH_DIALOGS_REQUEST,
-    FETCH_DIALOGS_FAILURE,
-    FETCH_DIALOGS_SUCCESS,
-} from './types'
+import { FETCH_DIALOGS_FAILURE, FETCH_DIALOGS_SUCCESS } from './types'
 
 const initialState = {
     fetchedDialogs: [],
@@ -12,8 +8,6 @@ const initialState = {
 
 export const fetchDialogsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_DIALOGS_REQUEST:
-            return state
         case FETCH_DIALOGS_SUCCESS:
             return {
                 ...state,

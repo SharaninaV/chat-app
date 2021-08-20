@@ -11,16 +11,12 @@ function* updatePasswordSaga(action) {
         yield call(() => currentUser.updatePassword(action.payload.newPassword))
         yield put(updatePasswordSuccess())
     } catch (error) {
-        switch (error.code) {
-            case 'auth/requires-recent-login': {
-                toast.success(
-                    'Пароль успешно изменен! Войдите в систему с новым паролем.'
-                )
-                yield put(logOut())
-                return
-            }
-            default:
-                yield put(updatePasswordFailure(error))
+        if (error.code === 'auth/requires-recent-login') {
+            toast.success(
+                'Пароль успешно изменен! Войдите в систему с новым паролем.'
+            )
+            yield put(logOut())
+            return
         }
         yield put(updatePasswordFailure(error))
     }

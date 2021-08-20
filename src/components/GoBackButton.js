@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 
 export const GoBackButton = () => {
     const history = useHistory()
+
     const handleGoBack = (event) => {
         history.push('/main')
     }
@@ -12,7 +13,7 @@ export const GoBackButton = () => {
         <Button
             onClick={handleGoBack}
             outline
-            className='form-button float-right goback-btn'
+            className="form-button float-right goback-btn"
         >
             Назад
         </Button>

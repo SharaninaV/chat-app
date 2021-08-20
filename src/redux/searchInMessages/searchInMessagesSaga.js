@@ -19,7 +19,7 @@ function* searchInMessagesSaga(action) {
                             if (
                                 content.includes(
                                     action.payload.text.toLowerCase()
-                                )
+                                ) && !content.startsWith("data:image/jpg;base64,")
                             ) {
                                 result.push({
                                     user: childSnapshot.val().clientName,

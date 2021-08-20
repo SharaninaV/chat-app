@@ -50,54 +50,54 @@ export const ForgotPassword = () => {
         toast.success('Письмо отправлено на почту')
 
     return (
-        <Container className='forgotPassword'>
+        <Container className="forgotPassword">
             <Form onSubmit={formik.handleSubmit}>
-                <h1 className='logo'>ChatApp</h1>
+                <h1 className="logo">ChatApp</h1>
                 {formik.touched.email && formik.errors.email && (
                     <Row>
                         <Col>
-                            <Alert color='danger'>{formik.errors.email}</Alert>
+                            <Alert color="danger">{formik.errors.email}</Alert>
                         </Col>
                     </Row>
                 )}
                 <FormGroup>
-                    <Row className='form-input justify-content-center'>
+                    <Row className="form-input justify-content-center">
                         <Col md={10}>
                             <InputGroup>
-                                <InputGroupAddon addonType='prepend'>
+                                <InputGroupAddon addonType="prepend">
                                     <InputGroupText>
                                         <i>{iconEmail}</i>
                                     </InputGroupText>
                                 </InputGroupAddon>
                                 <Input
-                                    id='email'
-                                    name='email'
-                                    type='text'
+                                    id="email"
+                                    name="email"
+                                    type="text"
                                     onChange={formik.handleChange}
                                     value={formik.values.email}
-                                    placeholder='Email'
-                                    className='form-control'
+                                    placeholder="Email"
+                                    className="form-control"
                                 />
                             </InputGroup>
                         </Col>
                     </Row>
                 </FormGroup>
                 <Button
-                    className='form-button'
+                    className="form-button"
                     outline
-                    color='primary'
-                    type='submit'
+                    color="primary"
+                    type="submit"
                 >
                     Сбросить пароль
                 </Button>
-                <Row className='justify-content-center'>
+                <Row className="justify-content-center">
                     <Col md={5}>
-                        <a href='/'>
+                        <a href="/">
                             <p>Войти</p>
                         </a>
                     </Col>
                     <Col md={5}>
-                        <a href='/registration'>
+                        <a href="/registration">
                             <p>Регистрация</p>
                         </a>
                     </Col>

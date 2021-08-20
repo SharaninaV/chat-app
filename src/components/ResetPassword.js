@@ -22,6 +22,7 @@ import { toast } from 'react-toastify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { resetPasswordRequest } from '../redux/resetPassword/actionCreator'
+import { isResetSuccessfulSelector } from '../redux/resetPassword/selectors'
 
 const iconShowPassword = <FontAwesomeIcon icon={faEye} />
 const iconHidePassword = <FontAwesomeIcon icon={faEyeSlash} />
@@ -48,9 +49,7 @@ export const ResetPassword = () => {
     const location = useLocation()
     const history = useHistory()
 
-    const isResetSuccessful = useSelector(
-        (state) => state.resetPassword.isResetSuccessful,
-    )
+    const isResetSuccessful = useSelector(isResetSuccessfulSelector)
 
     const [isShowPassword, setIsShowPassword] = useState(false)
 
@@ -61,7 +60,6 @@ export const ResetPassword = () => {
 
         onSubmit(values) {
             const code = queryString.parse(location.search).oobCode
-            console.log(code)
             dispatch(resetPasswordRequest(code, values.password))
         },
     })
@@ -75,43 +73,43 @@ export const ResetPassword = () => {
 
     return (
         <Container>
-            <Form onSubmit={formik.handleSubmit} className='registerForm'>
-                <h1 className='logo'>ChatApp</h1>
+            <Form onSubmit={formik.handleSubmit} className="registerForm">
+                <h1 className="logo">ChatApp</h1>
                 {(formik.touched.password && formik.errors.password && (
                     <Row>
                         <Col>
-                            <Alert color='danger'>
+                            <Alert color="danger">
                                 {formik.errors.password}
                             </Alert>
                         </Col>
                     </Row>
                 )) ||
-                (formik.touched.confirmPassword &&
-                    formik.errors.confirmPassword && (
-                        <Row>
-                            <Col>
-                                <Alert color='danger'>
-                                    {formik.errors.confirmPassword}
-                                </Alert>
-                            </Col>
-                        </Row>
-                    ))}
-                <FormGroup className='item'>
+                    (formik.touched.confirmPassword &&
+                        formik.errors.confirmPassword && (
+                            <Row>
+                                <Col>
+                                    <Alert color="danger">
+                                        {formik.errors.confirmPassword}
+                                    </Alert>
+                                </Col>
+                            </Row>
+                        ))}
+                <FormGroup className="item">
                     <Col md={11}>
                         <InputGroup>
                             <Col md={4}>
-                                <Label htmlFor='password'>Новый пароль:</Label>
+                                <Label htmlFor="password">Новый пароль:</Label>
                             </Col>
                             <Input
-                                id='password'
-                                name='password'
+                                id="password"
+                                name="password"
                                 type={isShowPassword ? 'text' : 'password'}
                                 onChange={formik.handleChange}
                                 value={formik.values.password}
-                                className='form-control'
+                                className="form-control"
                             />
                             <InputGroupAddon
-                                addonType='append'
+                                addonType="append"
                                 onClick={() =>
                                     setIsShowPassword((prevState) => !prevState)
                                 }
@@ -125,24 +123,24 @@ export const ResetPassword = () => {
                         </InputGroup>
                     </Col>
                 </FormGroup>
-                <FormGroup className='item'>
+                <FormGroup className="item">
                     <Col md={11}>
                         <InputGroup>
                             <Col md={4}>
-                                <label htmlFor='confirmPassword'>
+                                <label htmlFor="confirmPassword">
                                     Подтверждение <br /> пароля:
                                 </label>
                             </Col>
                             <Input
-                                id='confirmPassword'
-                                name='confirmPassword'
+                                id="confirmPassword"
+                                name="confirmPassword"
                                 type={isShowPassword ? 'text' : 'password'}
                                 onChange={formik.handleChange}
                                 value={formik.values.confirmPassword}
-                                className='form-control'
+                                className="form-control"
                             />
                             <InputGroupAddon
-                                addonType='append'
+                                addonType="append"
                                 onClick={() =>
                                     setIsShowPassword((prevState) => !prevState)
                                 }
@@ -156,9 +154,9 @@ export const ResetPassword = () => {
                         </InputGroup>
                     </Col>
                 </FormGroup>
-                <Row className='justify-content-center'>
+                <Row className="justify-content-center">
                     <Col md={3}>
-                        <Button type='submit' outline className='form-button'>
+                        <Button type="submit" outline className="form-button">
                             Обновить пароль
                         </Button>
                     </Col>

@@ -22,15 +22,15 @@ export const SaveDialogButton = (props) => {
             {props.dialog.data.saved ? (
                 <Button
                     disabled
-                    color='success'
-                    className='form-button enter-btn float-right'
+                    color="success"
+                    className="form-button enter-btn float-right"
                 >
                     {iconSave}
                 </Button>
             ) : (
                 <Button
                     onClick={handleSave}
-                    className='form-button save-btn float-right'
+                    className="form-button save-btn float-right"
                     outline
                 >
                     {iconSave}

@@ -7,7 +7,10 @@ import {
     InputGroup,
     Row,
     Col,
-    Container, Alert, InputGroupText, InputGroupAddon,
+    Container,
+    Alert,
+    InputGroupText,
+    InputGroupAddon,
 } from 'reactstrap'
 import { Form, Field } from 'react-final-form'
 import { useDispatch, useSelector } from 'react-redux'
@@ -23,33 +26,36 @@ import {
     updateNameRequest,
     updatePasswordRequest,
 } from '../redux/profileSettings/actionCreator'
+import {
+    isAuthorizedSelector,
+    operatorEmailSelector,
+    passwordSelector,
+} from '../redux/auth/selectors'
+import {
+    isAvatarUpdatedSelector,
+    isNameUpdatedSelector,
+    isPasswordUpdatedSelector,
+    profileDataSelector,
+} from '../redux/profileSettings/selectors'
+import { backgroundImg, noAvatarImg } from '../const'
 
 const iconShowPassword = <FontAwesomeIcon icon={faEye} />
 const iconHidePassword = <FontAwesomeIcon icon={faEyeSlash} />
 
 export const ProfileSettings = ({ isShowSettings }) => {
-
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const operatorEmail = useSelector((state) => state.auth.email)
-    const operatorPassword = useSelector((state) => state.auth.password)
-    const profileData = useSelector(
-        (state) => state.profileSettings.profileData,
-    )
-    const isAuthorized = useSelector((state) => state.auth.successful)
-    const isNameUpdated = useSelector(
-        (state) => state.profileSettings.isNameUpdated,
-    )
-    const isAvatarUpdated = useSelector(
-        (state) => state.profileSettings.isAvatarUpdated,
-    )
-    const isPasswordUpdated = useSelector(
-        (state) => state.profileSettings.isPasswordUpdated,
-    )
+    const operatorEmail = useSelector(operatorEmailSelector)
+    const operatorPassword = useSelector(passwordSelector)
+    const profileData = useSelector(profileDataSelector)
+    const isAuthorized = useSelector(isAuthorizedSelector)
+    const isNameUpdated = useSelector(isNameUpdatedSelector)
+    const isAvatarUpdated = useSelector(isAvatarUpdatedSelector)
+    const isPasswordUpdated = useSelector(isPasswordUpdatedSelector)
 
     const [avatarIcon, setAvatarIcon] = useState(
-        'https://diora.pro/assets/img/staff/kontakt.jpg',
+        noAvatarImg
     )
     const [avatarUrl, setAvatarUrl] = useState('')
     const [isProfileUpdated, setIsProfileUpdated] = useState(false)
@@ -78,7 +84,7 @@ export const ProfileSettings = ({ isShowSettings }) => {
                     id: operatorID,
                     newPassword: password,
                     oldPassword: operatorPassword,
-                }),
+                })
             )
         }
         if (avatarUrl) {
@@ -99,14 +105,14 @@ export const ProfileSettings = ({ isShowSettings }) => {
     }, [])
 
     useEffect(() => {
-        if (profileData.data) {
-            if (profileData.data.avatar) setAvatarIcon(profileData.data.avatar)
+        if (profileData.data && profileData.data.avatar) {
+            setAvatarIcon(profileData.data.avatar)
         }
     }, [profileData])
 
     useEffect(() => {
         setIsProfileUpdated(
-            isNameUpdated || isPasswordUpdated || isAvatarUpdated,
+            isNameUpdated || isPasswordUpdated || isAvatarUpdated
         )
     }, [isAvatarUpdated, isNameUpdated, isPasswordUpdated])
 
@@ -131,12 +137,12 @@ export const ProfileSettings = ({ isShowSettings }) => {
     return (
         <ReactModal
             isOpen={isShowSettings}
-            contentLabel={'Настройки диалогов'}
-            portalClassName={'ReactModalPortal'}
+            contentLabel='Настройки диалогов'
+            portalClassName='ReactModalPortal'
             style={{
                 content: {
                     background:
-                        'https://i.pinimg.com/originals/d4/79/35/d479359444438e53a87e3fcd7a752b0e.png',
+                        backgroundImg,
                     paddingTop: '50px',
                 },
             }}
@@ -146,11 +152,14 @@ export const ProfileSettings = ({ isShowSettings }) => {
                 initialValues={{ password: '', passwordConfirm: '' }}
                 validate={(values) => {
                     const errors = {}
-                    // if (!values.password) {
-                    //     errors.password = 'Пароль должен быть введен'
-                    // }
-                    if (values.password && !values.password.match(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{8,}$/)) {
-                        errors.password = 'Пароль должен содержать цифру, буквы в нижнем и верхнем регистре и иметь длину не менее 8 знаков'
+                    if (
+                        values.password &&
+                        !values.password.match(
+                            /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{8,}$/
+                        )
+                    ) {
+                        errors.password =
+                            'Пароль должен содержать цифру, буквы в нижнем и верхнем регистре и иметь длину не менее 8 знаков'
                     }
                     if (values.password && !values.passwordConfirm) {
                         errors.passwordConfirm = 'Повторите пароль'
@@ -161,12 +170,12 @@ export const ProfileSettings = ({ isShowSettings }) => {
                     return errors
                 }}
                 render={({
-                             form,
-                             handleSubmit,
-                             submitting,
-                             pristine,
-                             values,
-                         }) => (
+                    form,
+                    handleSubmit,
+                    submitting,
+                    pristine,
+                    values,
+                }) => (
                     <Container>
                         <form onSubmit={handleSubmit}>
                             <Row>
@@ -174,35 +183,35 @@ export const ProfileSettings = ({ isShowSettings }) => {
                                     <h3>Настройки профиля</h3>
                                 </Col>
                             </Row>
-                            <Row className='form-item'>
+                            <Row className="form-item">
                                 <Col>
                                     <p>
-                                        Ваше имя: {' '}
+                                        Ваше имя:{' '}
                                         <span>{profileData.data.name}</span>
                                     </p>
                                 </Col>
                             </Row>
-                            <Row className='form-input'>
-                                <Field name='name'>
+                            <Row className="form-input">
+                                <Field name="name">
                                     {({ input, meta }) => (
                                         <InputGroup>
                                             <Col md={3}>
                                                 <Label>Изменить имя: </Label>
                                             </Col>
                                             <Col>
-                                                <Input {...input} type='text' />
+                                                <Input {...input} type="text" />
                                             </Col>
                                         </InputGroup>
                                     )}
                                 </Field>
                             </Row>
-                            <Row className='form-input'>
+                            <Row className="form-input">
                                 <Col md={3}>
                                     <Label>Аватар: </Label>
                                 </Col>
                                 <Col>
                                     <img
-                                        alt='avatar'
+                                        alt="avatar"
                                         src={avatarIcon}
                                         style={{
                                             height: '80px',
@@ -213,24 +222,24 @@ export const ProfileSettings = ({ isShowSettings }) => {
                                     />
                                 </Col>
                             </Row>
-                            <Field name='avatar'>
+                            <Field name="avatar">
                                 {({ input, meta }) => (
-                                    <Row className='form-input'>
+                                    <Row className="form-input">
                                         <Col md={3}>
                                             <Label>Новый аватар: </Label>
                                         </Col>
                                         <Col>
                                             <Input
                                                 {...input}
-                                                type='url'
+                                                type="url"
                                                 value={avatarUrl}
                                                 onChange={handleChangeUrl}
                                             />
                                         </Col>
                                         <Col>
                                             <Button
-                                                className='form-button uploadAvatar-btn'
-                                                color='info'
+                                                className="form-button uploadAvatar-btn"
+                                                color="info"
                                                 onClick={handleChangeAvatar}
                                             >
                                                 Загрузить новый
@@ -244,8 +253,8 @@ export const ProfileSettings = ({ isShowSettings }) => {
                                     <h3>Изменить пароль</h3>
                                 </Col>
                             </Row>
-                            <Row className='form-input'>
-                                <Field name='password'>
+                            <Row className="form-input">
+                                <Field name="password">
                                     {({ input, meta }) => (
                                         <InputGroup>
                                             <Col md={3}>
@@ -253,12 +262,19 @@ export const ProfileSettings = ({ isShowSettings }) => {
                                             </Col>
                                             <Input
                                                 {...input}
-                                                type={isShowPassword ? 'text' : 'password'}
+                                                type={
+                                                    isShowPassword
+                                                        ? 'text'
+                                                        : 'password'
+                                                }
                                             />
                                             <InputGroupAddon
-                                                addonType='append'
+                                                addonType="append"
                                                 onClick={() =>
-                                                    setIsShowPassword((prevState) => !prevState)
+                                                    setIsShowPassword(
+                                                        (prevState) =>
+                                                            !prevState
+                                                    )
                                                 }
                                             >
                                                 <InputGroupText>
@@ -268,7 +284,7 @@ export const ProfileSettings = ({ isShowSettings }) => {
                                                 </InputGroupText>
                                             </InputGroupAddon>
                                             {meta.error && meta.touched && (
-                                                <Alert color='danger'>
+                                                <Alert color="danger">
                                                     {meta.error}
                                                 </Alert>
                                             )}
@@ -276,8 +292,8 @@ export const ProfileSettings = ({ isShowSettings }) => {
                                     )}
                                 </Field>
                             </Row>
-                            <Row className='form-input'>
-                                <Field name='passwordConfirm'>
+                            <Row className="form-input">
+                                <Field name="passwordConfirm">
                                     {({ input, meta }) => (
                                         <InputGroup>
                                             <Col md={3}>
@@ -287,12 +303,19 @@ export const ProfileSettings = ({ isShowSettings }) => {
                                             </Col>
                                             <Input
                                                 {...input}
-                                                type={isShowPassword ? 'text' : 'password'}
+                                                type={
+                                                    isShowPassword
+                                                        ? 'text'
+                                                        : 'password'
+                                                }
                                             />
                                             <InputGroupAddon
-                                                addonType='append'
+                                                addonType="append"
                                                 onClick={() =>
-                                                    setIsShowPassword((prevState) => !prevState)
+                                                    setIsShowPassword(
+                                                        (prevState) =>
+                                                            !prevState
+                                                    )
                                                 }
                                             >
                                                 <InputGroupText>
@@ -302,7 +325,7 @@ export const ProfileSettings = ({ isShowSettings }) => {
                                                 </InputGroupText>
                                             </InputGroupAddon>
                                             {meta.error && meta.touched && (
-                                                <Alert color='danger'>
+                                                <Alert color="danger">
                                                     {meta.error}
                                                 </Alert>
                                             )}
@@ -310,12 +333,12 @@ export const ProfileSettings = ({ isShowSettings }) => {
                                     )}
                                 </Field>
                             </Row>
-                            <Row className='justify-content-center'>
+                            <Row className="justify-content-center">
                                 <Col md={3}>
                                     <Button
-                                        type='submit'
-                                        className='form-button'
-                                        color='info'
+                                        type="submit"
+                                        className="form-button"
+                                        color="info"
                                     >
                                         Сохранить
                                     </Button>
@@ -323,8 +346,8 @@ export const ProfileSettings = ({ isShowSettings }) => {
                                 <Col md={3}>
                                     <Button
                                         onClick={handleHideSettings}
-                                        className='form-button'
-                                        color='info'
+                                        className="form-button"
+                                        color="info"
                                     >
                                         Закрыть
                                     </Button>

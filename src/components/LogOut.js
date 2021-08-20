@@ -19,12 +19,12 @@ export const LogOut = () => {
     }
     return (
         <Button
-            className='logout-btn form-button float-right'
-            color='danger'
+            className="logout-btn form-button float-right"
+            color="danger"
             outline
             onClick={handleLogOut}
         >
-            Выйти<i className='btn-icon'>{iconLogOut}</i>
+            Выйти<i className="btn-icon">{iconLogOut}</i>
         </Button>
     )
 }

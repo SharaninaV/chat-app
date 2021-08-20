@@ -9,13 +9,14 @@ import { AutocompleteInput } from './Autocomplete'
 import { addMessage, clearMessage } from '../redux/addMessage/actionCreator'
 import { sendMessageRequest } from '../redux/sendMessage/actionCreator'
 import { fetchCurrentDialogRequest } from '../redux/currentDialog/actionCreator'
+import { addMessageSelector } from '../redux/addMessage/selectors'
+import { fetchCurrentDialogSelector } from '../redux/currentDialog/selectors'
 
 export const WriteMessage = ({ clientID, userEmail }) => {
     const dispatch = useDispatch()
-    const message = useSelector((state) => state.addMessage.message)
-    const currentDialog = useSelector(
-        (state) => state.fetchCurrentDialog.currentDialog,
-    )
+
+    const message = useSelector(addMessageSelector)
+    const currentDialog = useSelector(fetchCurrentDialogSelector)
 
     const [isShowEmoji, setIsShowEmoji] = useState(false)
     const [currentMessage, setCurrentMessage] = useState('')
@@ -84,9 +85,8 @@ export const WriteMessage = ({ clientID, userEmail }) => {
         }
     }, [client, message, isTyping])
 
-
     return (
-        <Container className='writeMessage'>
+        <Container className="writeMessage">
             <Row>
                 <Col>
                     <AutocompleteInput />
@@ -99,7 +99,7 @@ export const WriteMessage = ({ clientID, userEmail }) => {
                             {isShowEmoji && (
                                 <Picker
                                     onEmojiClick={onEmojiClick}
-                                    disableSearchBar='true'
+                                    disableSearchBar="true"
                                     pickerStyle={{
                                         height: '200px',
                                         marginTop: '150px',
@@ -123,13 +123,13 @@ export const WriteMessage = ({ clientID, userEmail }) => {
                             )}
                         </Col>
                     </Row>
-                    <Row className='messageInput' noGutters={true}>
+                    <Row className="messageInput" noGutters={true}>
                         <Col>
                             <Form>
                                 <FormGroup>
                                     <Input
-                                        type='textarea'
-                                        placeholder='Введите сообщение...'
+                                        type="textarea"
+                                        placeholder="Введите сообщение..."
                                         rows={3}
                                         value={currentMessage}
                                         onChange={handleOnChange}
@@ -139,15 +139,15 @@ export const WriteMessage = ({ clientID, userEmail }) => {
                         </Col>
                         <Col md={2}>
                             <Button
-                                className='smile-btn'
-                                color='light'
+                                className="smile-btn"
+                                color="light"
                                 onClick={toggleShowEmoji}
                             >
                                 {iconSmile}
                             </Button>
                             <Button
-                                className='send-btn'
-                                color='info'
+                                className="send-btn"
+                                color="info"
                                 onClick={handleSendMessage}
                             >
                                 {iconPlane}
