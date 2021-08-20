@@ -9,14 +9,16 @@ import { UpperMenu } from './UpperMenu'
 import { CurrentDialog } from './CurrentDialog'
 import { GoBackButton } from './GoBackButton'
 import { LeftMenu } from './LeftMenu'
+import { operatorEmailSelector } from '../redux/auth/selectors'
+import { fetchCurrentDialogSelector } from '../redux/currentDialog/selectors'
 
 export const ShowDialog = () => {
     const location = useLocation()
+
+    const userEmail = useSelector(operatorEmailSelector)
+    const fetchedDialog = useSelector(fetchCurrentDialogSelector)
+
     const clientID = location.pathname.split(':')[1]
-    const userEmail = useSelector((state) => state.auth.email)
-    const fetchedDialog = useSelector(
-        (state) => state.fetchCurrentDialog.currentDialog,
-    )
 
     const pubnub = new PubNub({
         publishKey: process.env.REACT_APP_PUBLISH_KEY,
@@ -25,7 +27,7 @@ export const ShowDialog = () => {
     })
 
     return (
-        <Container className='showDialog'>
+        <Container className="showDialog">
             <Row>
                 <Col md={12}>
                     <UpperMenu />

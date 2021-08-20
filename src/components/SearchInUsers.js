@@ -19,18 +19,18 @@ export const SearchInUsers = () => {
         }
     }
 
-    const handleOnBlur = event => {
+    const handleOnBlur = (event) => {
         dispatch(setSearchUsers(false))
         event.target.value = ''
     }
 
     return (
-        <Container className='search'>
+        <Container className="search">
             <Row>
-                <InputGroup className='mb-3'>
+                <InputGroup className="mb-3">
                     <Input
-                        type='text'
-                        placeholder='Поиск по пользователям...'
+                        type="text"
+                        placeholder="Поиск по пользователям..."
                         onChange={debounce(handleInputChange, 500)}
                         onFocus={() => dispatch(setSearchUsers(true))}
                         onBlur={handleOnBlur}

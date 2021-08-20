@@ -7,12 +7,12 @@ import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
 import PrettyRating from 'pretty-rating-react'
 import { useHistory } from 'react-router-dom'
 import InfiniteScroll from 'react-infinite-scroller'
+import { operatorEmailSelector } from '../redux/auth/selectors'
+import { fetchedDialogsSelector } from '../redux/dialogs/selectors'
 
 export const FinishedDialogs = () => {
-    const operatorEmail = useSelector((state) => state.auth.email)
-    const fetchedDialogs = useSelector(
-        (state) => state.fetchDialogs.fetchedDialogs,
-    )
+    const operatorEmail = useSelector(operatorEmailSelector)
+    const fetchedDialogs = useSelector(fetchedDialogsSelector)
 
     const [items, setItems] = useState([])
     const [hasMoreItems, setHasMoreItems] = useState(true)
@@ -21,7 +21,7 @@ export const FinishedDialogs = () => {
     const finishedDialogs = fetchedDialogs.filter(
         (dialog) =>
             dialog.data.status === 'finished' &&
-            dialog.data.operatorID === operatorID,
+            dialog.data.operatorID === operatorID
     )
 
     const history = useHistory()
@@ -62,59 +62,65 @@ export const FinishedDialogs = () => {
     }
 
     return (
-        <ListGroup className='dialogs'>
+        <ListGroup className="dialogs">
             <InfiniteScroll
                 pageStart={0}
                 loadMore={loadItems}
                 hasMore={hasMoreItems}
-                loader={<div className='loader' key={0}>Загрузка ...</div>}
+                loader={
+                    <div className="loader" key={0}>
+                        Загрузка ...
+                    </div>
+                }
                 useWindow={false}
             >
-                {items.length > 0 ? (
-                    items.map((dialog) => (
-                        <ListGroupItem
-                            action
-                            onClick={handleShowDialog}
-                            id={dialog.key}
-                            className='list-item'
-                        >
-                            <Container>
-                                <Row>
-                                    <Col>
-                                        {dialog.data.clientName}
-                                        <br />(
-                                        {moment(
-                                            dialog.data.latestActivity,
-                                        ).calendar()}
-                                        )
-                                    </Col>
-                                    <Col>
-                                        {getLastMessage(dialog).writtenBy ===
-                                        'operator' ? (
-                                            <div>Вы:</div>
-                                        ) : (
-                                            <div>{dialog.data.clientName}:</div>
-                                        )}
-                                        <div className='overflow-text'>
-                                            {getLastMessage(dialog).content}
-                                        </div>
-                                    </Col>
-                                    <Col md={2}>
-                                        <PrettyRating
-                                            value={dialog.data.rating}
-                                            icons={icons.star}
-                                            colors={colors.star}
-                                        />
-                                    </Col>
-                                </Row>
-                            </Container>
-                        </ListGroupItem>
-                    ))
-                ) : ( !hasMoreItems &&
-                    <ListGroupItem className='list-item'>
-                        Диалогов не найдено
-                    </ListGroupItem>
-                )}
+                {items.length > 0
+                    ? items.map((dialog) => (
+                          <ListGroupItem
+                              action
+                              onClick={handleShowDialog}
+                              id={dialog.key}
+                              className="list-item"
+                          >
+                              <Container>
+                                  <Row>
+                                      <Col>
+                                          {dialog.data.clientName}
+                                          <br />(
+                                          {moment(
+                                              dialog.data.latestActivity
+                                          ).calendar()}
+                                          )
+                                      </Col>
+                                      <Col>
+                                          {getLastMessage(dialog).writtenBy ===
+                                          'operator' ? (
+                                              <div>Вы:</div>
+                                          ) : (
+                                              <div>
+                                                  {dialog.data.clientName}:
+                                              </div>
+                                          )}
+                                          <div className="overflow-text">
+                                              {getLastMessage(dialog).content}
+                                          </div>
+                                      </Col>
+                                      <Col md={2}>
+                                          <PrettyRating
+                                              value={dialog.data.rating}
+                                              icons={icons.star}
+                                              colors={colors.star}
+                                          />
+                                      </Col>
+                                  </Row>
+                              </Container>
+                          </ListGroupItem>
+                      ))
+                    : !hasMoreItems && (
+                          <ListGroupItem className="list-item">
+                              Диалогов не найдено
+                          </ListGroupItem>
+                      )}
             </InfiniteScroll>
         </ListGroup>
     )

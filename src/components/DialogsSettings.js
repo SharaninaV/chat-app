@@ -11,19 +11,19 @@ import {
     updateGreetingRequest,
     updatePhrasesRequest,
 } from '../redux/dialogsSettings/actionCreator'
+import {
+    dialogSettingsSelector,
+    isGreetingUpdatedSelector,
+    isPhraseUpdatedSelector,
+} from '../redux/dialogsSettings/selectors'
 
 export const DialogsSettings = ({ isShowSettings, operatorID }) => {
     const dispatch = useDispatch()
 
-    const dialogsSettings = useSelector(
-        (state) => state.dialogsSettings.dialogsSettings,
-    )
-    const isPhrasesUpdated = useSelector(
-        (state) => state.dialogsSettings.isPhrasesUpdated,
-    )
-    const isGreetingUpdated = useSelector(
-        (state) => state.dialogsSettings.isGreetingUpdated,
-    )
+    const dialogsSettings = useSelector(dialogSettingsSelector)
+    const isPhrasesUpdated = useSelector(isPhraseUpdatedSelector)
+    const isGreetingUpdated = useSelector(isGreetingUpdatedSelector)
+
     const [phrases, setPhrases] = useState([])
     const [newPhrase, setNewPhrase] = useState('')
     const [greeting, setGreeting] = useState('')
@@ -67,12 +67,11 @@ export const DialogsSettings = ({ isShowSettings, operatorID }) => {
         dispatch(fetchDialogsSettingsRequest(operatorID))
     }, [isShowSettings])
 
-    useEffect(() => {
-    }, [phrases, greeting])
+    useEffect(() => {}, [phrases, greeting])
 
     useEffect(() => {
         setIsSettingsUpdated(isGreetingUpdated || isPhrasesUpdated)
-    },[isGreetingUpdated, isPhrasesUpdated])
+    }, [isGreetingUpdated, isPhrasesUpdated])
 
     useEffect(() => {
         if (isSettingsUpdated) {
@@ -102,7 +101,7 @@ export const DialogsSettings = ({ isShowSettings, operatorID }) => {
                     <Container>
                         <Form>
                             <FieldArray
-                                name='phrases'
+                                name="phrases"
                                 render={(arrayHelpers) => (
                                     <div>
                                         {values.phrases &&
@@ -121,25 +120,25 @@ export const DialogsSettings = ({ isShowSettings, operatorID }) => {
                                                             </Col>
                                                             <Col md={3}>
                                                                 <Button
-                                                                    color='info'
-                                                                    className='form-button deletePhrase-btn'
+                                                                    color="info"
+                                                                    className="form-button deletePhrase-btn"
                                                                     onClick={() => {
                                                                         arrayHelpers.remove(
-                                                                            index,
+                                                                            index
                                                                         )
                                                                         setPhrases(
                                                                             phrases
                                                                                 .slice(
                                                                                     0,
-                                                                                    index,
+                                                                                    index
                                                                                 )
                                                                                 .concat(
                                                                                     phrases.slice(
                                                                                         index +
-                                                                                        1,
-                                                                                        phrases.length,
-                                                                                    ),
-                                                                                ),
+                                                                                            1,
+                                                                                        phrases.length
+                                                                                    )
+                                                                                )
                                                                         )
                                                                     }}
                                                                 >
@@ -148,7 +147,7 @@ export const DialogsSettings = ({ isShowSettings, operatorID }) => {
                                                             </Col>
                                                         </Row>
                                                     </div>
-                                                ),
+                                                )
                                             )
                                         ) : (
                                             <p>Нет</p>
@@ -156,9 +155,9 @@ export const DialogsSettings = ({ isShowSettings, operatorID }) => {
                                         <Row>
                                             <Col>
                                                 <Field
-                                                    as='textarea'
-                                                    name='newPhrase'
-                                                    placeholder='Введите фразу...'
+                                                    as="textarea"
+                                                    name="newPhrase"
+                                                    placeholder="Введите фразу..."
                                                     onChange={
                                                         handlePhraseChange
                                                     }
@@ -166,16 +165,16 @@ export const DialogsSettings = ({ isShowSettings, operatorID }) => {
                                             </Col>
                                             <Col md={3}>
                                                 <Button
-                                                    className='form-button addPhrase-btn'
-                                                    color='info'
+                                                    className="form-button addPhrase-btn"
+                                                    color="info"
                                                     onClick={() => {
                                                         arrayHelpers.push(
-                                                            newPhrase,
+                                                            newPhrase
                                                         )
                                                         setPhrases(
                                                             phrases.concat(
-                                                                newPhrase,
-                                                            ),
+                                                                newPhrase
+                                                            )
                                                         )
                                                     }}
                                                 >
@@ -202,9 +201,9 @@ export const DialogsSettings = ({ isShowSettings, operatorID }) => {
                             <Row>
                                 <Col>
                                     <Field
-                                        as='textarea'
-                                        name='greeting'
-                                        placeholder='Введите текст приветствия...'
+                                        as="textarea"
+                                        name="greeting"
+                                        placeholder="Введите текст приветствия..."
                                         onChange={handleGreetingChange}
                                     />
                                 </Col>
@@ -217,8 +216,8 @@ export const DialogsSettings = ({ isShowSettings, operatorID }) => {
                 <Col>
                     <Button
                         onClick={handleSaveDialogsSettings}
-                        color='info'
-                        className='form-button'
+                        color="info"
+                        className="form-button"
                     >
                         Сохранить
                     </Button>
@@ -226,8 +225,8 @@ export const DialogsSettings = ({ isShowSettings, operatorID }) => {
                 <Col>
                     <Button
                         onClick={handleHideSettings}
-                        color='info'
-                        className='form-button float-right'
+                        color="info"
+                        className="form-button float-right"
                     >
                         Закрыть
                     </Button>

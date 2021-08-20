@@ -43,40 +43,40 @@ export const LeftMenu = () => {
     }
 
     return (
-        <Container className='left-menu'>
+        <Container className="left-menu">
             <Row>
                 <Col>
                     <Button
-                        className='left-menu-btn form-button'
+                        className="left-menu-btn form-button"
                         outline
                         onClick={handleSwitchQueued}
                     >
                         Очередь
-                        <i className='btn-icon'>{iconQueue}</i>
+                        <i className="btn-icon">{iconQueue}</i>
                     </Button>
                     <Button
-                        className='left-menu-btn form-button'
+                        className="left-menu-btn form-button"
                         outline
                         onClick={handleSwitchActive}
                     >
                         Активные
-                        <i className='btn-icon'>{iconActive}</i>
+                        <i className="btn-icon">{iconActive}</i>
                     </Button>
                     <Button
-                        className='left-menu-btn form-button'
+                        className="left-menu-btn form-button"
                         outline
                         onClick={handleSwitchFinished}
                     >
                         Завершенные
-                        <i className='btn-icon'>{iconFinished}</i>
+                        <i className="btn-icon">{iconFinished}</i>
                     </Button>
                     <Button
-                        className='left-menu-btn form-button'
+                        className="left-menu-btn form-button"
                         outline
                         onClick={handleSwitchSaved}
                     >
                         Сохраненные
-                        <i className='btn-icon'>{iconSaved}</i>
+                        <i className="btn-icon">{iconSaved}</i>
                     </Button>
                 </Col>
             </Row>

@@ -4,17 +4,16 @@ import moment from 'moment'
 import InfiniteScroll from 'react-infinite-scroller'
 import { useSelector } from 'react-redux'
 import { EnterDialogButton } from './EnterDialogButton'
+import { fetchedDialogsSelector } from '../redux/dialogs/selectors'
 
 export const QueuedDialogs = () => {
-    const fetchedDialogs = useSelector(
-        (state) => state.fetchDialogs.fetchedDialogs,
-    )
+    const fetchedDialogs = useSelector(fetchedDialogsSelector)
 
     const [items, setItems] = useState([])
     const [hasMoreItems, setHasMoreItems] = useState(true)
 
     const queuedDialogs = fetchedDialogs.filter(
-        (dialog) => dialog.data.status === 'queued',
+        (dialog) => dialog.data.status === 'queued'
     )
 
     const getLastMessage = (dialog) => {
@@ -42,53 +41,64 @@ export const QueuedDialogs = () => {
     }
 
     return (
-        <ListGroup className='dialogs'>
-            {queuedDialogs.length &&
-            <InfiniteScroll
-                pageStart={0}
-                loadMore={loadItems}
-                hasMore={hasMoreItems}
-                loader={<div className='loader' key={0}>Загрузка ...</div>}
-                useWindow={false}
-            >
-                {items.length > 0 ? (
-                    items.map((dialog) => (
-                        <ListGroupItem className='list-item'>
-                            <Container>
-                                <Row>
-                                    <Col>
-                                        {dialog.data.clientName}
-                                        <br />(
-                                        {moment(
-                                            dialog.data.latestActivity,
-                                        ).calendar()}
-                                        )
-                                    </Col>
-                                    <Col>
-                                        {getLastMessage(dialog).writtenBy ===
-                                        'operator' ? (
-                                            <div>Вы:</div>
-                                        ) : (
-                                            <div>{dialog.data.clientName}:</div>
-                                        )}
-                                        <div className='overflow-text'>
-                                            {getLastMessage(dialog).content}
-                                        </div>
-                                    </Col>
-                                    <Col md={2}>
-                                        <EnterDialogButton dialog={dialog} />
-                                    </Col>
-                                </Row>
-                            </Container>
-                        </ListGroupItem>
-                    ))
-                ) : (!hasMoreItems &&
-                    <ListGroupItem className='list-item'>
-                        Диалогов не найдено
-                    </ListGroupItem>
-                )}
-            </InfiniteScroll>
-            }
+        <ListGroup className="dialogs">
+            {queuedDialogs.length && (
+                <InfiniteScroll
+                    pageStart={0}
+                    loadMore={loadItems}
+                    hasMore={hasMoreItems}
+                    loader={
+                        <div className="loader" key={0}>
+                            Загрузка ...
+                        </div>
+                    }
+                    useWindow={false}
+                >
+                    {items.length > 0
+                        ? items.map((dialog) => (
+                              <ListGroupItem className="list-item">
+                                  <Container>
+                                      <Row>
+                                          <Col>
+                                              {dialog.data.clientName}
+                                              <br />(
+                                              {moment(
+                                                  dialog.data.latestActivity
+                                              ).calendar()}
+                                              )
+                                          </Col>
+                                          <Col>
+                                              {getLastMessage(dialog)
+                                                  .writtenBy === 'operator' ? (
+                                                  <div>Вы:</div>
+                                              ) : (
+                                                  <div>
+                                                      {dialog.data.clientName}:
+                                                  </div>
+                                              )}
+                                              <div className="overflow-text">
+                                                  {
+                                                      getLastMessage(dialog)
+                                                          .content
+                                                  }
+                                              </div>
+                                          </Col>
+                                          <Col md={2}>
+                                              <EnterDialogButton
+                                                  dialog={dialog}
+                                              />
+                                          </Col>
+                                      </Row>
+                                  </Container>
+                              </ListGroupItem>
+                          ))
+                        : !hasMoreItems && (
+                              <ListGroupItem className="list-item">
+                                  Диалогов не найдено
+                              </ListGroupItem>
+                          )}
+                </InfiniteScroll>
+            )}
         </ListGroup>
     )
 }

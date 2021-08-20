@@ -18,7 +18,7 @@ export const DeleteButton = (props) => {
 
     return (
         <Button
-            className='form-button delete-btn float-right'
+            className="form-button delete-btn float-right"
             outline
             onClick={handleDelete}
         >

@@ -19,18 +19,18 @@ export const SearchInMessages = () => {
         }
     }
 
-    const handleOnBlur = event => {
+    const handleOnBlur = (event) => {
         dispatch(setSearchMessages(false))
         event.target.value = ''
     }
 
     return (
-        <Container className='search'>
+        <Container className="search">
             <Row>
-                <InputGroup className='mb-3'>
+                <InputGroup className="mb-3">
                     <Input
-                        type='text'
-                        placeholder='Поиск в сообщениях...'
+                        type="text"
+                        placeholder="Поиск в сообщениях..."
                         onChange={debounce(handleInputChange, 500)}
                         onFocus={() => dispatch(setSearchMessages(true))}
                         onBlur={handleOnBlur}

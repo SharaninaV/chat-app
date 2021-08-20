@@ -7,19 +7,22 @@ import { FinishedDialogs } from './FinishedDialogs'
 import { fetchDialogsRequest } from '../redux/dialogs/actionCreator'
 import { QueuedDialogs } from './QueuedDialogs'
 import { LeftMenu } from './LeftMenu'
+import {
+    foundMessagesSelector,
+    isSearchingMessagesSelector,
+} from '../redux/searchInMessages/selectors'
+import {
+    isSearchingInUsersSelector,
+    usersFoundSelector,
+} from '../redux/searchInUsers/selectors'
+import { filterSelector } from '../redux/leftMenu/selectors'
 
 export const Dialogs = () => {
-    const isSearchingMessages = useSelector(
-        (state) => state.searchInMessages.searchMessagesNeeded,
-    )
-    const foundMessages = useSelector(
-        (state) => state.searchInMessages.messagesFound,
-    )
-    const isSearchingInUsers = useSelector(
-        (state) => state.searchInUsers.isUserSearching,
-    )
-    const usersFound = useSelector((state) => state.searchInUsers.usersFound)
-    const filter = useSelector((state) => state.leftMenu.filter)
+    const isSearchingMessages = useSelector(isSearchingMessagesSelector)
+    const foundMessages = useSelector(foundMessagesSelector)
+    const isSearchingInUsers = useSelector(isSearchingInUsersSelector)
+    const usersFound = useSelector(usersFoundSelector)
+    const filter = useSelector(filterSelector)
 
     const dispatch = useDispatch()
     useEffect(() => {
@@ -29,7 +32,7 @@ export const Dialogs = () => {
     const renderFoundMessages = (foundMessages) => {
         return (
             <Container>
-                <ListGroup className='foundItems'>
+                <ListGroup className="foundItems">
                     {foundMessages.length > 0 ? (
                         foundMessages.map((message) => (
                             <Row>
