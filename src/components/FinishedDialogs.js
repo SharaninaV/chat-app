@@ -1,19 +1,43 @@
-import React from "react";
-import {useSelector} from "react-redux";
-import {Col, Container, ListGroup, Row} from "react-bootstrap";
-import moment from "moment";
-import {faStar} from "@fortawesome/free-solid-svg-icons";
-import {faStar as farStar} from "@fortawesome/free-regular-svg-icons"
-import PrettyRating from "pretty-rating-react";
-import {useHistory} from "react-router-dom";
+import React, { useMemo, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Col, Container, ListGroup, ListGroupItem, Row } from 'reactstrap'
+import moment from 'moment'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
+import PrettyRating from 'pretty-rating-react'
+import { useHistory } from 'react-router-dom'
+import InfiniteScroll from 'react-infinite-scroller'
+import { operatorEmailSelector } from '../redux/auth/selectors'
+import { fetchedDialogsSelector } from '../redux/dialogs/selectors'
 
 export const FinishedDialogs = () => {
+    const operatorEmail = useSelector(operatorEmailSelector)
+    const fetchedDialogs = useSelector(fetchedDialogsSelector)
 
-    const operatorEmail = useSelector((state) => state.auth.email)
-    const fetchedDialogs = useSelector((state) => state.fetchDialogs.fetchedDialogs)
+    const [items, setItems] = useState([])
+    const [hasMoreItems, setHasMoreItems] = useState(true)
 
-    const operatorID = operatorEmail.split('@')[0]
-    const finishedDialogs = fetchedDialogs.filter(dialog => dialog.data.status === 'finished' && dialog.data.operatorID === operatorID)
+    const operatorID = window.btoa(operatorEmail)
+
+    const getLastMessage = (dialog) => {
+        return Object.values(dialog.data.messages).find(
+            (item) => item.timestamp === dialog.data.latestActivity
+        )
+    }
+
+    const finishedDialogs = useMemo(() => {
+        return fetchedDialogs
+            .filter(
+                (dialog) =>
+                    dialog.data.status === 'finished' &&
+                    dialog.data.operatorID === operatorID
+            )
+            .map((dialog) => ({
+                dialog: dialog,
+                latestActivity: moment(dialog.data.latestActivity).calendar(),
+                lastMessage: getLastMessage(dialog)
+            }))
+    }, [fetchedDialogs])
 
     const history = useHistory()
 
@@ -21,60 +45,85 @@ export const FinishedDialogs = () => {
         history.push('/current/:' + event.currentTarget.id)
     }
 
-    const getLastMessage = (dialog) => {
-        let lastMessage = {content: '', writtenBy: ''}
-        Object.values(dialog.data.messages).forEach(message => {
-            if (message.timestamp === dialog.data.latestActivity) {
-                lastMessage.writtenBy = message.writtenBy
-                lastMessage.content = message.content
+    const loadItems = (page) => {
+        setTimeout(() => {
+            const coef = (page - 1) * 6
+            setItems(items.concat(finishedDialogs.slice(coef, coef + 6)))
+            if (finishedDialogs.length <= coef + 6) {
+                setHasMoreItems(false)
             }
-        })
-        return lastMessage
+        }, 1000)
     }
 
     const icons = {
         star: {
             complete: faStar,
-            empty: farStar
-        }
+            empty: farStar,
+        },
     }
     const colors = {
-        star: ['#d9ad26', '#434b4d']
+        star: ['#d9ad26', '#434b4d'],
     }
-
-
 
     return (
         <ListGroup className="dialogs">
-            {finishedDialogs.length > 0 ?
-                (finishedDialogs.map(dialog => (
-                        <ListGroup.Item action onClick={handleShowDialog} id={dialog.key}>
-                            <Container>
-                                <Row>
-                                    <Col>
-                                        {dialog.data.clientName}
-                                        <br/>
-                                        ({moment(dialog.data.latestActivity).calendar()})
-                                    </Col>
-                                    <Col>
-                                        {getLastMessage(dialog).writtenBy === 'operator' ?
-                                            <p>Вы:</p> : <p>{dialog.data.clientName}:</p>}
-                                        <p className="overflow-text">
-                                            {getLastMessage(dialog).content}
-                                        </p>
-                                    </Col>
-                                    <Col>
-                                        <PrettyRating value={dialog.data.rating} icons={icons.star} colors={colors.star}/>
-                                    </Col>
-                                </Row>
-                            </Container>
-                        </ListGroup.Item>
-                    ))
-                ) : (
-                    <ListGroup.Item>
-                        Диалогов не найдено
-                    </ListGroup.Item>
-                )}
+            <InfiniteScroll
+                pageStart={0}
+                loadMore={loadItems}
+                hasMore={hasMoreItems}
+                loader={
+                    <div className="loader" key={0}>
+                        Загрузка ...
+                    </div>
+                }
+                useWindow={false}
+            >
+                {!!items.length
+                    ? items.map((dialog) => (
+                          <ListGroupItem
+                              action
+                              onClick={handleShowDialog}
+                              id={dialog.dialog.key}
+                              className="list-item"
+                          >
+                              <Container>
+                                  <Row>
+                                      <Col>
+                                          {dialog.dialog.data.clientName}
+                                          <br />(
+                                          {dialog.latestActivity}
+                                          )
+                                      </Col>
+                                      <Col>
+                                          {dialog.lastMessage.writtenBy ===
+                                          'operator' ? (
+                                              <div>Вы:</div>
+                                          ) : (
+                                              <div>
+                                                  {dialog.dialog.data.clientName}:
+                                              </div>
+                                          )}
+                                          <div className="overflow-text">
+                                              {dialog.lastMessage.content}
+                                          </div>
+                                      </Col>
+                                      <Col md={2}>
+                                          <PrettyRating
+                                              value={dialog.dialog.data.rating}
+                                              icons={icons.star}
+                                              colors={colors.star}
+                                          />
+                                      </Col>
+                                  </Row>
+                              </Container>
+                          </ListGroupItem>
+                      ))
+                    : !hasMoreItems && (
+                          <ListGroupItem className="list-item">
+                              Диалогов не найдено
+                          </ListGroupItem>
+                      )}
+            </InfiniteScroll>
         </ListGroup>
     )
 }

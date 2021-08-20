@@ -1,20 +1,21 @@
-import {call, put, takeLatest} from "redux-saga/effects";
-import firebase from "../../../firebase/firebase";
-import {updateNameFailure, updateNameSuccess} from "../actionCreator";
-import {UPDATE_NAME_REQUEST} from "../types";
+import { call, put, takeLatest } from 'redux-saga/effects'
+import firebase from '../../../firebase/firebase'
+import { updateNameFailure, updateNameSuccess } from '../actionCreator'
+import { UPDATE_NAME_REQUEST } from '../types'
 
 function* updateNameSaga(action) {
-
-    try{
-        const ref = yield call(() => firebase.database().ref('operators/' + action.payload.id))
-        yield call(() => ref.update({name:action.payload.name}))
+    try {
+        const ref = yield call(() =>
+            firebase.database().ref('operators/' + action.payload.id)
+        )
+        yield call(() => ref.update({ name: action.payload.name }))
         yield put(updateNameSuccess())
-    } catch(error) {
+    } catch (error) {
         yield put(updateNameFailure(error))
     }
 }
 
-function* updateNameSagaWatcher(){
+function* updateNameSagaWatcher() {
     yield takeLatest(UPDATE_NAME_REQUEST, updateNameSaga)
 }
 

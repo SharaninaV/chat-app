@@ -1,17 +1,23 @@
-import {call, put, takeLatest} from "redux-saga/effects";
-import firebase from "../../firebase/firebase";
-import {fetchDialogsFailure, fetchDialogsSuccess} from "./actionCreator";
-import {FETCH_DIALOGS_REQUEST} from "./types";
+import { call, put, takeLatest } from 'redux-saga/effects'
+import firebase from '../../firebase/firebase'
+import { fetchDialogsFailure, fetchDialogsSuccess } from './actionCreator'
+import { FETCH_DIALOGS_REQUEST } from './types'
 
 function* fetchDialogsSaga(action) {
-
     try {
         const ref = yield call(() => firebase.database().ref('dialogs'))
-        const fetchedSnapshot = yield call(() => ref.orderByChild('latestActivity').once('value', snapshot => snapshot))
+        const fetchedSnapshot = yield call(() =>
+            ref
+                .orderByChild('latestActivity')
+                .once('value', (snapshot) => snapshot)
+        )
         const fetchedDialogs = yield call(() => {
             const result = []
-            fetchedSnapshot.forEach(childSnapshot => {
-                result.unshift({key: childSnapshot.key, data: childSnapshot.val()})
+            fetchedSnapshot.forEach((childSnapshot) => {
+                result.unshift({
+                    key: childSnapshot.key,
+                    data: childSnapshot.val(),
+                })
             })
             return result
         })

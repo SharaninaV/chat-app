@@ -1,2 +1,2 @@
-export const TOKEN_IS_VALID = 'TOKEN_IS_VALID';
-export const TOKEN_NOT_VALID = 'TOKEN_NOT_VALID';
+export const TOKEN_IS_VALID = 'TOKEN_IS_VALID'
+export const TOKEN_NOT_VALID = 'TOKEN_NOT_VALID'
