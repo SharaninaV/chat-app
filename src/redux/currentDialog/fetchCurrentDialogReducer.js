@@ -1,5 +1,4 @@
 import {
-    FETCH_CURRENT_DIALOG_REQUEST,
     FETCH_CURRENT_DIALOG_FAILURE,
     FETCH_CURRENT_DIALOG_SUCCESS,
 } from './types'
@@ -11,8 +10,6 @@ const initialState = {
 
 export const fetchCurrentDialogReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_CURRENT_DIALOG_REQUEST:
-            return state
         case FETCH_CURRENT_DIALOG_SUCCESS:
             return {
                 ...state,

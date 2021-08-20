@@ -16,7 +16,6 @@ function* resetPasswordSaga(action) {
         )
         yield put(resetPasswordSuccess())
     } catch (error) {
-        console.log(error)
         yield put(resetPasswordFailure(error))
     }
 }

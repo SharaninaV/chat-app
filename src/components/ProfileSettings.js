@@ -37,6 +37,7 @@ import {
     isPasswordUpdatedSelector,
     profileDataSelector,
 } from '../redux/profileSettings/selectors'
+import { backgroundImg, noAvatarImg } from '../const'
 
 const iconShowPassword = <FontAwesomeIcon icon={faEye} />
 const iconHidePassword = <FontAwesomeIcon icon={faEyeSlash} />
@@ -54,7 +55,7 @@ export const ProfileSettings = ({ isShowSettings }) => {
     const isPasswordUpdated = useSelector(isPasswordUpdatedSelector)
 
     const [avatarIcon, setAvatarIcon] = useState(
-        'https://diora.pro/assets/img/staff/kontakt.jpg'
+        noAvatarImg
     )
     const [avatarUrl, setAvatarUrl] = useState('')
     const [isProfileUpdated, setIsProfileUpdated] = useState(false)
@@ -104,8 +105,8 @@ export const ProfileSettings = ({ isShowSettings }) => {
     }, [])
 
     useEffect(() => {
-        if (profileData.data) {
-            if (profileData.data.avatar) setAvatarIcon(profileData.data.avatar)
+        if (profileData.data && profileData.data.avatar) {
+            setAvatarIcon(profileData.data.avatar)
         }
     }, [profileData])
 
@@ -136,12 +137,12 @@ export const ProfileSettings = ({ isShowSettings }) => {
     return (
         <ReactModal
             isOpen={isShowSettings}
-            contentLabel={'Настройки диалогов'}
-            portalClassName={'ReactModalPortal'}
+            contentLabel='Настройки диалогов'
+            portalClassName='ReactModalPortal'
             style={{
                 content: {
                     background:
-                        'https://i.pinimg.com/originals/d4/79/35/d479359444438e53a87e3fcd7a752b0e.png',
+                        backgroundImg,
                     paddingTop: '50px',
                 },
             }}
@@ -151,9 +152,6 @@ export const ProfileSettings = ({ isShowSettings }) => {
                 initialValues={{ password: '', passwordConfirm: '' }}
                 validate={(values) => {
                     const errors = {}
-                    // if (!values.password) {
-                    //     errors.password = 'Пароль должен быть введен'
-                    // }
                     if (
                         values.password &&
                         !values.password.match(

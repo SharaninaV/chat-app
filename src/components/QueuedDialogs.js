@@ -37,10 +37,7 @@ export const QueuedDialogs = () => {
     const loadItems = (page) => {
         setTimeout(() => {
             const coef = (page - 1) * 4
-            console.log('queueddialogs', queuedDialogs)
-            console.log('items', items)
             setItems(items.concat(queuedDialogs.slice(coef, coef + 4)))
-            console.log('items 2', items)
             if (queuedDialogs.length <= coef + 4) {
                 setHasMoreItems(false)
             }
@@ -61,7 +58,7 @@ export const QueuedDialogs = () => {
                     }
                     useWindow={false}
                 >
-                    {items.length > 0
+                    {!!items.length
                         ? items.map((dialog) => (
                               <ListGroupItem className="list-item" id={dialog.dialog.key}>
                                   <Container>

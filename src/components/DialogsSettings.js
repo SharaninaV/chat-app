@@ -16,6 +16,7 @@ import {
     isGreetingUpdatedSelector,
     isPhraseUpdatedSelector,
 } from '../redux/dialogsSettings/selectors'
+import { backgroundImg } from '../const'
 
 export const DialogsSettings = ({ isShowSettings, operatorID }) => {
     const dispatch = useDispatch()
@@ -54,6 +55,72 @@ export const DialogsSettings = ({ isShowSettings, operatorID }) => {
         }
     }
 
+    const fieldArrayItems = (values, arrayHelpers) => {
+        return (
+            <div>
+                {values.phrases ? (
+                    values.phrases.map((phrase, index) => (
+                        <div key={index}>
+                            <Row>
+                                <Col>
+                                    <Field
+                                        name={`phrases.${index}`}
+                                        disabled={true}
+                                    />
+                                </Col>
+                                <Col md={3}>
+                                    <Button
+                                        color="info"
+                                        className="form-button deletePhrase-btn"
+                                        onClick={() => {
+                                            arrayHelpers.remove(index)
+                                            setPhrases(
+                                                phrases
+                                                    .slice(0, index)
+                                                    .concat(
+                                                        phrases.slice(
+                                                            index + 1,
+                                                            phrases.length
+                                                        )
+                                                    )
+                                            )
+                                        }}
+                                    >
+                                        Удалить
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </div>
+                    ))
+                ) : (
+                    <p>Нет</p>
+                )}
+                <Row>
+                    <Col>
+                        <Field
+                            as="textarea"
+                            name="newPhrase"
+                            placeholder="Введите фразу..."
+                            onChange={handlePhraseChange}
+                        />
+                    </Col>
+                    <Col md={3}>
+                        <Button
+                            className="form-button addPhrase-btn"
+                            color="info"
+                            onClick={() => {
+                                arrayHelpers.push(newPhrase)
+                                setPhrases(phrases.concat(newPhrase))
+                            }}
+                        >
+                            Добавить
+                        </Button>
+                    </Col>
+                </Row>
+            </div>
+        )
+    }
+
     useEffect(() => {
         if (dialogsSettings && Object.keys(dialogsSettings).length) {
             if (dialogsSettings.data.phrases !== 'empty') {
@@ -84,12 +151,12 @@ export const DialogsSettings = ({ isShowSettings, operatorID }) => {
     return (
         <ReactModal
             isOpen={isShowSettings}
-            contentLabel={'Настройки диалогов'}
-            portalClassName={'ReactModalPortal'}
+            contentLabel="Настройки диалогов"
+            portalClassName="ReactModalPortal"
             style={{
                 content: {
                     background:
-                        'https://i.pinimg.com/originals/d4/79/35/d479359444438e53a87e3fcd7a752b0e.png',
+                        backgroundImg,
                 },
             }}
         >
@@ -102,88 +169,9 @@ export const DialogsSettings = ({ isShowSettings, operatorID }) => {
                         <Form>
                             <FieldArray
                                 name="phrases"
-                                render={(arrayHelpers) => (
-                                    <div>
-                                        {values.phrases &&
-                                        values.phrases.length >= 0 ? (
-                                            values.phrases.map(
-                                                (phrase, index) => (
-                                                    <div key={index}>
-                                                        <Row>
-                                                            <Col>
-                                                                <Field
-                                                                    name={`phrases.${index}`}
-                                                                    disabled={
-                                                                        true
-                                                                    }
-                                                                />
-                                                            </Col>
-                                                            <Col md={3}>
-                                                                <Button
-                                                                    color="info"
-                                                                    className="form-button deletePhrase-btn"
-                                                                    onClick={() => {
-                                                                        arrayHelpers.remove(
-                                                                            index
-                                                                        )
-                                                                        setPhrases(
-                                                                            phrases
-                                                                                .slice(
-                                                                                    0,
-                                                                                    index
-                                                                                )
-                                                                                .concat(
-                                                                                    phrases.slice(
-                                                                                        index +
-                                                                                            1,
-                                                                                        phrases.length
-                                                                                    )
-                                                                                )
-                                                                        )
-                                                                    }}
-                                                                >
-                                                                    Удалить
-                                                                </Button>
-                                                            </Col>
-                                                        </Row>
-                                                    </div>
-                                                )
-                                            )
-                                        ) : (
-                                            <p>Нет</p>
-                                        )}
-                                        <Row>
-                                            <Col>
-                                                <Field
-                                                    as="textarea"
-                                                    name="newPhrase"
-                                                    placeholder="Введите фразу..."
-                                                    onChange={
-                                                        handlePhraseChange
-                                                    }
-                                                />
-                                            </Col>
-                                            <Col md={3}>
-                                                <Button
-                                                    className="form-button addPhrase-btn"
-                                                    color="info"
-                                                    onClick={() => {
-                                                        arrayHelpers.push(
-                                                            newPhrase
-                                                        )
-                                                        setPhrases(
-                                                            phrases.concat(
-                                                                newPhrase
-                                                            )
-                                                        )
-                                                    }}
-                                                >
-                                                    Добавить
-                                                </Button>
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                )}
+                                render={(arrayHelpers) =>
+                                    fieldArrayItems(values, arrayHelpers)
+                                }
                             />
                             <Row>
                                 <Col>

@@ -60,7 +60,6 @@ export const ResetPassword = () => {
 
         onSubmit(values) {
             const code = queryString.parse(location.search).oobCode
-            console.log(code)
             dispatch(resetPasswordRequest(code, values.password))
         },
     })

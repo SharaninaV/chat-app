@@ -72,7 +72,7 @@ export const SavedDialogs = () => {
                 }
                 useWindow={false}
             >
-                {items.length > 0
+                {!!items.length
                     ? items.map((dialog) => (
                           <ListGroupItem
                               action

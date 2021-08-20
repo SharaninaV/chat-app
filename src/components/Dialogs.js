@@ -33,7 +33,7 @@ export const Dialogs = () => {
         return (
             <Container>
                 <ListGroup className="foundItems">
-                    {foundMessages.length > 0 ? (
+                    {!!foundMessages.length ? (
                         foundMessages.map((message) => (
                             <Row>
                                 <Col>

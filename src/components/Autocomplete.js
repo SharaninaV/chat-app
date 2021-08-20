@@ -94,7 +94,7 @@ export const AutocompleteInput = () => {
                                         <br />
                                         сообщениях...
                                     </div>
-                                ) : items.length === 0 ? (
+                                ) : !items.length ? (
                                     <div className="item">
                                         Совпадений не найдено
                                     </div>
