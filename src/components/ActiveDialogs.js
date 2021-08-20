@@ -19,14 +19,9 @@ export const ActiveDialogs = () => {
     const operatorID = window.btoa(operatorEmail)
 
     const getLastMessage = (dialog) => {
-        let lastMessage = { content: '', writtenBy: '' }
-        Object.values(dialog.data.messages).forEach((message) => {
-            if (message.timestamp === dialog.data.latestActivity) {
-                lastMessage.writtenBy = message.writtenBy
-                lastMessage.content = message.content
-            }
-        })
-        return lastMessage
+        return Object.values(dialog.data.messages).find(
+            (item) => item.timestamp === dialog.data.latestActivity
+        )
     }
 
     const activeDialogs = useMemo(() => {
