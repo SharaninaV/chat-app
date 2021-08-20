@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Col, Container, ListGroup, ListGroupItem, Row } from 'reactstrap'
 import { useSelector } from 'react-redux'
 import moment from 'moment'
@@ -17,13 +17,6 @@ export const ActiveDialogs = () => {
     const [hasMoreItems, setHasMoreItems] = useState(true)
 
     const operatorID = window.btoa(operatorEmail)
-    const activeDialogs = fetchedDialogs.filter(
-        (dialog) =>
-            dialog.data.status === 'active' &&
-            dialog.data.operatorID === operatorID
-    )
-
-    const history = useHistory()
 
     const getLastMessage = (dialog) => {
         let lastMessage = { content: '', writtenBy: '' }
@@ -35,6 +28,22 @@ export const ActiveDialogs = () => {
         })
         return lastMessage
     }
+
+    const activeDialogs = useMemo(() => {
+        return fetchedDialogs
+            .filter(
+                (dialog) =>
+                    dialog.data.status === 'active' &&
+                    dialog.data.operatorID === operatorID
+            )
+            .map((dialog) => ({
+                dialog: dialog,
+                latestActivity: moment(dialog.data.latestActivity).calendar(),
+                lastMessage: getLastMessage(dialog),
+            }))
+    }, [fetchedDialogs])
+
+    const history = useHistory()
 
     const handleShowDialog = (event) => {
         history.push('/current/:' + event.currentTarget.id)
@@ -69,33 +78,36 @@ export const ActiveDialogs = () => {
                               action
                               onClick={handleShowDialog}
                               className="list-item"
-                              id={dialog.key}
+                              id={dialog.dialog.key}
                           >
                               <Container>
                                   <Row>
                                       <Col>
-                                          {dialog.data.clientName}
-                                          <br />(
-                                          {moment(
-                                              dialog.data.latestActivity
-                                          ).calendar()}
-                                          )
+                                          {dialog.dialog.data.clientName}
+                                          <br />
+                                          {dialog.latestActivity}
                                       </Col>
                                       <Col>
-                                          {getLastMessage(dialog).writtenBy ===
+                                          {dialog.lastMessage.writtenBy ===
                                           'operator' ? (
                                               <div>Вы:</div>
                                           ) : (
                                               <div>
-                                                  {dialog.data.clientName}:
+                                                  {
+                                                      dialog.dialog.data
+                                                          .clientName
+                                                  }
+                                                  :
                                               </div>
                                           )}
                                           <div className="overflow-text">
-                                              {getLastMessage(dialog).content}
+                                              {dialog.lastMessage.content}
                                           </div>
                                       </Col>
                                       <Col md={2}>
-                                          <SaveDialogButton dialog={dialog} />
+                                          <SaveDialogButton
+                                              dialog={dialog.dialog}
+                                          />
                                       </Col>
                                   </Row>
                               </Container>

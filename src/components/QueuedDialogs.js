@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Col, Container, ListGroup, ListGroupItem, Row } from 'reactstrap'
 import moment from 'moment'
 import InfiniteScroll from 'react-infinite-scroller'
@@ -12,10 +12,6 @@ export const QueuedDialogs = () => {
     const [items, setItems] = useState([])
     const [hasMoreItems, setHasMoreItems] = useState(true)
 
-    const queuedDialogs = fetchedDialogs.filter(
-        (dialog) => dialog.data.status === 'queued'
-    )
-
     const getLastMessage = (dialog) => {
         let lastMessage = { content: '', writtenBy: '' }
         Object.values(dialog.data.messages).forEach((message) => {
@@ -26,6 +22,17 @@ export const QueuedDialogs = () => {
         })
         return lastMessage
     }
+
+    const queuedDialogs = useMemo(() => {
+        return fetchedDialogs
+            .filter((dialog) => dialog.data.status === 'queued')
+            .map((dialog) => ({
+                dialog: dialog,
+                latestActivity: moment(dialog.data.latestActivity).calendar(),
+                lastMessage: getLastMessage(dialog),
+            }))
+    }, [fetchedDialogs])
+
 
     const loadItems = (page) => {
         setTimeout(() => {
@@ -56,36 +63,33 @@ export const QueuedDialogs = () => {
                 >
                     {items.length > 0
                         ? items.map((dialog) => (
-                              <ListGroupItem className="list-item">
+                              <ListGroupItem className="list-item" id={dialog.dialog.key}>
                                   <Container>
                                       <Row>
                                           <Col>
-                                              {dialog.data.clientName}
-                                              <br />(
-                                              {moment(
-                                                  dialog.data.latestActivity
-                                              ).calendar()}
-                                              )
+                                              {dialog.dialog.data.clientName}
+                                              <br />({dialog.latestActivity})
                                           </Col>
                                           <Col>
-                                              {getLastMessage(dialog)
-                                                  .writtenBy === 'operator' ? (
+                                              {dialog.lastMessage.writtenBy ===
+                                              'operator' ? (
                                                   <div>Вы:</div>
                                               ) : (
                                                   <div>
-                                                      {dialog.data.clientName}:
+                                                      {
+                                                          dialog.dialog.data
+                                                              .clientName
+                                                      }
+                                                      :
                                                   </div>
                                               )}
                                               <div className="overflow-text">
-                                                  {
-                                                      getLastMessage(dialog)
-                                                          .content
-                                                  }
+                                                  {dialog.lastMessage.content}
                                               </div>
                                           </Col>
                                           <Col md={2}>
                                               <EnterDialogButton
-                                                  dialog={dialog}
+                                                  dialog={dialog.dialog}
                                               />
                                           </Col>
                                       </Row>

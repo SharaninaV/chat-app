@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Col, Container, ListGroup, ListGroupItem, Row } from 'reactstrap'
 import moment from 'moment'
@@ -18,17 +18,6 @@ export const FinishedDialogs = () => {
     const [hasMoreItems, setHasMoreItems] = useState(true)
 
     const operatorID = window.btoa(operatorEmail)
-    const finishedDialogs = fetchedDialogs.filter(
-        (dialog) =>
-            dialog.data.status === 'finished' &&
-            dialog.data.operatorID === operatorID
-    )
-
-    const history = useHistory()
-
-    const handleShowDialog = (event) => {
-        history.push('/current/:' + event.currentTarget.id)
-    }
 
     const getLastMessage = (dialog) => {
         let lastMessage = { content: '', writtenBy: '' }
@@ -39,6 +28,26 @@ export const FinishedDialogs = () => {
             }
         })
         return lastMessage
+    }
+
+    const finishedDialogs = useMemo(() => {
+        return fetchedDialogs
+            .filter(
+                (dialog) =>
+                    dialog.data.status === 'finished' &&
+                    dialog.data.operatorID === operatorID
+            )
+            .map((dialog) => ({
+                dialog: dialog,
+                latestActivity: moment(dialog.data.latestActivity).calendar(),
+                lastMessage: getLastMessage(dialog)
+            }))
+    }, [fetchedDialogs])
+
+    const history = useHistory()
+
+    const handleShowDialog = (event) => {
+        history.push('/current/:' + event.currentTarget.id)
     }
 
     const loadItems = (page) => {
@@ -79,35 +88,33 @@ export const FinishedDialogs = () => {
                           <ListGroupItem
                               action
                               onClick={handleShowDialog}
-                              id={dialog.key}
+                              id={dialog.dialog.key}
                               className="list-item"
                           >
                               <Container>
                                   <Row>
                                       <Col>
-                                          {dialog.data.clientName}
+                                          {dialog.dialog.data.clientName}
                                           <br />(
-                                          {moment(
-                                              dialog.data.latestActivity
-                                          ).calendar()}
+                                          {dialog.latestActivity}
                                           )
                                       </Col>
                                       <Col>
-                                          {getLastMessage(dialog).writtenBy ===
+                                          {dialog.lastMessage.writtenBy ===
                                           'operator' ? (
                                               <div>Вы:</div>
                                           ) : (
                                               <div>
-                                                  {dialog.data.clientName}:
+                                                  {dialog.dialog.data.clientName}:
                                               </div>
                                           )}
                                           <div className="overflow-text">
-                                              {getLastMessage(dialog).content}
+                                              {dialog.lastMessage.content}
                                           </div>
                                       </Col>
                                       <Col md={2}>
                                           <PrettyRating
-                                              value={dialog.data.rating}
+                                              value={dialog.dialog.data.rating}
                                               icons={icons.star}
                                               colors={colors.star}
                                           />
