@@ -134,6 +134,7 @@ a {
 .foundItems {
     overflow-y: scroll;
     height: 550px;
+    color: black;
 }
 .showDialog {
     background-color: #00b9e4;

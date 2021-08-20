@@ -59,11 +59,10 @@ export const Dialogs = () => {
 
     return (
         <Container>
-            {isSearchingMessages ? (
-                renderFoundMessages(foundMessages)
-            ) : isSearchingInUsers ? (
-                renderFoundMessages(usersFound)
-            ) : (
+            {isSearchingMessages &&
+                renderFoundMessages(foundMessages) ||
+             isSearchingInUsers &&
+                renderFoundMessages(usersFound) ||
                 <Row>
                     <Col md={3}>
                         <LeftMenu />
@@ -95,7 +94,7 @@ export const Dialogs = () => {
                         )}
                     </Col>
                 </Row>
-            )}
+            }
         </Container>
     )
 }
