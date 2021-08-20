@@ -35,8 +35,7 @@ export const EnterDialogButton = ({ dialog }) => {
     const sendNotification = (data) => {
         const headers = {
             'Content-Type': 'application/json; charset=utf-8',
-            Authorization:
-                'Basic MGViNzY3ZTctNmIxZi00YWE1LTkyYTQtYjg5YmRhOGVlYTVk',
+            Authorization: process.env.REACT_APP_ONESIGNAL_AUTHORIZATION,
         }
 
         const options = {
@@ -68,7 +67,7 @@ export const EnterDialogButton = ({ dialog }) => {
         dispatch(enterDialogRequest(dialog.key, operatorID))
 
         const message = {
-            app_id: 'b11b07e3-1352-4f27-9d6b-3b655859ec81',
+            app_id: process.env.REACT_APP_ONESIGNAL_APP_ID,
             contents: { en: 'Вам ответил оператор' },
             filters: [
                 {
